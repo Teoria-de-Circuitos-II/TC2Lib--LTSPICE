@@ -1,4 +1,16 @@
-./*
-!./sym/TCLib
-!./sub/TCLib
-!./cmp/
+/* # Exclude all files
+!/.gitignore
+
+# Override exclude, whitelist
+!/sym/
+!/sub/
+!/cmp/
+
+# Exclude files inside directory
+/sym/*
+/sub/*
+
+
+# # Override exclude, whitelist. TCLib only.
+!/sym/TCLib/
+!/sub/TCLib/
