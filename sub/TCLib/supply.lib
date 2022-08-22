@@ -9,8 +9,8 @@
 *  2----Vcc
 *
 .SUBCKT supply 1 2 3
-V01 1 3 {Vp*1}
-V02 3 2 {Vn*1}
+V01 1 3 {Vp}
+V02 3 2 {Vn}
 .ENDS
 
 
