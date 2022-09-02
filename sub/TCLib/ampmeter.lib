@@ -1,3 +1,0 @@
-.subckt AMPMETER IN+ IN-
-V1 IN+ IN- 0
-.ends AMPMETER

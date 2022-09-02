@@ -1,10 +1,10 @@
-/* # Exclude all files
+/*     # Exclude all files
 !/.gitignore
 
 # Override exclude, whitelist
 !/sym/
 !/sub/
-!/cmp/
+#!/cmp/ #Esto se actualiza cada tanto y creo que pisa los componentes dejar comentado
 
 # Exclude files inside directory
 /sym/*

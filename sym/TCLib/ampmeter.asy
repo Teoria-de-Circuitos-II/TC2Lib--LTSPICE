@@ -1,20 +1,27 @@
 Version 4
 SymbolType CELL
-LINE Normal -16 0 -32 0
-LINE Normal 32 0 16 0
-LINE Normal -24 -6 -24 -15
-LINE Normal -19 -10 -29 -10
-LINE Normal -24 -5 -24 -6
-LINE Normal 27 -10 18 -10
-CIRCLE Normal 16 -16 -16 16
-TEXT -7 0 Left 2 A
-WINDOW 0 3 -23 Left 0
-SYMATTR ModelFile ./CustomLibs/ampmeter.lib
-SYMATTR Value AMPMETER
-SYMATTR Prefix X
-PIN -32 0 NONE 8
-PINATTR PinName In+
+LINE Normal 0 64 0 56
+LINE Normal 0 16 0 24
+LINE Normal 1 31 -1 31
+LINE Normal 1 48 1 31
+LINE Normal 5 44 1 48
+LINE Normal 6 45 5 44
+LINE Normal 0 51 6 45
+LINE Normal -5 46 0 51
+LINE Normal -6 45 -5 46
+LINE Normal -5 44 -6 45
+LINE Normal -1 48 -5 44
+LINE Normal -1 31 -1 48
+LINE Normal 6 35 6 29
+LINE Normal 9 32 3 32
+CIRCLE Normal -16 24 16 56
+TEXT -11 37 Left 0 A
+WINDOW 0 -23 14 VRight 1
+SYMATTR Prefix V
+SYMATTR Description AmpMeter
+PIN 0 16 NONE 0
+PINATTR PinName +
 PINATTR SpiceOrder 1
-PIN 32 0 NONE 8
-PINATTR PinName In-
+PIN 0 64 NONE 0
+PINATTR PinName -
 PINATTR SpiceOrder 2

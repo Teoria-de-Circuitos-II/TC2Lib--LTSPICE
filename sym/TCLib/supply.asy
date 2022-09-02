@@ -27,12 +27,12 @@ SYMATTR Prefix X
 SYMATTR SpiceModel supply
 SYMATTR ModelFile TCLib/supply.lib
 SYMATTR Description Power Supply
-PIN 32 -176 NONE 0
+PIN 32 -176 TOP 0
 PINATTR PinName +
 PINATTR SpiceOrder 1
-PIN 32 96 NONE 0
+PIN 32 96 BOTTOM 0
 PINATTR PinName -
 PINATTR SpiceOrder 2
-PIN 128 -48 NONE 0
+PIN 128 -48 BOTTOM 0
 PINATTR PinName G
 PINATTR SpiceOrder 3
