@@ -1,0 +1,8 @@
+* Component by Agustin Gullino, Electronics Engineering Student at ITBA
+* email: agullino@itba.edu.ar
+
+.subckt FDNR IN+ IN-
+G1 IN+ IN- IN+ IN- Laplace=({D}*s**2)
+C1 IN+ IN- 1f
+.ends FDNR
+

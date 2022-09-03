@@ -1,0 +1,6 @@
+* Component by Agustin Gullino, Electronics Engineering Student at ITBA
+* email: agullino@itba.edu.ar
+
+.subckt Square V+ V- PARAMS: Vpp=1 Freq=1k Voff=0 DC=0.5 trise=1n tfall=1n Nper=1k
+V1 V+ V- PULSE({Voff+Vpp/2} {Voff-Vpp/2} {1/(Freq)*DC} {trise} {tfall} {1/(Freq)*(1-DC)} {1/Freq} {Nper})
+.ends Square

@@ -1,0 +1,6 @@
+* Component by Agustin Gullino, Electronics Engineering Student at ITBA
+* email: agullino@itba.edu.ar
+
+.subckt Triangular V+ V- PARAMS: Vpp=1 Freq=1k Voff=0 Sym=0.5 Nper=1k
+V1 V+ V- PULSE({Voff-Vpp/2} {Voff+Vpp/2} 0 {1/(Freq)*Sym} {1/(Freq)*(1-Sym)} 0 {1/Freq} {Nper})
+.ends Triangular 
