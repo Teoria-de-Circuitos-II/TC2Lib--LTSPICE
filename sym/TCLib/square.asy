@@ -1,6 +1,3 @@
-* Component by Agustin Gullino, Electronics Engineering Student at ITBA
-* email: agullino@itba.edu.ar
-
 Version 4
 SymbolType CELL
 LINE Normal 0 -25 -16 -25
