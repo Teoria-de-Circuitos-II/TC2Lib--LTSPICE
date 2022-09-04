@@ -9,20 +9,20 @@ LINE Normal 48 -48 16 -48
 ARC Normal 0 16 -32 -16 -16 16 -16 -16
 ARC Normal 0 16 32 -16 16 -16 16 16
 WINDOW 3 -33 68 Left 2
-SYMATTR Value D=1u
+SYMATTR Value R=1
 SYMATTR Prefix X
-SYMATTR SpiceModel fdnr
-SYMATTR ModelFile TCLib/fdnr.lib
-SYMATTR Description FDNR
+SYMATTR SpiceModel gyrator
+SYMATTR ModelFile TCLib/gyrator.lib
+SYMATTR Description Gyrator
 PIN -48 -48 NONE 0
-PINATTR PinName 1
+PINATTR PinName V1+
 PINATTR SpiceOrder 1
 PIN -48 48 NONE 0
-PINATTR PinName 2
+PINATTR PinName V1-
 PINATTR SpiceOrder 2
 PIN 48 -48 NONE 0
-PINATTR PinName 3
+PINATTR PinName V2+
 PINATTR SpiceOrder 3
 PIN 48 48 NONE 0
-PINATTR PinName 4
+PINATTR PinName V2-
 PINATTR SpiceOrder 4

@@ -1,0 +1,11 @@
+* Component by Agustin Gullino, Electronics Engineering Student at ITBA
+* email: agullino@itba.edu.ar
+
+.subckt Gyrator V1+ V1- V2+ V2- PARAMS: R=1
+Rin V1+ I1in 0.001
+VI1 I1in I1out 0
+HV1 I1out V1- VI2 {-R}
+Rout V2+ I2in 0.001
+VI2 I2in I2out 0
+HV2 I2out V2- VI1 {R}
+.ends Gyrator 
