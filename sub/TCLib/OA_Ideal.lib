@@ -2,20 +2,17 @@
 * Connections: 
 *                Non-Inverting Input
 *                |   Inverting Input
-*                |   |   Positive Power Supply
-*                |   |   |   Negative Power Supply
+*                |   |   
+*                |   |   |   
 *                |   |   |   |   Output
 *                |   |   |   |   |
 .SUBCKT OA_Ideal 1   2   3   4   5
-A1 2 1 0 0 0 0 5 0 OTA G={Avol/Rout} ref={Vos} linear Cout={Cout} en={en} enk={enk} in={in} ink={ink} incm={incm} incmk={incmk} Vhigh=1e308 Vlow=-1e308 Rout={Rout}
-R5 2 3 {2*Rin} noiseless
-R6 1 4 {2*Rin} noiseless
-R1 3 1 {2*Rin} noiseless
-R2 2 4 {2*Rin} noiseless
-.param Rout=.1
-.param Cout={Avol/GBWP/2/pi/Rout}
-.param Vos=0
-*.param Avol=1Meg GBWP=10Meg
-.param en=0 enk=0 in=0 ink=0 incm=0 incmk=0 Rin=1G
+E1 N001 0 1 2 1
+RF1 N002 N001 1
+CF1 N002 0 {CF1}
+E3 5 0 N002 0 {Av}
+.param Av={Avol}
+.param f1={GBWP/Avol}
+.param CF1={1/(2*PI*f1)}
 .ends OA_Ideal
 *
