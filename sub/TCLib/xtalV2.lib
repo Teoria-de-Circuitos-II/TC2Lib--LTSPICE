@@ -1,0 +1,21 @@
+* Component by Agustin Gullino, Electronics Engineering Student at ITBA
+* email: agullino@itba.edu.ar
+
+.subckt XtalV2 n1 n2 PARAMS: Cm=0.1p Lm=1m Rs=10k Cp=4p
+
+* 1rst order Tune
+CM n1 ni1 {Cm}
+LM ni1 ni2 {Lm}
+RS ni2 n2 {Rs}
+CP n1 n2 {Cp}
+
+* 3rd order OverTune
+CM3 n1 n31 {Cm/9}
+LM3 n31 n32 {Lm}
+RS3 n32 n2 {Rs}
+
+* 5th order OverTune
+CM5 n1 n51 {Cm/25}
+LM5 n51 n52 {Lm}
+RS5 n52 n2 {Rs}
+.ends XtalV2 
