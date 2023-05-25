@@ -1,5 +1,7 @@
 * Copyright (c) 2000-2022 Analog Devices, Inc.   All rights reserved.
 *
+.model MPF102A NJF(Beta=1.04m Betatce=-.5 Rd=1 Rs=1 Lambda=2m Vto=-3.41 Vtotc=-2.5m Is=33.57f Isr=322.4f N=1 Nr=2 Xti=3 Alpha=311.7 Vk=243.6 Cgd=1.6p M=.3622 Pb=1 Fc=.5 Cgs=2.414p Kf=11.73E-18 Af=1)
+.model J201 NJF(Beta=1.07m Betatce=-0.5 Vto=-0.93 Vtotc=-2.5m Lambda=6.75m Is=1.72f Xti=0 Rd=10 Rs=12 Cgd=1p Cgs=1p Fc=0.5 M=500m Pb=0.8 Kf=0 Af=1 Mfg=Linear_Systems)
 .model kp365 njf vt0=-1.2 beta=10m lambda=0.03 rd=8 rs=8 cgs=4p cgd=5p pb=1 is=50p fc=0. kf=2.f af=1 MFG=USSR
 .model kp302a njf vt0=-2 beta=0.0025 lambda=30m rd=15 rs=3 cgs=12p cgd=25p pb=0.5 is=114.5f fc=0.5 kf=4e-16 af=1 MFG=USSR
 .MODEL KP103E PJF VTO=-0.8 BETA=0.0008 LAMBDA=0.02 RD=40 RS=7 IS=1.2195e-11 CGD=26.5P CGS=12P PB=1 B=1 KF=1e-18 AF=0.7 FC=0.5 MFG=USSR
@@ -172,8 +174,7 @@
 .model J177 PJF(Beta=3.3m Betatce=-0.5 Vto=-1.386 Vtotc=-2.5m Lambda=18.18m Is=461.5f Xti=3 Isr=4402f Nr=2 Alpha=32.54u N=1 Rd=1 Rs=1 Cgd=6.5p Cgs=9p Fc=0.5 Vk=393.2 M=279m Pb=1 Kf=21320f Af=1 Mfg=Linear_Systems)
 .MODEL QSK389BL NJF (VTO=-2.5 BETA=6M LAMBDA=1.2M RD=4.95 RS=4.45 IS=6.32F PB=1 FC=.5 CGS=71.2P CGD=18.9P)
 .MODEL QSK389 NJF (VTO=-2 BETA=20M LAMBDA=600U RD=7 RS=6.3 IS=1.58F PB=1 FC=.5 CGS=19.5P CGD=5.5P)
-.model MPF102 NJF(Beta=1.04m Betatce=-.5 Rd=1 Rs=1 Lambda=2m
-.model MPF102A NJF(Beta=1.04m Betatce=-.5 Rd=1 Rs=1 Lambda=2m Vto=-3.41 Vtotc=-2.5m Is=33.57f Isr=322.4f N=1 Nr=2 Xti=3 Alpha=311.7 Vk=243.6 Cgd=1.6p M=.3622 Pb=1 Fc=.5 Cgs=2.414p Kf=11.73E-18 Af=1)
+.model MPF102 NJF(Beta=1.04m Betatce=-.5 Rd=1 Rs=1 Lambda=2m)
 .model J310A NJF(Beta=3.384m Betatce=-.5 Rd=1 Rs=1 Lambda=17m Vto=-3.409 Vtotc=-2.5m Is=193.9f Isr=1.881p N=1 Nr=2 Xti=3 Alpha=7.533u Vk=74.1 Cgd=6.2p M=.4647 Pb=1 Fc=.5 Cgs=6.2p Kf=46.34E-18 Af=1)
 .model J2N3819A NJF(Beta=1.304m Betatce=-.5 Rd=1 Rs=1 Lambda=2.25m Vto=-3 Vtotc=-2.5m Is=33.57f Isr=322.4f N=1 Nr=2 Xti=3 Alpha=311.7 Vk=243.6 Cgd=1.6p M=.3622 Pb=1 Fc=.5 Cgs=2.414p Kf=9.882E-18 Af=1)
 .model MPF103 NJF(Beta=561.5u Betatce=-.5 Rd=1 Rs=1 Lambda=3.5m Vto=-1.947 Vtotc=-2.5m Is=181.3f Isr=1.747p N=1 Nr=2 Xti=3 Alpha=2.543u Vk=152.2 Cgd=4p M=.3114 Pb=.5 Fc=.5 Cgs=4.627p Kf=4.978E-18 Af=1)
@@ -396,7 +397,6 @@
 .MODEL J106 NJF(Beta=12m Betatce=-500m Rd=1 Rs=1 Lambda=40m Vto=-3.95 Vtotc=-2.5m Is=304.4f Isr=2.995p N=1 Nr=2 Xti=3 Alpha=699.7n Vk=59.97 Cgd=140p M=601.5m Pb=500m Fc=500m Cgs=142.3p Kf=0.117f Af=1)
 .MODEL J107 NJF(Beta=15m Betatce=-500m Rd=1 Rs=1 Lambda=30m Vto=-2.9 Vtotc=-2.5m Is=304.4f Isr=2.995p N=1 Nr=2 Xti=3 Alpha=699.7n Vk=59.97 Cgd=140p M=601.5m Pb=500m Fc=500m Cgs=142.3p Kf=0.146f Af=1)
 .MODEL J114 NJF(Beta=910.9u Betatce=-500m Rd=1 Rs=1 Lambda=20m Vto=-4.86 Vtotc=-2.5m Is=101.9f Isr=977.5f N=1 Nr=2 Xti=3 Alpha=13.92u Vk=88.13 Cgd=4.545p M=344.8m Pb=1 Fc=500m Cgs=4.599p Kf=1.433e-002f Af=1)
-.model J201 NJF(Beta=1.07m Betatce=-0.5 Vto=-0.93 Vtotc=-2.5m Lambda=6.75m Is=1.72f Xti=0 Rd=10 Rs=12 Cgd=1p Cgs=1p Fc=0.5 M=500m Pb=0.8 Kf=0 Af=1 Mfg=Linear_Systems)
 .model J202 NJF(Beta=0.88m Betatce=-0.5 Vto=-1.81 Vtotc=-2.5m Lambda=8.47m Is=2.56f Xti=0 Rd=11 Rs=13 Cgd=1p Cgs=1p Fc=0.5 M=500m Pb=0.8 Kf=0 Af=1 Mfg=Linear_Systems)
 .MODEL J203 NJF(Beta=304.5u Betatce=-500m Rd=1 Rs=1 Lambda=17m Vto=-5.369 Vtotc=-2.5m Is=114.5f Isr=1.091p N=1 Nr=2 Xti=3 Alpha=506.8u Vk=251.7 Cgd=4.667p M=227.1m Pb=500m Fc=500m Cgs=2.992p Kf=0.1034f Af=1)
 .model J204 NJF(Beta=1.004m Betatce=-0.5 Vto=-1.139 Vtotc=-2.5m Lambda=3.333m Is=29.04f Xti=3 Isr=281.9f Nr=2 Alpha=698u N=1 Rd=1 Rs=1 Cgd=3.58p Cgs=5.4p Fc=0.5 Vk=270.4 M=360m Pb=1 Kf=16500f Af=1 Mfg=Linear_Systems)

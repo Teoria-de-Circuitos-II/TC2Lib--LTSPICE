@@ -1,7 +1,7 @@
 * Component by Agustin Gullino, Electronics Engineering Student at ITBA
 * email: agullino@itba.edu.ar
 
-.subckt XtalV2 n1 n2 PARAMS: Cm=0.1p Lm=1m Rs=10k Cp=4p
+.subckt Xtal n1 n2 PARAMS: Cm=0.1p Lm=1m Rs=10k Cp=4p
 
 * 1rst order Tune
 CM n1 ni1 {Cm}
@@ -18,4 +18,5 @@ RS3 n32 n2 {Rs}
 CM5 n1 n51 {Cm/25}
 LM5 n51 n52 {Lm}
 RS5 n52 n2 {Rs}
-.ends XtalV2 
+
+.ends Xtal

@@ -1,0 +1,64 @@
+* Component Created by Javier Petrucci and Agustin Gullino
+* jpetrucc@itba.edu.ar / agullino@itba.edu.ar
+*
+* This is the NPN BJT
+*
+*         C
+*     |  /
+*     | /
+* B---|
+*     | \
+*     | _\|
+*          E
+*
+*
+*  /\Ic
+*  |
+*  |
+*  |        /--------------------
+*  |       /
+*  |      /----------------------
+*  |     /
+*  |    /------------------------
+*  |   /
+*  |  /--------------------------
+*  | /
+*  |/__________________________________> Vbe
+*
+*
+
+.SUBCKT NPN_nice C B E
+
+
+
+**Voltage sources used to measure current trough terminals
+V_Ib B Vbint 0
+V_Ic C Vcint 0
+V_Ie Veint E 0
+
+**Base emiter and base colector voltage drop
+D5 Vbint Veint Dideal_Vbe
+D6 Vbint Vcint Dideal_Vbe
+
+
+**Resistor value according to hfe for forward and inverse current
+Rf1 Vcint Vcr R = limit(1u,100Meg, abs( ( V(Vcint)-V(Vcr) ) / ( I(V_Ib)*{hfe}) ) )
+Rr1 Veint Ver R = limit(1u,100Meg, abs( ( V(Veint)-V(Ver) ) / ( I(V_Ib)*{hfe}/20) ) )
+
+**Saturation voltage
+D2 Ver Vx Dideal_Vce
+D7 Vcr Vx Dideal_Vce
+
+**Mode selection, forward/inverse
+D1 Vx Veint Dideal
+D8 Vx Vcint Dideal
+
+**Models for the diodes
+.model Dideal D(Ron=1u Vfwd=0)
+.model Dideal_Vbe D(Ron=1u Vfwd={Vbe})
+.model Dideal_Vce D(Ron=1u Vfwd={Vce_sat})
+
+
+
+.end NPN_nice
+*

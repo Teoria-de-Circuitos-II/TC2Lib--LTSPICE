@@ -1,8 +1,18 @@
-* Component by Agustin Gullino, Electronics Engineering Student at ITBA
-* email: agullino@itba.edu.ar
-
-.subckt FDNR IN+ IN-
-G1 IN+ IN- IN+ IN- Laplace=({D}*s**2)
-C1 IN+ IN- 1f
-.ends FDNR
-
+* Component Created by Javier Petrucci and Agustin Gullino
+* jpetrucc@itba.edu.ar / agullino@itba.edu.ar
+*
+* This is the FDNR
+*
+*   1
+*   |
+* ------
+* ------
+* ------
+* ------
+*   |
+*   2
+*
+.SUBCKT fdnr 1 2
+G1 1 2 1 2 Laplace=(s^2)*{D}
+R1 1 2 1000Meg
+.ENDS

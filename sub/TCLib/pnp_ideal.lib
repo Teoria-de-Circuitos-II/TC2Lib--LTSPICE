@@ -1,0 +1,64 @@
+* Component Created by Javier Petrucci and Agustin Gullino
+* jpetrucc@itba.edu.ar / agullino@itba.edu.ar
+*
+* This is the PNP BJT
+*
+*         C
+*     |  /
+*     | /
+* B---| _
+*     ||\
+*     |  \
+*          E
+*
+*
+*  /\Ic
+*  |
+*  |
+*  |        /--------------------
+*  |       /
+*  |      /----------------------
+*  |     /
+*  |    /------------------------
+*  |   /
+*  |  /--------------------------
+*  | /
+*  |/__________________________________> Veb
+*
+*
+
+.SUBCKT PNP_nice C B E
+
+
+
+**Voltage sources used to measure current trough terminals
+V_Ib Vbint B 0
+V_Ic Vcint C 0
+V_Ie E Veint 0
+
+**Base emiter and base colector voltage drop
+D5 Veint Vbint Dideal_Veb
+D6 Vcint Vbint Dideal_Veb
+
+
+**Resistor value according to hfe for forward and inverse current
+Rf1 Vcint Vcr R = limit(1u,100Meg, abs( ( V(Vcint)-V(Vcr) ) / ( I(V_Ib)*{hfe}) ) )
+Rr1 Veint Ver R = limit(1u,100Meg, abs( ( V(Veint)-V(Ver) ) / ( I(V_Ib)*{hfe}/20) ) )
+
+**Saturation voltage
+D2 Vx Ver Dideal_Vec
+D7 Vx Vcr Dideal_Vec
+
+**Mode selection, forward/inverse
+D1 Veint Vx Dideal
+D8 Vcint Vx Dideal
+
+**Models for the diodes
+.model Dideal D(Ron=1u Vfwd=0)
+.model Dideal_Veb D(Ron=1u Vfwd={Veb})
+.model Dideal_Vec D(Ron=1u Vfwd={Vec_sat})
+
+
+
+.end PNP_nice
+*
