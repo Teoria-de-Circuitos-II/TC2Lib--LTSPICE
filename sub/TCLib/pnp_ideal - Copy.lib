@@ -44,24 +44,21 @@ D6 Vcint Vbint Dideal_Vcb
 
 
 **Resistor value according to hfe for forward and inverse current
-
-Rf1 Vcint Vcr R = limit(10u,100Meg, abs(   (     ( V(Vcint,Vcr)*V(Vcint,Vcr)+curve ) / V(Vcint,Vcr)        ) /  ( I(V_Ib)*hfe   ) ) )
-Rr1 Veint Ver R = limit(10u,100Meg, abs(   (     ( V(Veint,Ver)*V(Veint,Ver)+curve ) / V(Veint,Ver)        )  / ( I(V_Ib)*hfe/r) ) )
-
-**Ratio between hfe direct and inverse modes
-.param r 20
-**Transition shape between saturation and active region
-.param curve 100u
-
+**Ratio between direct and inverse modes is harcoded here :)
+Rf1 Vcint Vcr R = limit(1u,100Meg, abs(   (     ( V(Vcint,Vcr)*V(Vcint,Vcr)+1m ) / V(Vcint,Vcr)        ) /  ( I(V_Ib)*hfe   ) ) )
+Rr1 Veint Ver R = limit(1u,100Meg, abs(   (     ( V(Veint,Ver)*V(Veint,Ver)+1m ) / V(Veint,Ver)        )  / ( I(V_Ib)*hfe/20) ) )
 
 *Rf1 Vcint Vcr R = limit(1u,100Meg, abs(   (     									V(Vcint,Vcr)        ) /  ( I(V_Ib)*hfe   ) ) )
 *Rr1 Veint Ver R = limit(1u,100Meg, abs(   (     									V(Veint,Ver)        )  / ( I(V_Ib)*hfe/20) ) )
 
 
 **Saturation voltage
-D2 Vcint Ver Dideal_Vec
-D7 Veint Vcr Dideal_Vec
+D2 Vx Ver Dideal_Vec
+D7 Vx Vcr Dideal_Vec
 
+**Mode selection, forward/inverse
+D1 Veint Vx Dideal
+D8 Vcint Vx Dideal
 
 **Models for the diodes
 .model Dideal D(Ron=10u Vfwd=10m)

@@ -1,37 +1,90 @@
 Circuit: * C:\Users\javie\Documents\LTspiceXVII\lib\sub\TCLib\Base Circuits\TC40 - BJT Ideal.asc
 
-Direct Newton iteration for .op point succeeded.
-Semiconductor Device Operating Points:
-                        --- Diodes ---
-Name:      d1          d8          d2          d7          d6
-Model:   dideal      dideal    dideal_vce  dideal_vce  dideal_vbe
-Id:      1.01e+00    9.90e-01    1.00e+00    1.00e+00    7.00e-08
-Vd:      1.01e-06    9.90e-07    3.00e-01    3.00e-01    7.00e-01
-Req:     1.00e+06    1.00e+06    1.00e+06    1.00e+06    1.00e-07
-CAP:     0.00e+00    0.00e+00    0.00e+00    0.00e+00    0.00e+00
+Direct Newton iteration failed to find .op point.  (Use ".option noopiter" to skip.)
+Starting Gmin stepping
+Gmin = 10
+Gmin = 1.07374
+Gmin = 0.115292
+Gmin = 0.0123794
+vernier = 0.5
+vernier = 0.25
+vernier = 0.125
+vernier = 0.0625
+vernier = 0.03125
+vernier = 0.015625
+vernier = 0.0078125
+vernier = 0.00390625
+Gmin = 0.00990352
+vernier = 0.00195313
+vernier = 0.000976563
+vernier = 0.000488281
+Gmin = 0
+Gmin stepping failed
 
-Name:      d5
-Model: dideal_vbe
-Id:      1.00e-03
-Vd:      7.00e-01
-Req:     1.00e+06
-CAP:     0.00e+00
+Starting source stepping with srcstepmethod=0
+Source Step = 3.0303%
+Source Step = 9.09979%
+Source Step = 9.12938%
+Source Step = 9.15897%
+Source Step = 9.18857%
+Source Step = 9.21816%
+Source Step = 9.24775%
+vernier = 0.00146484
+Source Step = 9.28474%
+Source Step = 9.32913%
+Source Step = 9.37352%
+Source Step = 9.41791%
+Source Step = 9.4623%
+vernier = 0.00219727
+Source Step = 9.51557%
+Source Step = 9.58215%
+Source Step = 9.64873%
+Source Step = 9.71532%
+Source Step = 9.7819%
+vernier = 0.0032959
+Source Step = 9.85847%
+Source Step = 9.95835%
+Source Step = 10.0582%
+Source Step = 10.1581%
+Source Step = 10.258%
+vernier = 0.00494385
+Source Step = 10.3678%
+Source Step = 10.5177%
+Source Step = 10.6675%
+Source Step = 10.8173%
+Source Step = 10.9671%
+vernier = 0.00741577
+Source Step = 11.1244%
+Source Step = 11.3491%
+Source Step = 11.5738%
+Source Step = 11.7986%
+Source Step = 12.0233%
+Source Step = 12.248%
+vernier = 0.0111237
+Source Step = 12.5851%
+Source Step = 12.9222%
+Source Step = 13.2592%
+Source Step = 13.5963%
+Source Step = 13.9334%
+vernier = 0.0166855
+Source Step = 14.4222%
+Source Step = 14.9278%
+Source Step = 15.4334%
+Source Step = 15.939%
+Source Step = 16.4447%
+vernier = 0.0250282
+Source Step = 17.1525%
+Source Step = 17.911%
+Source Step = 18.6694%
+Source Step = 19.4278%
+Source Step = 20.1862%
+vernier = 0.0375423
+Source Step = 21.2101%
+Source Step = 22.3478%
+Starting source stepping with srcstepmethod=1
+Source Step = 3.0303%
+Source Step = 21.2595%
+vernier = 0.00390625
+Source stepping failed
 
-
-
-Date: Thu May 25 02:35:43 2023
-Total elapsed time: 0.088 seconds.
-
-tnom = 27
-temp = 27
-method = trap
-totiter = 5
-traniter = 0
-tranpoints = 0
-accept = 0
-rejected = 0
-matrix size = 16
-fillins = 8
-solver = Alternate
-Matrix Compiler1: 1.23 KB object code size
-Matrix Compiler2: 1.36 KB object code size
+Pseudo Transient failed in finding the operating point at 5.641 µs.
