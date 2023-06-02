@@ -1,4 +1,6 @@
-/*     # Exclude all files
+# Exclude all files
+/*     
+
 !/.gitignore
 
 # Override exclude, whitelist
@@ -14,4 +16,6 @@
 # # Override exclude, whitelist. TCLib only.
 !/sym/TCLib/
 !/sub/TCLib/
-!/sym/res.asy #overrides the ugly spring shaped resistor
+!/sym/res.asy 
+
+# overrides the ugly spring shaped resistor
