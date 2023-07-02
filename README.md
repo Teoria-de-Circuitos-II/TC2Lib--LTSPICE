@@ -1,3 +1,3 @@
 # Bibliotecas LTSpice
 
-Paste folders on usuall path: C:\Users\\"User Name"\Documents\LTspiceXVII\lib
+C:\Users\"User Name"\AppData\Local\LTspice\lib
