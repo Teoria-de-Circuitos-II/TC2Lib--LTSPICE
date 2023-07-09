@@ -1,0 +1,38 @@
+* Component Created by Javier Petrucci and Agustin Gullino
+* jpetrucc@itba.edu.ar / agullino@itba.edu.ar
+*
+* This is the Tapped Inductor
+*
+* Parameter L is the total inductance
+* Parameter n is the turn ratio, equal to N2/N1
+*
+* Connections: 
+*                
+*                      _     S_______________       _
+*                     /     S                |       \
+*                    /       S               |        \
+*                   /       S                |         \
+*            (La)__/         S               |          \
+*                  \        S                |           \
+*                   \        S               |            \
+*                    \_     S____________    |             \__(L , N2 Turns)
+*                    /       S           |   |             /
+*                   /       S            |   |            /
+*  (Lb, N1 Turns)__/         S           |   |           /
+*                  \        S            |   |          /
+*                   \        S           |   |         /
+*                    \_     S________    |   |        /
+*                                    |   |   |      _/
+*                                    |   |   |
+*                                    |   |   |
+.SUBCKT L_Tap                        1   2   3
+
+La 3 2 {La}
+Lb 2 1 {Lb}
+K1 La Lb 1
+
+.param Lb={L/( (n-1)*(n-1) + 2*(n-1) +1 )}
+.param La={L * ( (n-1)*(n-1) )/( (n-1)*(n-1) + 2*(n-1) +1 )}
+
+.ends L_Tap
+*
