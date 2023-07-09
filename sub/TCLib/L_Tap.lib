@@ -31,8 +31,8 @@ La 3 2 {La}
 Lb 2 1 {Lb}
 K1 La Lb 1
 
-.param Lb={L/( (n-1)*(n-1) + 2*(n-1) +1 )}
-.param La={L * ( (n-1)*(n-1) )/( (n-1)*(n-1) + 2*(n-1) +1 )}
+.param Lb={L / (n**2)}
+.param La={L * ( 1 - (1/n) )**2 }
 
 .ends L_Tap
 *
