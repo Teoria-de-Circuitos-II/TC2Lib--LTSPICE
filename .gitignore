@@ -7,6 +7,7 @@
 !/sym/
 !/sub/
 !/cmp/
+!/Utilidades TC Lib/
 
 # Exclude files inside directory
 /sym/*
@@ -16,6 +17,6 @@
 # # Override exclude, whitelist. TCLib only.
 !/sym/TCLib/
 !/sub/TCLib/
-!/sym/res.asy 
 
+!/sym/res.asy
 # overrides the ugly spring shaped resistor
