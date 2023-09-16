@@ -1,0 +1,16 @@
+Las bibliotecas y componentes se ubican en:
+C:\Users\ "User Name" \AppData\Local\LTspice\lib
+
+
+El archivo "LTspice.ini" va en:
+C:\Users\ "User Name" \AppData\Roaming
+
+
+La imagen de fondo se tiene que ubicar en: %USERPROFILE%
+Con el nombbre: LTspice.jpg
+
+If you don't like the background image, you can change it.
+Pull down "Tools", choose "Control Panel".
+Click "Operation" tab.
+Click "Background image" setting to change from "Antikythera Mechanism" (default) to another image, then click "OK" button.
+On Windows, the 4th choice is "%USERPROFILE%\LTspice.jpg", which allows you to use any JPEG image.
