@@ -1,0 +1,99 @@
+*Copiado de hc_tnomi_nxp.lib
+*LTSpice-master -> addon
+*Símbolo original: 74hcu04.asy
+
+
+GND -------------------------|
+VCC ----------------------|  |
+                       |  |  |
+OUT -----------------  |  |  |
+IN  ----------------|  |  |  |
+                    |  |  |  |
+.SUBCKT 74HCU04     2  3  1  0             
+X1    2   3  1  0        INV0
+.ends
+
+.SUBCKT INV0  2  3  80 90
+*IN=2, OUT=3, VCC=80, GND=90
+XINP  20  25  50  60    INP0N
+XOUTP 25  30  50  60    OUTUN
+L1  80  50   6.87NH
+L2  60  90   6.87NH
+L3   2  20   5.97NH
+L4  30   3   5.97NH
+C1  50  90   1.5P
+C2  60  90   1.5P
+C3  20  90   1.5P
+C4  3   90   1.5P
+.ENDS
+
+.SUBCKT INP0N  2  3  50  60
+*IN=2, OUT=3, VCC=50, GND=60
+R1  2  3  100
+MP1 3 50 50 50  MHCPEN W=20U L=2.4U AD=100P AS=100P PD=40U PS= 20U
+MN1 3 60 60 60  MHCNEN W=35U L=2.4U AD=260P AS=260P PD=70U PS= 20U
+.ENDS
+
+.SUBCKT OUTUN 2  3  50  60
+*IN=2, OUT=3, VCC=50, GND=60
+R1  2 4 100
+MP1 3 4 50 50  MHCPEN W=485U L=2.4U AD=1200P AS=530P PD=10U PS=180U
+MN1 3 4 60 60  MHCNEN W=222U L=2.4U AD=530P AS=300P PD=10U PS=130U
+R2  4 5 50
+MP2 3 5 50 50  MHCPEN W=485U L=2.4U AD=1200P AS=530P PD=10U PS=180U
+MN2 3 5 60 60  MHCNEN W=222U L=2.4U AD=530P AS=300P PD=10U PS=130U
+R3  5 6 50
+MP3 3 6 50 50  MHCPEN W=485U L=2.4U AD=1200P AS=530P PD=10U PS=180U
+MN3 3 6 60 60  MHCNEN W=222U L=2.4U AD=530P AS=300P PD=10U PS=130U
+.ENDS
+
+
+***********************************************
+*        NOMINAL P-Channel transistor         *
+*           UCB-3 Parameter Set               *
+*         HIGH-SPEED CMOS Logic Family        *
+*               10-Jan.-1995                  *
+***********************************************
+.Model MHCPEN PMOS
++LEVEL = 3
++KP    = 22.1E-6
++VTO   = -0.71
++TOX   = 51.5E-9
++NSUB  = 3.3E16
++GAMMA = 0.92
++PHI   = 0.65
++VMAX  = 970E3
++RS    = 80
++RD    = 80
++XJ    = 0.63E-6
++LD    = 0.23E-6
++DELTA = 2.24
++THETA = 0.108
++ETA   = 0.322
++KAPPA = 0.0
++WD    = 0.0
+
+************************************************
+*         NOMINAL N-Channel Transistor         *
+*            UCB-3 Parameter Set               *
+*         HIGH-SPEED CMOS Logic Family         *
+*                10-Jan.-1995                  *
+************************************************
+.Model MHCNEN NMOS
++LEVEL = 3
++KP    = 45.3E-6
++VTO   = 0.72
++TOX   = 51.5E-9
++NSUB  = 2.8E15
++GAMMA = 0.94
++PHI   = 0.65
++VMAX  = 150E3
++RS    = 40
++RD    = 40
++XJ    = 0.11E-6
++LD    = 0.52E-6
++DELTA = 0.315
++THETA = 0.054
++ETA   = 0.025
++KAPPA = 0.0
++WD    = 0.0

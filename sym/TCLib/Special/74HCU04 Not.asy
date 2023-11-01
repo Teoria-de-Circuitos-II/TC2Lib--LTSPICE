@@ -1,0 +1,35 @@
+Version 4
+SymbolType CELL
+LINE Normal -40 112 -40 16
+LINE Normal 64 64 56 64
+LINE Normal -40 112 40 64
+LINE Normal -40 16 40 64
+LINE Normal -40 64 -48 64
+LINE Normal 0 40 0 16
+LINE Normal 0 112 0 88
+CIRCLE Normal 56 72 40 56
+TEXT 4 32 Left 0 Vdd
+TEXT 3 105 Left 0 Gnd
+WINDOW 0 99 13 Left 2
+WINDOW 3 81 -19 Left 0
+SYMATTR Value 74HCU04
+SYMATTR Description Inverter gate
+SYMATTR Prefix X
+SYMATTR SpiceModel
+SYMATTR ModelFile TCLib\74HCU04.lib
+
+PIN -48 64 NONE 8
+PINATTR PinName A
+PINATTR SpiceOrder 1
+
+PIN 64 64 NONE 0
+PINATTR PinName Y
+PINATTR SpiceOrder 2
+
+PIN 0 16 NONE 8
+PINATTR PinName Vcc
+PINATTR SpiceOrder 3
+
+PIN 0 112 NONE 8
+PINATTR PinName Gnd
+PINATTR SpiceOrder 4

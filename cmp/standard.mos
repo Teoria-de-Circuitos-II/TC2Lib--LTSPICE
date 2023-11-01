@@ -1,7 +1,8 @@
 * Lista editada para TCLib
 * AG JP 2022 / 2023
 
-.model IRF530 VDMOS(Rg=3 Vto=4 Rd=50m Rs=12m Rb=60m Kp=5 lambda=.01 Cgdmax=1n Cgdmin=.26n Cgs=.2n Cjo=.4n Is=52p ksubthres=.1 mfg=International_Rectifier Vds=100 Ron=160m Qg=26n)
+.model IRF530 VDMOS(Rg=3 Vto=4 Rd=50m Rs=90u Rb=60m Kp=400 lambda=.01 Cgdmax=1n Cgdmin=.26n Cgs=.2n Cjo=.4n Is=52p ksubthres=.1 mfg=International_Rectifier Vds=100 Ron=160m Qg=26n)
+.model IRF530bbb VDMOS(Rg=3 Vto=4 Rd=50m Rs=12m Rb=60m Kp=5 lambda=.01 Cgdmax=1n Cgdmin=.26n Cgs=.2n Cjo=.4n Is=52p ksubthres=.1 mfg=International_Rectifier Vds=100 Ron=160m Qg=26n)
 .model 2N7002 VDMOS(Rg=3 Vto=1.6 Rd=0 Rs=.75 Rb=.14 Kp=.17 mtriode=1.25 Cgdmax=80p Cgdmin=12p Cgs=50p Cjo=50p Is=.04p ksubthres=.1 mfg=Fairchild Vds=60 Ron=2 Qg=1.5n)
 
 .model IRF9640 VDMOS(pchan Rg=3 Vto=-3.5 Rd=.15 Rs=.15 Rb=.15 Kp=8 lambda=.01 mtriode=.5 Cgdmax=1.5n Cgdmin=.07n Cgs=1n Cjo=1n Is=38p ksubthres=.1 mfg=International_Rectifier Vds=-200 Ron=.5 Qg=44n)
@@ -667,7 +668,6 @@
 .model IRF1405 VDMOS(Rg=3 Vto=3.9 Rd=0.6m Rs=1.1m Rb=2.97m Kp=59 Cgdmax=8.1n Cgdmin=0.34n Cgs=6.5n Cjo=3.2n Is=33p ksubthres=.1 mfg=International_Rectifier Vds=55 Ron=4.6m Qg=170n)
 .model IRF3717 VDMOS(Rg=3 Vto=2.45 Rd=1.8m Rs=1.3m Rb=2m Kp=100 Cgdmax=1.3n Cgdmin=.33n Cgs=2.2n Cjo=.66n Is=44p ksubthres=.1 mfg=International_Rectifier Vds=20 Ron=4.4m Qg=22n)
 .model IRF510 VDMOS(Rg=3 Vto=3.8 Rd=200m Rs=54m Rb=250m lambda=.01 Kp=1.3 Cgdmax=.3n Cgdmin=.08n Cgs=.1n Cjo=.17n Is=17p ksubthres=.1 mfg=International_Rectifier Vds=100 Ron=540m Qg=8.3n)
-.model IRF530 VDMOS(Rg=3 Vto=4 Rd=50m Rs=12m Rb=60m Kp=5 lambda=.01 Cgdmax=1n Cgdmin=.26n Cgs=.2n Cjo=.4n Is=52p ksubthres=.1 mfg=International_Rectifier Vds=100 Ron=160m Qg=26n)
 .model IRF6607 VDMOS(Rg=3 Rd=1.5m Rs=1.1m Vto=2 lambda=.15 Kp=50 Cgdmax=2n Cgdmin=.5n Cgs=5.3n Cjo=1n Is=100p Rb=1.9m ksubthres=.1 mfg=International_Rectifier Vds=30 Ron=3.8m Qg=50n)
 .model IRF6609 VDMOS(Rg=3 Vto=2.6 Rd=.8m Rs=.6m Rb=1m Kp=106 Cgdmax=1.8n Cgdmin=.86n Cgs=5.1n Cjo=.92n Is=92p ksubthres=.1 mfg=International_Rectifier Vds=20 Ron=2m Qg=46n)
 .model IRF6617 VDMOS(Rg=2 Vto=2.42 Rd=4.5m Rs=.8m Rb=3m Kp=60 lambda=.01 mtriode=3 Cgdmax=.7n Cgdmin=.15n Cgs=1.1n Cjo=.5n Is=1.5p ksubthres=.1 mfg=International_Rectifier Vds=30 Ron=8m Qg=11n)
