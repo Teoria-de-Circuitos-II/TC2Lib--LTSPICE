@@ -19,6 +19,8 @@
 !/sub/TCLib/
 
 !/sym/res.asy
+!/sym/res_rec.asy
+!/sym/res_spring.asy
 !/sym/voltage.asy
 !/sym/voltage2.asy
 # overrides the ugly spring shaped resistor
