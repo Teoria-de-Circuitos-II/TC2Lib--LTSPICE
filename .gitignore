@@ -21,6 +21,9 @@
 !/sym/res.asy
 !/sym/res_rec.asy
 !/sym/res_spring.asy
+!/sym/cap.asy
+!/sym/ind.asy
+!/sym/ind2.asy
 !/sym/voltage.asy
 !/sym/voltage2.asy
 # overrides the ugly spring shaped resistor

@@ -13,7 +13,7 @@ WINDOW 0 55 43 Left 2
 WINDOW 3 55 66 Left 2
 SYMATTR Value R
 SYMATTR Prefix R
-SYMATTR Description A resistor
+SYMATTR Description 90 degrees resistor. Created by Javier Petrucci and Agustin Vazquez (ITBA)
 PIN 64 16 NONE 0
 PINATTR PinName A
 PINATTR SpiceOrder 1

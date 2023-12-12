@@ -13,6 +13,7 @@ SYMATTR Value Avol=1Meg
 SYMATTR SpiceModel OA_Ideal
 SYMATTR ModelFile TCLib/OA_Ideal.lib
 SYMATTR Prefix X
+SYMATTR Description Single pole ideal Op Amp, created by Javier Petrucci and Agustin Gullino (ITBA)
 SYMATTR Value2 GBWP=10Meg
 PIN -192 80 NONE 0
 PINATTR PinName In+

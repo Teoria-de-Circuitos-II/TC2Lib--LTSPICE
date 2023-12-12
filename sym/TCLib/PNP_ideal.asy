@@ -17,7 +17,7 @@ SYMATTR SpiceLine Vec_sat=.3
 SYMATTR Prefix X
 SYMATTR SpiceModel PNP_nice
 SYMATTR ModelFile TCLib/pnp_ideal.lib
-SYMATTR Description Things are getting really weird: Ideal Bipolar PNP transistor
+SYMATTR Description Ideal Bipolar PNP transistor, handle with care. Created by Javier Petrucci and Agustin Gullino (ITBA)
 PIN 64 0 NONE 0
 PINATTR PinName C
 PINATTR SpiceOrder 1

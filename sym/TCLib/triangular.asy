@@ -16,6 +16,7 @@ WINDOW 0 52 -33 Center 0
 SYMATTR SpiceModel Triangular
 SYMATTR Value Vpp=1 Freq=1k Voff=0 Sym=0.5
 SYMATTR Prefix X
+SYMATTR Description Easy to use triangular wave source, created by Agustin Gullino and Javier Petrucci (ITBA)
 SYMATTR ModelFile TCLib/triangular.lib
 PIN 0 -48 NONE 8
 PINATTR PinName V+

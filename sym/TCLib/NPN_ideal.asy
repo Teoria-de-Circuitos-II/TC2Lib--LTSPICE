@@ -16,7 +16,7 @@ SYMATTR Value2 Vbe=.7
 SYMATTR Prefix X
 SYMATTR SpiceModel NPN_nice
 SYMATTR ModelFile TCLib/npn_ideal.lib
-SYMATTR Description Things are getting really weird: Ideal Bipolar NPN transistor
+SYMATTR Description Ideal Bipolar NPN transistor, handle with care. Created by Javier Petrucci and Agustin Gullino (ITBA)
 SYMATTR SpiceLine Vce_sat=.3
 PIN 64 0 NONE 0
 PINATTR PinName C

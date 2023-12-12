@@ -22,6 +22,7 @@ SYMATTR Value2 n=3
 SYMATTR SpiceModel L_Tap
 SYMATTR ModelFile TCLib/L_Tap.lib
 SYMATTR Prefix X
+SYMATTR Description Autotransformer, proudly created by Javier Petrucci (ITBA)
 PIN 16 176 NONE 0
 PINATTR PinName B
 PINATTR SpiceOrder 1

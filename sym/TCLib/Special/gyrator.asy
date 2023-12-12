@@ -30,7 +30,7 @@ SYMATTR Value R=1
 SYMATTR Prefix X
 SYMATTR SpiceModel gyrator
 SYMATTR ModelFile TCLib/gyrator.lib
-SYMATTR Description Gyrator
+SYMATTR Description Gyrator, created by Agustin Gullino and Javier Petrucci (ITBA).
 PIN -48 -48 NONE 0
 PINATTR PinName V1+
 PINATTR SpiceOrder 1

@@ -27,7 +27,7 @@ SYMATTR Value2 cur=.5
 SYMATTR Prefix X
 SYMATTR SpiceModel pot
 SYMATTR ModelFile TCLib/pot.lib
-SYMATTR Description Potentiometer
+SYMATTR Description Potentiometer, created by Javier Petrucci and Agustin Gullino (ITBA)
 PIN 16 16 NONE 0
 PINATTR PinName A
 PINATTR SpiceOrder 1

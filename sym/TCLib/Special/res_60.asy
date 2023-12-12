@@ -14,7 +14,7 @@ WINDOW 0 64 16 Left 2
 WINDOW 3 64 41 Left 2
 SYMATTR Value R
 SYMATTR Prefix R
-SYMATTR Description A resistor
+SYMATTR Description 60 degrees resistor, suitable for Kennelly Transformation diagrams. Created by Javier Petrucci and Agustin Gullino (ITBA)
 PIN 16 16 NONE 0
 PINATTR PinName A
 PINATTR SpiceOrder 1

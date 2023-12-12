@@ -14,7 +14,7 @@ WINDOW 0 80 23 Left 2
 WINDOW 3 80 48 Left 2
 SYMATTR Value R
 SYMATTR Prefix R
-SYMATTR Description A resistor
+SYMATTR Description 45 degrees resistor, created by Javier Petrucci and Agustin Gullino (ITBA)
 PIN 16 16 NONE 0
 PINATTR PinName A
 PINATTR SpiceOrder 1

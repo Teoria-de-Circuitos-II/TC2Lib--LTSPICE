@@ -18,7 +18,7 @@ CIRCLE Normal -16 24 16 56
 TEXT -11 37 Left 0 A
 WINDOW 0 -23 14 VRight 1
 SYMATTR Prefix V
-SYMATTR Description AmpMeter
+SYMATTR Description AmpMeter, created by Agustin Gullino and Javier Petrucci (ITBA). For advanced users only.
 PIN 0 16 NONE 0
 PINATTR PinName +
 PINATTR SpiceOrder 1

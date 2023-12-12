@@ -15,7 +15,7 @@ WINDOW 0 36 40 Left 2
 WINDOW 3 36 76 Left 2
 SYMATTR Value R
 SYMATTR Prefix R
-SYMATTR Description A resistor
+SYMATTR Description A properly shaped resistor, created by Javier Petrucci and Agustin Gullino (ITBA)
 PIN 16 16 NONE 0
 PINATTR PinName A
 PINATTR SpiceOrder 1

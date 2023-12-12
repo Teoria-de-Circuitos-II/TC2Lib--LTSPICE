@@ -18,6 +18,7 @@ WINDOW 3 -113 7 Left 2
 SYMATTR Value LM311/TI
 SYMATTR ModelFile TCLib/LM311.lib
 SYMATTR Prefix X
+SYMATTR Description LM311 Comparator, make sure to connect emiter terminal.
 PIN -192 80 NONE 0
 PINATTR PinName In+
 PINATTR SpiceOrder 1

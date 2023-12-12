@@ -11,6 +11,7 @@ WINDOW 3 71 9 Center 2
 SYMATTR SpiceModel FDNR
 SYMATTR Value D=1p
 SYMATTR Prefix X
+SYMATTR Description AmpMeter, created by Agustin Gullino and Javier Petrucci (ITBA). For frequency domain only.
 SYMATTR ModelFile TCLib/fdnr.lib
 PIN 0 -32 NONE 8
 PINATTR PinName IN+

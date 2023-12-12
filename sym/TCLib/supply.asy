@@ -26,7 +26,7 @@ SYMATTR Value2 Vn=15
 SYMATTR Prefix X
 SYMATTR SpiceModel supply
 SYMATTR ModelFile TCLib/supply.lib
-SYMATTR Description Power Supply
+SYMATTR Description Golden standard productivity-oriented dual power supply, created by Javier Petrucci and Agustin Gullino (ITBA)
 PIN 32 -176 TOP 0
 PINATTR PinName +
 PINATTR SpiceOrder 1

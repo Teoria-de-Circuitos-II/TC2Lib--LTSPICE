@@ -18,6 +18,7 @@ SYMATTR SpiceLine2 Vsat=20 SR=1e6
 SYMATTR SpiceModel OA_Param
 SYMATTR ModelFile TCLib/OA_Param.lib
 SYMATTR Prefix X
+SYMATTR Description Parametric Op Amp, created by Javier Petrucci and Agustin Gullino (ITBA)
 PIN -192 80 NONE 0
 PINATTR PinName In+
 PINATTR SpiceOrder 1
