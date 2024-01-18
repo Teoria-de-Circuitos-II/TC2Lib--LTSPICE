@@ -1,20 +1,18 @@
 Version 4
 SymbolType CELL
-RECTANGLE Normal -128 -64 128 96
-TEXT 0 0 Center 0 LT
-WINDOW 0 -56 -80 Left 0
-WINDOW 3 16 112 Left 0
-SYMATTR Value LM7812
+RECTANGLE Normal -96 -42 96 64
+WINDOW 0 66 -52 Left 0
+WINDOW 38 -1 -30 Center 1
 SYMATTR Prefix X
 SYMATTR Description Voltage regulator 7812 (+12V)
-SYMATTR SpiceModel TCLib/regulators.lib
-SYMATTR Value2 LM7812
-PIN -128 0 LEFT 8
+SYMATTR ModelFile TCLib/regulators.lib
+SYMATTR SpiceModel LM7812
+PIN -96 0 LEFT 8
 PINATTR PinName IN
 PINATTR SpiceOrder 1
-PIN 0 96 BOTTOM 8
+PIN 0 64 BOTTOM 8
 PINATTR PinName GND
 PINATTR SpiceOrder 2
-PIN 128 0 RIGHT 8
+PIN 96 0 RIGHT 8
 PINATTR PinName OUT
 PINATTR SpiceOrder 3

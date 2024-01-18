@@ -12,10 +12,8 @@ LINE Normal -6 45 -5 46
 LINE Normal -5 44 -6 45
 LINE Normal -1 48 -5 44
 LINE Normal -1 31 -1 48
-LINE Normal 6 35 6 29
-LINE Normal 9 32 3 32
 CIRCLE Normal -16 24 16 56
-TEXT -11 37 Left 0 A
+TEXT -14 36 Left 1 A
 WINDOW 0 -23 14 VRight 1
 SYMATTR Prefix V
 SYMATTR Description AmpMeter, created by Agustin Gullino and Javier Petrucci (ITBA). For advanced users only.
