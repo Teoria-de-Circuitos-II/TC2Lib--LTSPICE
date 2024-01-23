@@ -1,0 +1,12 @@
+*Component Created by Javier Petrucci and Agustin Gullino
+* jpetrucc@itba.edu.ar / agullino@itba.edu.ar
+*
+* This is a wire
+*
+*  1------2
+*
+.SUBCKT bypass 1 2
+V1 1 2 0
+.ENDS
+
+
