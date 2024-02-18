@@ -1,7 +1,7 @@
 * Component Created by Javier Petrucci and Agustin Gullino
 * jpetrucc@itba.edu.ar / agullino@itba.edu.ar
 *
-* OA Paramétrico
+*OA Paramétrico
 * Connections: 
 *                Non-Inverting Input
 *                |   Inverting Input
@@ -22,10 +22,19 @@ C2 V_F2_Av 0 {C2}
 E1 N002 0 V_F2_Av 0 1
 R1 V_F1_SR N002 1
 C1 V_F1_SR 0 {C1}
+BSr1 V_F1_SR 0 I= U( -I(E1) - {SR} * {C1} ) * ( -I(E1) - {SR} * {C1} )
+BSr2 0 V_F1_SR I= U( I(E1) - {SR} * {C1} ) * ( I(E1) - {SR} * {C1} )
 
-*Output buffer
+*Saturation
 
-E3 5 0 V_F1_SR 0 1
+E3 N003 0 V_F1_SR 0 1
+R3 N003 5 1
+Vs1 N005 0 {Vsat-1}
+Vs2 0 N004 {Vsat-1}
+Ds1 5 N005 DX
+Ds2 N004 5 DX
+
+.MODEL DX D(IS=800E-18)
 
 .param C1={1/(2*PI*f1)}
 .param C2={1/(2*PI*f2)}
