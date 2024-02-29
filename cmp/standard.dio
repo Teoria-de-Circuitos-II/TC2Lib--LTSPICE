@@ -1,16 +1,11 @@
-* Lista editada para TCLib
-* AG JP 2022 / 2023
+* Copyright © 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008 Linear Technology Corporation.   All rights reserved.
+*
+* Mike Engelhardt
+*
 
-.model 1N4148 D(Is=2.52n Rs=.568 N=1.752 Cjo=4p M=.4 tt=20n Iave=200m Vpk=75 mfg=OnSemi type=silicon)
-.model 1N4007 D(Is=90p Rs=40m Cjo=30p N=1.4 TT=5u Iave=1 Vpk=1000 mfg=Diodes_Inc. type=silicon)
-.model MUR460 D(Is=149n Rs=.0384 N=2 EG=1.285 XTI=.5 BV=800 IBV=1e-05 Cjo=126.4p Vj=1.34 M=.52 tt=44.4n Iave=4 Vpk=600 mfg=GI type=silicon)
-
-*******
-*Otros
-*******
-
-.model MMSD4148 D(Is=2.52n Rs=.568 N=1.752 Cjo=.64p M=.4 tt=5n Iave=200m Vpk=100 mfg=Onsemi type=silicon)
 .model 1N914 D(Is=2.52n Rs=.568 N=1.752 Cjo=4p M=.4 tt=20n Iave=200m Vpk=75 mfg=OnSemi type=silicon)
+.model 1N4148 D(Is=2.52n Rs=.568 N=1.752 Cjo=4p M=.4 tt=20n Iave=200m Vpk=75 mfg=OnSemi type=silicon)
+.model MMSD4148 D(Is=2.52n Rs=.568 N=1.752 Cjo=.64p M=.4 tt=5n Iave=200m Vpk=100 mfg=Onsemi type=silicon)
 .model 1N5817 D(Is=31.7u Rs=.051 N=1.373 Cjo=190p M=.3 Eg=.69 Xti=2 Iave=1 Vpk=20 mfg=OnSemi type=Schottky)
 .model 1N5818 D(Is=31.7u Rs=.051 N=1.373 Cjo=160p M=.38 Eg=.69 Xti=2 Iave=1 Vpk=30 mfg=OnSemi type=Schottky)
 .model 1N5819 D(Is=31.7u Rs=.051 N=1.373 Cjo=110p M=.35 Eg=.69 Xti=2 Iave=1 Vpk=40 mfg=OnSemi type=Schottky)
@@ -37,6 +32,7 @@
 .model MV2201 D(Is=1.365p Rs=1 Cjo=14.93p M=.4261 Vj=.75 Isr=16.02p Nr=2 Bv=25 Ibv=10u Vpk=25 mfg=OnSemi type=varactor)
 .model KV1471 D(Is=.8p Rs=.8 Cjo=162p M=1.225 Vj=0.408 Vpk=18 mfg=Toko type=varactor)
 .model MBR0540 D(Is=9.11u Rs=.121 N=1.33753 Eg=.69 Xti=2 Cjo=194p Vj=.25 M=.4 Iave=.5 Vpk=40 mfg=GI type=Schottky)
+.model MUR460 D(Is=149n Rs=.0384 N=2 EG=1.285 XTI=.5 BV=800 IBV=1e-05 Cjo=126.4p Vj=1.34 M=.52 tt=44.4n Iave=4 Vpk=600 mfg=GI type=silicon)
 .model MBRB2545CT D(Is=19.4n Rs=.01 N=.733 Eg=.718 Xti=.535 Cjo=2.05n Vj=.4 M=.41 Iave=25 Vpk=45 mfg=GI type=Schottky)
 .model MBR20100CT D(Is=10u Rs=.005 N=1.5 Ikf=.3 Isr=10u Nr=3 Cjo=1e-11 Vj=.7 Iave=10 Vpk=100 mfg=OnSemi type=Schottky)
 .model 30BQ060 D(Is=10u Rs=.04 N=1.4 Cjo=180p Eg=.69 Xti=2 Iave=3 Vpk=60 mfg=International_Rectifier type=Schottky)
@@ -932,3 +928,4 @@
 .model LXZ1-PX01 D(Is=7.2217E-30 Rs=0.1643 N=1.6224 Cj0=1.447n Iave=500m mfg=Lumileds type=LED)
 .model RB168VYM-30 D(Is=7.404n N=1.178 Rs=37.36m Ikf=310m Xti=2 Eg=840m Cjo=115p M=448m Vj=510.3m Isr=723p Nr=1.2 Bv=30 Trs1=220u Iave=0.001 Vpk=40 mfg=Rohm type=Schottky)
 .model RSX071VYM-30 D(Is=2.46u N=866m Rs=60.09m Ikf=34.19m Xti=2 Eg=570m Cjo=157.5p M=588.4m Vj=734.1m Isr=4.536u Nr=1.2 Bv=30 Iave=0.0007 Vpk=30 mfg=Rohm type=Schottky)
+.model 1N4007 D(Is=90p Rs=40m Cjo=30p N=1.4 TT=5u Iave=1 Vpk=1000 mfg=Diodes_Inc. type=silicon)

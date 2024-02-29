@@ -1,13 +1,6 @@
-* Lista editada para TCLib
-* AG JP 2022 / 2023
-
-.model MPF102A NJF(Beta=1.04m Betatce=-.5 Rd=1 Rs=1 Lambda=2m Vto=-3.41 Vtotc=-2.5m Is=33.57f Isr=322.4f N=1 Nr=2 Xti=3 Alpha=311.7 Vk=243.6 Cgd=1.6p M=.3622 Pb=1 Fc=.5 Cgs=2.414p Kf=11.73E-18 Af=1)
-.model J201 NJF(Beta=1.07m Betatce=-0.5 Vto=-0.93 Vtotc=-2.5m Lambda=6.75m Is=1.72f Xti=0 Rd=10 Rs=12 Cgd=1p Cgs=1p Fc=0.5 M=500m Pb=0.8 Kf=0 Af=1 Mfg=Linear_Systems)
-.model 2N5462 PJF(Is=1.5p Alpha=1e-4 Vk=300 Vto=-5.4 Vtotc=-3m Beta=2.0m Lambda=10m Betatce=-.5 Rd=10 Rs=10 Cgs=5p Cgd=5p Kf=3e-17 mfg=Siliconix)
-
-*******
-*Otros
-*******
+* Copyright © 2000 Linear Technology Corporation.   All rights reserved.
+*
+* Mike Engelhardt
 
 .model 2N3819 NJF(Beta=1.304m Betatce=-.5 Rd=1 Rs=1 Lambda=2.25m Vto=-3 Vtotc=-2.5m Is=33.57f Isr=322.4f N=1 Nr=2 Xti=3 Alpha=311.7u Vk=243.6 Cgd=1.6p M=.3622 Pb=1 Fc=.5 Cgs=2.414p Kf=9.882E-18 Af=1 mfg=Vishay)
 .model 2N4117 NJF(Beta=0.033m Betatce=-0.5 Vto=-1.2 Vtotc=-2.5m Lambda=13m Is=5.261f Xti=3 Isr=51.03f Nr=2 N=1 Rd=1 Rs=1 Cgd=3.94p Cgs=4.93p Fc=0.5 Vk=90.45 M=435.9m Pb=1 Kf=45610f Af=1 Mfg=Linear_Systems)
@@ -42,6 +35,7 @@
 .model J175 PJF(Beta=1.031m Betatce=-0.5 Vto=-3.762 Vtotc=-2.5m Lambda=28m Is=461.5f Xti=3 Isr=4402f Nr=2 Alpha=32.54u N=1 Rd=1 Rs=1 Cgd=6.5p Cgs=9p Fc=0.5 Vk=393.2 M=279m Pb=1 Kf=66610f Af=1 Mfg=Linear_Systems)
 .model J176 PJF(Beta=2.3m Betatce=-0.5 Vto=-1.82 Vtotc=-2.5m Lambda=21m Is=461.5f Xti=3 Isr=4402f Nr=2 Alpha=32.54u N=1 Rd=1 Rs=1 Cgd=6.5p Cgs=9p Fc=0.5 Vk=393.2 M=279m Pb=1 Kf=148600f Af=1 Mfg=Linear_Systems)
 .model J177 PJF(Beta=3.3m Betatce=-0.5 Vto=-1.386 Vtotc=-2.5m Lambda=18.18m Is=461.5f Xti=3 Isr=4402f Nr=2 Alpha=32.54u N=1 Rd=1 Rs=1 Cgd=6.5p Cgs=9p Fc=0.5 Vk=393.2 M=279m Pb=1 Kf=21320f Af=1 Mfg=Linear_Systems)
+.model J201 NJF(Beta=1.07m Betatce=-0.5 Vto=-0.93 Vtotc=-2.5m Lambda=6.75m Is=1.72f Xti=0 Rd=10 Rs=12 Cgd=1p Cgs=1p Fc=0.5 M=500m Pb=0.8 Kf=0 Af=1 Mfg=Linear_Systems)
 .model J202 NJF(Beta=0.88m Betatce=-0.5 Vto=-1.81 Vtotc=-2.5m Lambda=8.47m Is=2.56f Xti=0 Rd=11 Rs=13 Cgd=1p Cgs=1p Fc=0.5 M=500m Pb=0.8 Kf=0 Af=1 Mfg=Linear_Systems)
 .model J204 NJF(Beta=1.004m Betatce=-0.5 Vto=-1.139 Vtotc=-2.5m Lambda=3.333m Is=29.04f Xti=3 Isr=281.9f Nr=2 Alpha=698u N=1 Rd=1 Rs=1 Cgd=3.58p Cgs=5.4p Fc=0.5 Vk=270.4 M=360m Pb=1 Kf=16500f Af=1 Mfg=Linear_Systems)
 .model J210 NJF(Beta=2.222m Betatce=-0.5 Vto=-1.526 Vtotc=-2.5m Lambda=8.8m Is=101.9f Xti=3 Isr=977.5f Nr=2 Alpha=13.92u N=1 Rd=1 Rs=1 Cgd=3.913p Cgs=3.496p Fc=0.5 Vk=88.13 M=345m Pb=1 Kf=86240f Af=1 Mfg=Linear_Systems)

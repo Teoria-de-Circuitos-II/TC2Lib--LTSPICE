@@ -8,6 +8,7 @@
 !/sub/
 !/cmp/
 !/Utilidades TC Lib/
+!/V2_CPP/
 
 # Exclude files inside directory
 /sym/*
