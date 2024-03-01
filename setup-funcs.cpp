@@ -122,6 +122,9 @@ void initLib()
 void doTheThing()
 {
     std::cout << "Doing the thing..." << std::endl;
+    setDarkTheme();
+    loadCustomComponents();
+    loadCustomBackground();
 }
 
 void setDarkTheme()
