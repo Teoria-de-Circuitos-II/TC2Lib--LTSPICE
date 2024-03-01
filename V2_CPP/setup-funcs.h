@@ -12,5 +12,6 @@ void doTheThing();
 void setDarkTheme();
 void setLightTheme();
 void loadCustomComponents();
+void loadCustomBackground();
 
 #endif // SETUP_FUNCS_H

@@ -1,12 +1,6 @@
 #include <iostream>
 #include <filesystem> // For std::filesystem
-
-// Function prototypes
-void doTheThing();
-void setDarkTheme();
-void setWhiteTheme();
-void loadCustomComponents();
-void loadCustomBackground();
+#include "setup-funcs.h"
 
 int main()
 {
@@ -34,7 +28,7 @@ int main()
             setDarkTheme();
             break;
         case 3:
-            setWhiteTheme();
+            setLightTheme();
             break;
         case 4:
             loadCustomComponents();
@@ -53,72 +47,72 @@ int main()
     return 0;
 }
 
-// Define your functions here (implementations go separately)
-void doTheThing()
-{
-    // Implement your logic for "Just do the thing"
-    std::cout << "Doing the thing...\n";
-}
+// // Define your functions here (implementations go separately)
+// void doTheThing()
+// {
+//     // Implement your logic for "Just do the thing"
+//     std::cout << "Doing the thing...\n";
+// }
 
-void setDarkTheme()
-{
-    // Implement your logic for setting dark theme
-    std::cout << "Setting dark theme...\n";
-}
+// void setDarkTheme()
+// {
+//     // Implement your logic for setting dark theme
+//     std::cout << "Setting dark theme...\n";
+// }
 
-void setWhiteTheme()
-{
-    // Implement your logic for setting white theme
-    std::cout << "Setting white theme...\n";
-}
+// void setWhiteTheme()
+// {
+//     // Implement your logic for setting white theme
+//     std::cout << "Setting white theme...\n";
+// }
 
-void loadCustomComponents()
-{
-    // Implement your logic for loading custom components
-    std::cout << "Loading custom components...\n";
-}
+// void loadCustomComponents()
+// {
+//     // Implement your logic for loading custom components
+//     std::cout << "Loading custom components...\n";
+// }
 
-void loadCustomBackground()
-{
-    // Get the user's profile directory
-    const char *userProfile = std::getenv("USERPROFILE");
-    if (userProfile == nullptr)
-    {
-        std::cerr << "Error: USERPROFILE environment variable not found.\n";
-        return;
-    }
+// void loadCustomBackground()
+// {
+//     // Get the user's profile directory
+//     const char *userProfile = std::getenv("USERPROFILE");
+//     if (userProfile == nullptr)
+//     {
+//         std::cerr << "Error: USERPROFILE environment variable not found.\n";
+//         return;
+//     }
 
-    // Construct the destination path
-    std::filesystem::path destinationPath(userProfile);
-    destinationPath /= "LTspice.jpg"; // Append the filename
+//     // Construct the destination path
+//     std::filesystem::path destinationPath(userProfile);
+//     destinationPath /= "LTspice.jpg"; // Append the filename
 
-    // Check if the destination file already exists
-    if (std::filesystem::exists(destinationPath))
-    {
-        // Delete the existing file
-        try
-        {
-            std::filesystem::remove(destinationPath);
-            std::cout << "Existing LTspice.jpg removed.\n";
-        }
-        catch (const std::filesystem::filesystem_error &e)
-        {
-            std::cerr << "Error removing existing file: " << e.what() << std::endl;
-            return;
-        }
-    }
+//     // Check if the destination file already exists
+//     if (std::filesystem::exists(destinationPath))
+//     {
+//         // Delete the existing file
+//         try
+//         {
+//             std::filesystem::remove(destinationPath);
+//             std::cout << "Existing LTspice.jpg removed.\n";
+//         }
+//         catch (const std::filesystem::filesystem_error &e)
+//         {
+//             std::cerr << "Error removing existing file: " << e.what() << std::endl;
+//             return;
+//         }
+//     }
 
-    // Construct the source path (assuming the executable is in the same directory)
-    std::filesystem::path sourcePath = std::filesystem::current_path() / "resources" / "LTspice.jpg";
+//     // Construct the source path (assuming the executable is in the same directory)
+//     std::filesystem::path sourcePath = std::filesystem::current_path() / "resources" / "LTspice.jpg";
 
-    // Copy the new file
-    try
-    {
-        std::filesystem::copy_file(sourcePath, destinationPath, std::filesystem::copy_options::overwrite_existing);
-        std::cout << "LTspice.jpg copied to " << destinationPath << std::endl;
-    }
-    catch (const std::filesystem::filesystem_error &e)
-    {
-        std::cerr << "Error copying file: " << e.what() << std::endl;
-    }
-}
+//     // Copy the new file
+//     try
+//     {
+//         std::filesystem::copy_file(sourcePath, destinationPath, std::filesystem::copy_options::overwrite_existing);
+//         std::cout << "LTspice.jpg copied to " << destinationPath << std::endl;
+//     }
+//     catch (const std::filesystem::filesystem_error &e)
+//     {
+//         std::cerr << "Error copying file: " << e.what() << std::endl;
+//     }
+// }
