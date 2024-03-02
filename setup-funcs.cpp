@@ -230,9 +230,14 @@ void print_menu(std::string last_op)
               << "  [4] Load custom components\n"
               << "  [5] Load custom background\n"
               << "  [6] Adjust line width\n"
-              << "  [0] Exit\n\n"
-              << "  " + last_op + "\n\n"
-              << "  Select and option: ";
+              << "  [0] Exit\n\n";
+
+    std::cout
+        << "  \033[32m" + last_op + "\033[0m \n\n";
+
+    std::cout
+
+        << "  Select and option: ";
 }
 
 void color(std::string text_color)
