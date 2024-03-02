@@ -116,7 +116,7 @@ void initLib()
     userLTspice = userProfile + "\\AppData\\Local\\LTspice\\";
 
     iniFile = userRoaming + "LTspice.ini";
-    bgFile = userProfile + "LTspice.jpg";
+    bgFile = userProfile + "\\LTspice.jpg";
 }
 
 void doTheThing()
@@ -148,7 +148,16 @@ void loadCustomComponents()
 
 void loadCustomBackground()
 {
-    std::cout << "Loading custom background..." << std::endl;
+    if (std::filesystem::exists(bgFile)) {
+        // Delete the existing file
+        try {
+            std::filesystem::remove(bgFile);
+            std::cout << "Existing LTspice.jpg removed.\n";
+        } catch (const std::filesystem::filesystem_error& e) {
+            std::cerr << "Error removing existing file: " << e.what() << std::endl;
+            return;
+        }
+    }
 
     // Copy background file to userProfile folder
 

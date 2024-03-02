@@ -1,3 +1,4 @@
+#include <windows.h>
 #include <iostream>
 #include <filesystem> // For std::filesystem
 #include "setup-funcs.h"
