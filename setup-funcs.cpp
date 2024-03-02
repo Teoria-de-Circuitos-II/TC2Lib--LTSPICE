@@ -1,4 +1,5 @@
 #include "setup-funcs.h"
+#include <filesystem>
 
 #ifdef __unix__ /* __unix__ is usually defined by compilers targeting Unix systems */
 
@@ -20,8 +21,6 @@ static std::string bgFile = "";
 static std::string iniLightFilelocal = "resources/light-theme.ini";
 static std::string iniDarkFilelocal = "resources/dark-theme.ini";
 static std::string bgFilelocal = "resources/LTspice.jpg";
-
-std::string configFile = "config.ini";
 
 // Extra functions
 
@@ -67,6 +66,50 @@ void replaceColorsSection(const std::string &configFile, const std::string &newC
     std::remove(configFile.c_str());
     std::rename("temp.ini", configFile.c_str());
 }
+
+void setPenWidth(const std::string &configFile, int Width)
+{
+    std::ifstream configFileStream(configFile);
+    std::ofstream tempFileStream("temp.ini");
+
+    std::string line;
+    bool inColorsSection = false;
+
+    while (std::getline(configFileStream, line))
+    {
+        if (line == "[Colors]")
+        {
+            inColorsSection = true;
+            tempFileStream << line << std::endl;
+
+            std::ifstream newContentFileStream(newContentFile);
+            std::string newContent;
+            newContentFileStream.seekg(0, std::ios::end);
+            newContent.reserve(newContentFileStream.tellg());
+            newContentFileStream.seekg(0, std::ios::beg);
+            newContent.assign((std::istreambuf_iterator<char>(newContentFileStream)),
+                              std::istreambuf_iterator<char>());
+
+            tempFileStream << newContent << std::endl;
+        }
+        else if (inColorsSection && line[0] == '[')
+        {
+            inColorsSection = false;
+        }
+
+        if (!inColorsSection)
+        {
+            tempFileStream << line << std::endl;
+        }
+    }
+
+    configFileStream.close();
+    tempFileStream.close();
+
+    std::remove(configFile.c_str());
+    std::rename("temp.ini", configFile.c_str());
+}
+
 
 void copyFolder(const fs::path &source, const fs::path &destination)
 {
@@ -129,12 +172,12 @@ void doTheThing()
 
 void setDarkTheme()
 {
-    replaceColorsSection(configFile, "dark-theme.ini");
+    replaceColorsSection(iniFile, iniDarkFilelocal);
 }
 
 void setLightTheme()
 {
-    replaceColorsSection(configFile, "light-theme.ini");
+    replaceColorsSection(iniFile, iniLightFilelocal);
 }
 
 void loadCustomComponents()
