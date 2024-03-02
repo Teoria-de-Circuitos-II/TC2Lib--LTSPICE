@@ -1,9 +1,9 @@
 #include <iostream>
 #include <fcntl.h>
 #include "setup-funcs.h"
-//#include <cmrc/cmrc.hpp>
+// #include <cmrc/cmrc.hpp>
 
-//CMRC_DECLARE(TCLib);
+// CMRC_DECLARE(TCLib);
 
 #include <stdio.h>
 #define MINIAUDIO_IMPLEMENTATION
@@ -11,7 +11,7 @@
 
 // Music engine
 ma_engine engine;
-//cmrc::embedded_filesystem fs = cmrc::TCLib::get_filesystem();
+// cmrc::embedded_filesystem fs = cmrc::TCLib::get_filesystem();
 
 int main()
 {
@@ -85,7 +85,7 @@ int music()
         printf("Failed to initialize audio engine.");
         return -1;
     }
-
+    ma_engine_set_volume(&engine, 0.3f);
     ma_engine_play_sound(&engine, "resources/winrar_music.mp3", NULL);
 
     return 0;
