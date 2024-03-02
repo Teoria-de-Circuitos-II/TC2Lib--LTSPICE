@@ -94,19 +94,19 @@ void iniPenWidth(const std::string &configFile, int Width)
     std::ofstream tempFileStream("temp.ini");
 
     std::string line;
-    bool inColorsSection = false;
+    bool inPenLine = false;
 
     while (std::getline(configFileStream, line))
     {
         if (line.find("PenWidth"))
         {
-            inColorsSection = true;
-
             // replace the line in the configFileStream with the new one
             std::string newLine = "PenWidth=" + std::to_string(Width);
             tempFileStream << newLine << std::endl;
+            continue;
         }
-        break;
+
+        tempFileStream << line << std::endl;
     }
 
     configFileStream.close();
