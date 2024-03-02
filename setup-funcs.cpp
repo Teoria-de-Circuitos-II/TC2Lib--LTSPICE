@@ -24,6 +24,27 @@ static std::string bgFilelocal = "resources/LTspice.jpg";
 
 // Extra functions
 
+void overwriteCopy(std::string source, std::string destination)
+{
+    if (std::filesystem::exists(destination))
+    {
+        // Delete the existing file
+        try
+        {
+            std::filesystem::remove(destination);
+        }
+        catch (const std::filesystem::filesystem_error &e)
+        {
+            std::cerr << "Error removing existing file while copying: " << e.what() << std::endl;
+            return;
+        }
+    }
+
+    // Copy background file to userProfile folder
+
+    fs::copy_file(source, destination, fs::copy_options::overwrite_existing);
+}
+
 void replaceColorsSection(const std::string &configFile, const std::string &newContentFile)
 {
     std::ifstream configFileStream(configFile);
@@ -145,21 +166,44 @@ void initLib()
     if (OS_Windows == 1)
     {
         userProfile = std::getenv("USERPROFILE");
+        userRoaming = userProfile + "\\AppData\\Roaming\\";
+        userLTspice = userProfile + "\\AppData\\Local\\LTspice\\";
+
+        iniFile = userRoaming + "LTspice.ini";
+        bgFile = userProfile + "\\LTspice.jpg";
     }
     else if (OS_Windows == 0)
     {
         userProfile = std::getenv("HOME");
+        std::string wineAppdata = "";
+        // ask user for appdata location in wine folder
+        std::cout << "Ingresar la ubicacion de la carpeta AppData en la instalacion de Wine que tenga LTSpice instalado: ";
+        std::cin >> wineAppdata;
+        std::cout << std::endl;
+
+        // check for trailing slash
+        if (wineAppdata.back() != '/')
+        {
+            wineAppdata += "/";
+        }
+
+        // check if the directory exists
+        if (!fs::exists(wineAppdata))
+        {
+            std::cerr << "Error: Wine AppData directory does not exist." << std::endl;
+            return;
+        }
+
+        userRoaming = userProfile + "AppData/Roaming/";
+        userLTspice = userProfile + "AppData/Local/LTspice/";
+
+        iniFile = userRoaming + "LTspice.ini";
+        bgFile = userProfile + "/LTspice.jpg";
     }
     else
     {
         std::cerr << "Error: OS not supported." << std::endl;
     }
-
-    userRoaming = userProfile + "\\AppData\\Roaming\\";
-    userLTspice = userProfile + "\\AppData\\Local\\LTspice\\";
-
-    iniFile = userRoaming + "LTspice.ini";
-    bgFile = userProfile + "\\LTspice.jpg";
 }
 
 void doTheThing()
@@ -191,20 +235,7 @@ void loadCustomComponents()
 
 void loadCustomBackground()
 {
-    if (std::filesystem::exists(bgFile)) {
-        // Delete the existing file
-        try {
-            std::filesystem::remove(bgFile);
-            std::cout << "Existing LTspice.jpg removed.\n";
-        } catch (const std::filesystem::filesystem_error& e) {
-            std::cerr << "Error removing existing file: " << e.what() << std::endl;
-            return;
-        }
-    }
-
-    // Copy background file to userProfile folder
-
-    fs::copy_file(bgFilelocal, bgFile, fs::copy_options::overwrite_existing);
+    overwriteCopy(bgFilelocal, bgFile);
 }
 
 void setPenWidth()
