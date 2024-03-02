@@ -8,7 +8,30 @@
 #elif defined(_WIN32) || defined(WIN32) /* _Win32 is usually defined by compilers targeting 32 or   64 bit Windows systems */
 
 #define OS_Windows 1
+#include <windows.h>
+BOOL IsElevated()
+{
+    BOOL fRet = FALSE;
+    HANDLE hToken = NULL;
 
+    if (OpenProcessToken(GetCurrentProcess(), TOKEN_QUERY, &hToken))
+    {
+        TOKEN_ELEVATION Elevation;
+        DWORD cbSize = sizeof(TOKEN_ELEVATION);
+
+        if (GetTokenInformation(hToken, TokenElevation, &Elevation, sizeof(Elevation), &cbSize))
+        {
+            fRet = Elevation.TokenIsElevated;
+        }
+    }
+
+    if (hToken)
+    {
+        CloseHandle(hToken);
+    }
+
+    return fRet;
+}
 #endif
 
 namespace fs = std::filesystem;
@@ -88,25 +111,26 @@ void replaceColorsSection(const std::string &configFile, const std::string &newC
     std::rename("temp.ini", configFile.c_str());
 }
 
-void iniPenWidth(const std::string &configFile, int Width)
+void changeIniParameter(const std::string &configFile, std::string parameter, int value)
 {
     std::ifstream configFileStream(configFile);
     std::ofstream tempFileStream("temp.ini");
 
     std::string line;
-    bool inPenLine = false;
 
     while (std::getline(configFileStream, line))
     {
-        if (line.find("PenWidth"))
+        if (line.find(parameter) != std::string::npos)
         {
             // replace the line in the configFileStream with the new one
-            std::string newLine = "PenWidth=" + std::to_string(Width);
+            std::string newLine = parameter + "=" + std::to_string(value);
             tempFileStream << newLine << std::endl;
             continue;
         }
-
-        tempFileStream << line << std::endl;
+        else
+        {
+            tempFileStream << line << std::endl;
+        }
     }
 
     configFileStream.close();
@@ -147,47 +171,47 @@ void copyFolder(const fs::path &source, const fs::path &destination)
 
 void initLib()
 {
-    if (OS_Windows == 1)
+#if OS_Windows
+    if (!IsElevated())
     {
-        userProfile = std::getenv("USERPROFILE");
-        userRoaming = userProfile + "\\AppData\\Roaming\\";
-        userLTspice = userProfile + "\\AppData\\Local\\LTspice\\";
-
-        iniFile = userRoaming + "LTspice.ini";
-        bgFile = userProfile + "\\LTspice.jpg";
+        std::cout << "Please run this program as an administrator." << std::endl;
+        return;
     }
-    else if (OS_Windows == 0)
+
+    userProfile = std::getenv("USERPROFILE");
+    userRoaming = userProfile + "\\AppData\\Roaming\\";
+    userLTspice = userProfile + "\\AppData\\Local\\LTspice\\";
+
+    iniFile = userRoaming + "LTspice.ini";
+    bgFile = userProfile + "\\LTspice.jpg";
+
+#else
+
+    std::string wineuser = "";
+    // ask user for appdata location in wine folder
+    std::cout << "Enter the path to the Wine user directory where LTspice is installed:";
+    std::cin >> wineuser;
+    std::cout << std::endl;
+
+    // check for trailing slash
+    if (wineuser.back() != '/')
     {
-        userProfile = std::getenv("HOME");
-        std::string wineAppdata = "";
-        // ask user for appdata location in wine folder
-        std::cout << "Ingresar la ubicacion de la carpeta AppData en la instalacion de Wine que tenga LTSpice instalado: ";
-        std::cin >> wineAppdata;
-        std::cout << std::endl;
-
-        // check for trailing slash
-        if (wineAppdata.back() != '/')
-        {
-            wineAppdata += "/";
-        }
-
-        // check if the directory exists
-        if (!fs::exists(wineAppdata))
-        {
-            std::cerr << "Error: Wine AppData directory does not exist." << std::endl;
-            return;
-        }
-
-        userRoaming = userProfile + "AppData/Roaming/";
-        userLTspice = userProfile + "AppData/Local/LTspice/";
-
-        iniFile = userRoaming + "LTspice.ini";
-        bgFile = userProfile + "/LTspice.jpg";
+        wineuser += "/";
     }
-    else
+
+    // check if the directory exists
+    if (!fs::exists(wineuser))
     {
-        std::cerr << "Error: OS not supported." << std::endl;
+        std::cerr << "Error: Wine user directory does not exist." << std::endl;
+        return;
     }
+    userProfile = wineuser;
+    userRoaming = wineuser + "AppData/Roaming/";
+    userLTspice = wineuser + "AppData/Local/LTspice/";
+
+    iniFile = userRoaming + "LTspice.ini";
+    bgFile = wineuser + "/LTspice.jpg";
+#endif
 }
 
 void doTheThing()
@@ -219,10 +243,11 @@ void loadCustomComponents()
 
 void loadCustomBackground()
 {
+    changeIniParameter(iniFile, "MDIbackgroundImage", 3);
     overwriteCopy(bgFilelocal, bgFile);
 }
 
 void setPenWidth()
 {
-    iniPenWidth(iniFile, 2);
+    changeIniParameter(iniFile, "PenWidth", 2);
 }
