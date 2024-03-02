@@ -169,13 +169,13 @@ void copyFolder(const fs::path &source, const fs::path &destination)
 
 // Menu Functions
 
-void initLib()
+bool initLib()
 {
 #if OS_Windows
     if (!IsElevated())
     {
         std::cout << "Please run this program as an administrator." << std::endl;
-        return;
+        return true;
     }
 
     userProfile = std::getenv("USERPROFILE");
@@ -184,6 +184,7 @@ void initLib()
 
     iniFile = userRoaming + "LTspice.ini";
     bgFile = userProfile + "\\LTspice.jpg";
+
 
 #else
 
@@ -212,6 +213,8 @@ void initLib()
     iniFile = userRoaming + "LTspice.ini";
     bgFile = wineuser + "/LTspice.jpg";
 #endif
+
+    return false;
 }
 
 void doTheThing()
