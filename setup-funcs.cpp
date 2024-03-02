@@ -88,7 +88,7 @@ void replaceColorsSection(const std::string &configFile, const std::string &newC
     std::rename("temp.ini", configFile.c_str());
 }
 
-void setPenWidth(const std::string &configFile, int Width)
+void iniPenWidth(const std::string &configFile, int Width)
 {
     std::ifstream configFileStream(configFile);
     std::ofstream tempFileStream("temp.ini");
@@ -220,4 +220,9 @@ void loadCustomComponents()
 void loadCustomBackground()
 {
     overwriteCopy(bgFilelocal, bgFile);
+}
+
+void setPenWidth()
+{
+    iniPenWidth(iniFile, 2);
 }

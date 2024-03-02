@@ -16,6 +16,7 @@ int main()
                   << "[3] White Theme\n"
                   << "[4] Load custom components\n"
                   << "[5] Load custom background\n"
+                  << "[6] Adjust line width\n"
                   << "[0] Exit\n"
                   << "Enter your choice: ";
         std::cin >> choice;
@@ -37,6 +38,9 @@ int main()
             break;
         case 5:
             loadCustomBackground();
+            break;
+        case 6:
+            setPenWidth();
             break;
         case 0:
             std::cout << "Exiting program. Goodbye!\n";
