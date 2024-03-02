@@ -12,6 +12,8 @@
 !/*.cpp
 !/*.h
 !/resources/
+
+!/CMakeLists.txt
 # Exclude files inside directory
 /sym/*
 /sub/*
