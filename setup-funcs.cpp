@@ -91,12 +91,15 @@ void overwriteCopy(std::string source, std::string destination)
     }
 
     // Copy background file to userProfile folder
-    auto resourceFile = fs.open(source);
-    auto memostream = memstream(const_cast<char *>(resourceFile.begin()),
-                                const_cast<char *>(resourceFile.end()));
-    auto outstream = std::ofstream(destination, std::ios::binary);
-    outstream << memostream.rdbuf();
-    outstream.close();
+
+    fsys::copy_file(source, destination, fsys::copy_options::overwrite_existing);
+
+    // auto resourceFile = fs.open(source);
+    // auto memostream = memstream(const_cast<char *>(resourceFile.begin()),
+    //                             const_cast<char *>(resourceFile.end()));
+    // auto outstream = std::ofstream(destination, std::ios::binary);
+    // outstream << memostream.rdbuf();
+    // outstream.close();
 }
 
 void replaceColorsSection(const std::string &configFile, const std::string &newContentFile)
@@ -114,9 +117,9 @@ void replaceColorsSection(const std::string &configFile, const std::string &newC
             inColorsSection = true;
             tempFileStream << line << std::endl;
 
-            // std::ifstream newContentFileStream(newContentFile);
-            auto newContentFileStream = memstream(const_cast<char *>(resourceFile.begin()),
-                                                  const_cast<char *>(resourceFile.end()));
+            std::ifstream newContentFileStream(newContentFile);
+            // auto newContentFileStream = memstream(const_cast<char *>(resourceFile.begin()),
+            //                                       const_cast<char *>(resourceFile.end()));
             std::string newContent;
             newContentFileStream.seekg(0, std::ios::end);
             newContent.reserve(newContentFileStream.tellg());
