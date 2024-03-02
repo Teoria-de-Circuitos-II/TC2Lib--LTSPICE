@@ -9,6 +9,7 @@
 
 #define OS_Windows 1
 #include <windows.h>
+#include <conio.h>
 BOOL IsElevated()
 {
     BOOL fRet = FALSE;
@@ -175,6 +176,8 @@ bool initLib()
     if (!IsElevated())
     {
         std::cout << "Please run this program as an administrator." << std::endl;
+        std::cout << "Press any key to exit..." << std::endl;
+        _getch(); // Wait for user input
         return true;
     }
 

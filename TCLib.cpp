@@ -1,14 +1,12 @@
 #include <iostream>
 #include "setup-funcs.h"
-#include <conio.h> // For getch()
 
 int main()
 {
     int choice;
 
-    if(initLib()){
-        std::cout << "Press any key to exit..." << std::endl;
-        _getch(); // Wait for user input
+    if (initLib())
+    {
         return -1;
     }
 
