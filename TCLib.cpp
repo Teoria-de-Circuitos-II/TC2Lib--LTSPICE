@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fcntl.h>
 #include "setup-funcs.h"
+#include <cmrc/cmrc.hpp>
 
 #include <stdio.h>
 #define MINIAUDIO_IMPLEMENTATION
