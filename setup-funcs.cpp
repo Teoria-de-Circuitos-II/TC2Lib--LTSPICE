@@ -1,6 +1,6 @@
 #include "setup-funcs.h"
 #include <filesystem>
-#include "cmrc/cmrc.hpp"
+//#include "cmrc/cmrc.hpp"
 #ifdef __unix__ /* __unix__ is usually defined by compilers targeting Unix systems */
 
 #define OS_Windows 0
@@ -9,6 +9,7 @@
 
 #define OS_Windows 1
 #include <windows.h>
+#include <fcntl.h>
 #include <conio.h>
 BOOL IsElevated()
 {
@@ -37,7 +38,7 @@ BOOL IsElevated()
 
 namespace fsys = std::filesystem;
 
-extern cmrc::embedded_filesystem fs;
+//extern cmrc::embedded_filesystem fs;
 
 /// Credits: https://stackoverflow.com/a/13059195
 /// https://stackoverflow.com/questions/13059091/
@@ -106,7 +107,7 @@ void replaceColorsSection(const std::string &configFile, const std::string &newC
 {
     std::ifstream configFileStream(configFile);
     std::ofstream tempFileStream("temp.ini");
-    auto resourceFile = fs.open(newContentFile);
+    //auto resourceFile = fs.open(newContentFile);
     std::string line;
     bool inColorsSection = false;
 
@@ -209,14 +210,14 @@ void print_menu(std::string last_op)
 {
 #if OS_Windows
     _setmode(_fileno(stdout), _O_WTEXT);
-    std::cout << L"\n\n"
+    std::wcout << L"\n\n"
                  L"  ████████╗ ██████╗              ██╗     ██╗██████╗ \n"
                  L"  ╚══██╔══╝██╔════╝              ██║     ██║██╔══██╗\n"
                  L"     ██║   ██║         █████╗    ██║     ██║██████╔╝\n"
                  L"     ██║   ██║         ╚════╝    ██║     ██║██╔══██╗\n"
                  L"     ██║   ╚██████╗              ███████╗██║██████╔╝\n"
                  L"     ╚═╝    ╚═════╝              ╚══════╝╚═╝╚═════╝ \n";
-    _setmode(_fileno(_stdout), _O_TEXT);
+    _setmode(_fileno(stdout), _O_TEXT);
 #else
     std::cout << "\n\n"
                  "  ████████╗ ██████╗              ██╗     ██╗██████╗ \n"

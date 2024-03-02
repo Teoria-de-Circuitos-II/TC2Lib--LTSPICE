@@ -1,9 +1,9 @@
 #include <iostream>
 #include <fcntl.h>
 #include "setup-funcs.h"
-#include <cmrc/cmrc.hpp>
+//#include <cmrc/cmrc.hpp>
 
-CMRC_DECLARE(TCLib);
+//CMRC_DECLARE(TCLib);
 
 #include <stdio.h>
 #define MINIAUDIO_IMPLEMENTATION
@@ -11,7 +11,7 @@ CMRC_DECLARE(TCLib);
 
 // Music engine
 ma_engine engine;
-cmrc::embedded_filesystem fs = cmrc::TCLib::get_filesystem();
+//cmrc::embedded_filesystem fs = cmrc::TCLib::get_filesystem();
 
 int main()
 {
