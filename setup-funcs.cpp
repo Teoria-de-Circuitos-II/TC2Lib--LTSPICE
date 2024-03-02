@@ -78,7 +78,7 @@ void replaceColorsSection(const std::string &configFile, const std::string &newC
 
     while (std::getline(configFileStream, line))
     {
-        if (line == "[Colors]")
+        if (line.find("[Colors]") != std::string::npos)
         {
             inColorsSection = true;
             tempFileStream << line << std::endl;
@@ -237,8 +237,8 @@ void loadCustomComponents()
     // estas carpetas no se si estan en el lugar correcto
 
     // Copy sub and sym folders to LTspice folder in AppData repleacing files
-    copyFolder("resources/sub", userLTspice + "sub");
-    copyFolder("resources/sym", userLTspice + "sym");
+    copyFolder("sub", userLTspice + "lib/sub");
+    copyFolder("sym", userLTspice + "lib/sym");
 }
 
 void loadCustomBackground()
