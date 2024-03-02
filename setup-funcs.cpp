@@ -170,6 +170,16 @@ void copyFolder(const fs::path &source, const fs::path &destination)
 
 // Menu Functions
 
+void color(std::string text_color)
+{
+#if OS_Windows
+    text_color="Color 0"+ text_color;
+    std::system(text_color.c_str());
+#else
+    return;
+#endif
+}
+
 void clear_screen()
 {
 #if OS_Windows
