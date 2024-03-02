@@ -1,5 +1,6 @@
 #include <iostream>
 #include "setup-funcs.h"
+#include <cmrc/cmrc.hpp>
 
 int main()
 {
