@@ -17,6 +17,7 @@ void setPenWidth();
 
 int music();
 void print_menu(std::string);
+void color(std::string);
 void clear_screen();
 
 #endif // SETUP_FUNCS_H
