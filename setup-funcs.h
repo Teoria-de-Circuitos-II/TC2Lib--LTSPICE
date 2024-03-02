@@ -7,7 +7,7 @@
 #include <sstream>
 
 // Function declarations
-void initLib();
+bool initLib();
 void doTheThing();
 void setDarkTheme();
 void setLightTheme();
