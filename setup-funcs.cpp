@@ -98,30 +98,15 @@ void setPenWidth(const std::string &configFile, int Width)
 
     while (std::getline(configFileStream, line))
     {
-        if (line == "[Colors]")
+        if (line.find("PenWidth"))
         {
             inColorsSection = true;
-            tempFileStream << line << std::endl;
 
-            std::ifstream newContentFileStream(newContentFile);
-            std::string newContent;
-            newContentFileStream.seekg(0, std::ios::end);
-            newContent.reserve(newContentFileStream.tellg());
-            newContentFileStream.seekg(0, std::ios::beg);
-            newContent.assign((std::istreambuf_iterator<char>(newContentFileStream)),
-                              std::istreambuf_iterator<char>());
-
-            tempFileStream << newContent << std::endl;
+            // replace the line in the configFileStream with the new one
+            std::string newLine = "PenWidth=" + std::to_string(Width);
+            tempFileStream << newLine << std::endl;
         }
-        else if (inColorsSection && line[0] == '[')
-        {
-            inColorsSection = false;
-        }
-
-        if (!inColorsSection)
-        {
-            tempFileStream << line << std::endl;
-        }
+        break;
     }
 
     configFileStream.close();
@@ -130,7 +115,6 @@ void setPenWidth(const std::string &configFile, int Width)
     std::remove(configFile.c_str());
     std::rename("temp.ini", configFile.c_str());
 }
-
 
 void copyFolder(const fs::path &source, const fs::path &destination)
 {
