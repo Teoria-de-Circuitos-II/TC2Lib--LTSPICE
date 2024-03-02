@@ -1,6 +1,6 @@
 #include "setup-funcs.h"
 #include <filesystem>
-
+#include "cmrc/cmrc.hpp"
 #ifdef __unix__ /* __unix__ is usually defined by compilers targeting Unix systems */
 
 #define OS_Windows 0
@@ -35,7 +35,33 @@ BOOL IsElevated()
 }
 #endif
 
-namespace fs = std::filesystem;
+namespace fsys = std::filesystem;
+
+extern cmrc::embedded_filesystem fs;
+
+/// Credits: https://stackoverflow.com/a/13059195
+/// https://stackoverflow.com/questions/13059091/
+struct membuf : std::streambuf
+{
+    membuf(char const *base, size_t size)
+    {
+        char *p(const_cast<char *>(base));
+        this->setg(p, p, p + size);
+    }
+    virtual ~membuf() = default;
+};
+
+/// Credits: https://stackoverflow.com/a/13059195
+/// https://stackoverflow.com/questions/13059091/
+struct memstream : virtual membuf, std::istream
+{
+
+    memstream(char const *base, char *const end)
+        : membuf(base, reinterpret_cast<uintptr_t>(end) - reinterpret_cast<uintptr_t>(base)), std::istream(static_cast<std::streambuf *>(this)) {}
+
+    memstream(char const *base, size_t size)
+        : membuf(base, size), std::istream(static_cast<std::streambuf *>(this)) {}
+};
 
 static std::string userProfile = "";
 static std::string userRoaming = "";
@@ -65,15 +91,19 @@ void overwriteCopy(std::string source, std::string destination)
     }
 
     // Copy background file to userProfile folder
-
-    fs::copy_file(source, destination, fs::copy_options::overwrite_existing);
+    auto resourceFile = fs.open(source);
+    auto memostream = memstream(const_cast<char *>(resourceFile.begin()),
+                                const_cast<char *>(resourceFile.end()));
+    auto outstream = std::ofstream(destination, std::ios::binary);
+    outstream << memostream.rdbuf();
+    outstream.close();
 }
 
 void replaceColorsSection(const std::string &configFile, const std::string &newContentFile)
 {
     std::ifstream configFileStream(configFile);
     std::ofstream tempFileStream("temp.ini");
-
+    auto resourceFile = fs.open(newContentFile);
     std::string line;
     bool inColorsSection = false;
 
@@ -84,7 +114,9 @@ void replaceColorsSection(const std::string &configFile, const std::string &newC
             inColorsSection = true;
             tempFileStream << line << std::endl;
 
-            std::ifstream newContentFileStream(newContentFile);
+            // std::ifstream newContentFileStream(newContentFile);
+            auto newContentFileStream = memstream(const_cast<char *>(resourceFile.begin()),
+                                                  const_cast<char *>(resourceFile.end()));
             std::string newContent;
             newContentFileStream.seekg(0, std::ios::end);
             newContent.reserve(newContentFileStream.tellg());
@@ -141,34 +173,67 @@ void changeIniParameter(const std::string &configFile, std::string parameter, in
     std::rename("temp.ini", configFile.c_str());
 }
 
-void copyFolder(const fs::path &source, const fs::path &destination)
+void copyFolder(const fsys::path &source, const fsys::path &destination)
 {
-    if (!fs::exists(destination))
+    if (!fsys::exists(destination))
     {
-        fs::create_directory(destination);
+        fsys::create_directory(destination);
     }
 
-    for (const auto &entry : fs::directory_iterator(source))
+    for (const auto &entry : fsys::directory_iterator(source))
     {
         const auto &sourcePath = entry.path();
         const auto &destinationPath = destination / sourcePath.filename();
 
-        if (fs::is_directory(sourcePath))
+        if (fsys::is_directory(sourcePath))
         {
             copyFolder(sourcePath, destinationPath);
         }
         else
         {
-            if (fs::exists(destinationPath))
+            if (fsys::exists(destinationPath))
             {
-                fs::remove(destinationPath);
+                fsys::remove(destinationPath);
             }
-            fs::copy_file(sourcePath, destinationPath);
+            fsys::copy_file(sourcePath, destinationPath);
         }
     }
 }
 
 // Menu Functions
+
+void print_menu(std::string last_op)
+{
+#if OS_Windows
+    _setmode(_fileno(stdout), _O_WTEXT);
+    std::cout << L"\n\n"
+                 L"  ████████╗ ██████╗              ██╗     ██╗██████╗ \n"
+                 L"  ╚══██╔══╝██╔════╝              ██║     ██║██╔══██╗\n"
+                 L"     ██║   ██║         █████╗    ██║     ██║██████╔╝\n"
+                 L"     ██║   ██║         ╚════╝    ██║     ██║██╔══██╗\n"
+                 L"     ██║   ╚██████╗              ███████╗██║██████╔╝\n"
+                 L"     ╚═╝    ╚═════╝              ╚══════╝╚═╝╚═════╝ \n";
+    _setmode(_fileno(_stdout), _O_TEXT);
+#else
+    std::cout << "\n\n"
+                 "  ████████╗ ██████╗              ██╗     ██╗██████╗ \n"
+                 "  ╚══██╔══╝██╔════╝              ██║     ██║██╔══██╗\n"
+                 "     ██║   ██║         █████╗    ██║     ██║██████╔╝\n"
+                 "     ██║   ██║         ╚════╝    ██║     ██║██╔══██╗\n"
+                 "     ██║   ╚██████╗              ███████╗██║██████╔╝\n"
+                 "     ╚═╝    ╚═════╝              ╚══════╝╚═╝╚═════╝ \n";
+#endif
+    // Display menu
+    std::cout << "\n  [1] Apply all (recomended)\n"
+              << "  [2] Apply Dark Theme\n"
+              << "  [3] Apply White Theme\n"
+              << "  [4] Load custom components\n"
+              << "  [5] Load custom background\n"
+              << "  [6] Adjust line width\n"
+              << "  [0] Exit\n\n"
+              << "  " + last_op + "\n\n"
+              << "  Select and option: ";
+}
 
 void clear_screen()
 {
@@ -176,7 +241,7 @@ void clear_screen()
     std::system("cls");
 #else
     // Assume POSIX
-    std::system ("clear");
+    std::system("clear");
 #endif
 }
 
@@ -213,7 +278,7 @@ bool initLib()
     }
 
     // check if the directory exists
-    if (!fs::exists(wineuser))
+    if (!fsys::exists(wineuser))
     {
         std::cerr << "  Error: Wine user directory does not exist." << std::endl;
         return true;

@@ -3,12 +3,15 @@
 #include "setup-funcs.h"
 #include <cmrc/cmrc.hpp>
 
+CMRC_DECLARE(TCLib);
+
 #include <stdio.h>
 #define MINIAUDIO_IMPLEMENTATION
 #include "miniaudio.h"
 
-//Music engine
+// Music engine
 ma_engine engine;
+cmrc::embedded_filesystem fs = cmrc::TCLib::get_filesystem();
 
 int main()
 {
@@ -19,7 +22,7 @@ int main()
     {
         return -1;
     }
-
+    clear_screen();
     music();
     print_menu(last_op);
 
@@ -33,27 +36,27 @@ int main()
         {
         case 1:
             doTheThing();
-            last_op="All patches applied.";
+            last_op = "All patches applied.";
             break;
         case 2:
             setDarkTheme();
-            last_op="Dark theme applied.";
+            last_op = "Dark theme applied.";
             break;
         case 3:
             setLightTheme();
-            last_op="Light theme applied.";
+            last_op = "Light theme applied.";
             break;
         case 4:
             loadCustomComponents();
-            last_op="Custom components loaded.";
+            last_op = "Custom components loaded.";
             break;
         case 5:
             loadCustomBackground();
-            last_op="Custom background applied.";
+            last_op = "Custom background applied.";
             break;
         case 6:
             setPenWidth();
-            last_op="Pen width fix applied.";
+            last_op = "Pen width fix applied.";
             break;
         case 0:
             std::cout << "  Exiting program. Goodbye!\n";
@@ -66,50 +69,24 @@ int main()
 
     } while (choice != 0);
 
-    //End music engine
+    // End music engine
     ma_engine_uninit(&engine);
 
     return 0;
 }
-
 
 int music()
 {
     ma_result result;
 
     result = ma_engine_init(NULL, &engine);
-    if (result != MA_SUCCESS) {
+    if (result != MA_SUCCESS)
+    {
         printf("Failed to initialize audio engine.");
         return -1;
     }
 
-    ma_engine_play_sound(&engine, "resources\\winrar_music.mp3", NULL);
+    ma_engine_play_sound(&engine, "resources/winrar_music.mp3", NULL);
 
     return 0;
-}
-
-void print_menu(std::string last_op){
-
-        _setmode(_fileno(stdout), _O_WTEXT);
-    std::wcout <<
-        L"\n\n"
-        L"  ████████╗ ██████╗              ██╗     ██╗██████╗ \n"
-        L"  ╚══██╔══╝██╔════╝              ██║     ██║██╔══██╗\n"
-        L"     ██║   ██║         █████╗    ██║     ██║██████╔╝\n"
-        L"     ██║   ██║         ╚════╝    ██║     ██║██╔══██╗\n"
-        L"     ██║   ╚██████╗              ███████╗██║██████╔╝\n"
-        L"     ╚═╝    ╚═════╝              ╚══════╝╚═╝╚═════╝ \n";
-    _setmode(_fileno(stdout), _O_TEXT);
-
-    // Display menu
-    std::cout << "\n  [1] Apply all (recomended)\n"
-                << "  [2] Apply Dark Theme\n"
-                << "  [3] Apply White Theme\n"
-                << "  [4] Load custom components\n"
-                << "  [5] Load custom background\n"
-                << "  [6] Adjust line width\n"
-                << "  [0] Exit\n\n"
-                << "  " + last_op + "\n\n"
-                << "  Select and option: ";
-
 }
