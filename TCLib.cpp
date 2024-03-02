@@ -58,6 +58,9 @@ int main()
             setPenWidth();
             last_op = "Pen width fix applied.";
             break;
+        case 7:
+            std::system("curl wttr.in");
+            break;
         case 0:
             std::cout << "  Exiting program. Goodbye!\n";
             break;
