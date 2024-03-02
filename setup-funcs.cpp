@@ -185,7 +185,6 @@ bool initLib()
     iniFile = userRoaming + "LTspice.ini";
     bgFile = userProfile + "\\LTspice.jpg";
 
-
 #else
 
     std::string wineuser = "";
@@ -204,7 +203,7 @@ bool initLib()
     if (!fs::exists(wineuser))
     {
         std::cerr << "Error: Wine user directory does not exist." << std::endl;
-        return;
+        return true;
     }
     userProfile = wineuser;
     userRoaming = wineuser + "AppData/Roaming/";
