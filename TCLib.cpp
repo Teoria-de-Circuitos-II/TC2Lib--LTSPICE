@@ -62,7 +62,7 @@ int main()
             std::cout << "  Exiting program. Goodbye!\n";
             break;
         default:
-            std::cout << "  Invalid choice. Please try again.\n";
+            last_op="Select a valid option.";
         }
 
         print_menu(last_op);
@@ -90,3 +90,36 @@ int music()
 
     return 0;
 }
+<<<<<<< Updated upstream
+=======
+
+void print_menu(std::string last_op){
+    _setmode(_fileno(stdout), _O_WTEXT);
+    std::wcout <<
+        L"\n\n"
+        L"  ████████╗ ██████╗              ██╗     ██╗██████╗ \n"
+        L"  ╚══██╔══╝██╔════╝              ██║     ██║██╔══██╗\n"
+        L"     ██║   ██║         █████╗    ██║     ██║██████╔╝\n"
+        L"     ██║   ██║         ╚════╝    ██║     ██║██╔══██╗\n"
+        L"     ██║   ╚██████╗              ███████╗██║██████╔╝\n"
+        L"     ╚═╝    ╚═════╝              ╚══════╝╚═╝╚═════╝ \n";
+    _setmode(_fileno(stdout), _O_TEXT);
+
+    // Display menu
+    std::cout << "\n  [1] Apply all (recomended)\n"
+                << "  [2] Apply Dark Theme\n"
+                << "  [3] Apply White Theme\n"
+                << "  [4] Load custom components\n"
+                << "  [5] Load custom background\n"
+                << "  [6] Adjust line width\n"
+                << "  [0] Exit\n\n";
+
+    std::cout
+                << "  \033[32m" + last_op + "\033[0m \n\n";
+
+    std::cout
+             
+                << "  Select and option: ";
+
+}
+>>>>>>> Stashed changes
