@@ -1,5 +1,6 @@
 #include "setup-funcs.h"
 #include <filesystem>
+
 // #include "cmrc/cmrc.hpp"
 #ifdef __unix__ /* __unix__ is usually defined by compilers targeting Unix systems */
 
@@ -352,4 +353,29 @@ void loadCustomBackground()
 void setPenWidth()
 {
     changeIniParameter(iniFile, "PenWidth", 2);
+}
+
+void printWeather() {
+    std::string command = "curl -s \"wttr.in/Moscow?1qF&lang=ru\"";
+    char buffer[128];
+    std::deque<std::string> forecast;
+
+    FILE* pipe = popen(command.c_str(), "r");
+    if (!pipe) {
+        std::cerr << "popen() failed!";
+        return;
+    }
+
+    while (fgets(buffer, sizeof buffer, pipe) != NULL) {
+        if (forecast.size() == 27) {
+            forecast.pop_front();
+        }
+        forecast.push_back(buffer);
+    }
+
+    pclose(pipe);
+
+    for (const auto& line : forecast) {
+        std::cout << line;
+    }
 }

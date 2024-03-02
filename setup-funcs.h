@@ -5,6 +5,8 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <deque>
+#include <cstdio>
 
 // Function declarations
 bool initLib();
