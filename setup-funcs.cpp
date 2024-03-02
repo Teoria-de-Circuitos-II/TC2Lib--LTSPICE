@@ -234,7 +234,9 @@ void print_menu(std::string last_op)
               << "  [4] Load custom components\n"
               << "  [5] Load custom background\n"
               << "  [6] Adjust line width\n"
-              << "  [7] Umbrella?\n"
+              << "  [?] Umbrella?\n"
+              << "  [+] Volume +\n"
+              << "  [-] Volume -\n"
               << "  [0] Exit\n\n";
 
     std::cout

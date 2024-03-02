@@ -11,11 +11,12 @@
 
 // Music engine
 ma_engine engine;
+float vol=0.2;
 // cmrc::embedded_filesystem fs = cmrc::TCLib::get_filesystem();
 
 int main()
 {
-    int choice;
+    char choice;
     std::string last_op = "";
 
     if (initLib())
@@ -34,34 +35,42 @@ int main()
         // Call the corresponding function based on user input
         switch (choice)
         {
-        case 1:
+        case '1':
             doTheThing();
             last_op = "All patches applied.";
             break;
-        case 2:
+        case '2':
             setDarkTheme();
             last_op = "Dark theme applied.";
             break;
-        case 3:
+        case '3':
             setLightTheme();
             last_op = "Light theme applied.";
             break;
-        case 4:
+        case '4':
             loadCustomComponents();
             last_op = "Custom components loaded.";
             break;
-        case 5:
+        case '5':
             loadCustomBackground();
             last_op = "Custom background applied.";
             break;
-        case 6:
+        case '6':
             setPenWidth();
             last_op = "Pen width fix applied.";
             break;
-        case 7:
-            std::system("curl wttr.in");
+        case '?':
+            std::system("curl \"wttr.in/Moscow?1qF&lang=ru\"");
             break;
-        case 0:
+        case '+':
+            vol = vol * 1.4;
+            ma_engine_set_volume(&engine, vol);
+            break;
+        case '-':
+            vol = vol * 0.6;
+            ma_engine_set_volume(&engine, vol);
+            break;
+        case '0':
             std::cout << "  Exiting program. Goodbye!\n";
             break;
         default:
@@ -70,7 +79,7 @@ int main()
 
         print_menu(last_op);
 
-    } while (choice != 0);
+    } while (choice != '0');
 
     // End music engine
     ma_engine_uninit(&engine);
@@ -88,7 +97,7 @@ int music()
         printf("Failed to initialize audio engine.");
         return -1;
     }
-    ma_engine_set_volume(&engine, 0.3f);
+    ma_engine_set_volume(&engine, vol);
     ma_engine_play_sound(&engine, "resources/winrar_music.mp3", NULL);
 
     return 0;
