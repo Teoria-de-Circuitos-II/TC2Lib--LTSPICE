@@ -59,7 +59,7 @@ void overwriteCopy(std::string source, std::string destination)
         }
         catch (const std::filesystem::filesystem_error &e)
         {
-            std::cerr << "Error removing existing file while copying: " << e.what() << std::endl;
+            std::cerr << "  Error removing existing file while copying: " << e.what() << std::endl;
             return;
         }
     }
@@ -170,13 +170,23 @@ void copyFolder(const fs::path &source, const fs::path &destination)
 
 // Menu Functions
 
+void clear_screen()
+{
+#if OS_Windows
+    std::system("cls");
+#else
+    // Assume POSIX
+    std::system ("clear");
+#endif
+}
+
 bool initLib()
 {
 #if OS_Windows
     if (!IsElevated())
     {
-        std::cout << "Please run this program as an administrator." << std::endl;
-        std::cout << "Press any key to exit..." << std::endl;
+        std::cout << "  Please run this program as an administrator." << std::endl;
+        std::cout << "  Press any key to exit..." << std::endl;
         _getch(); // Wait for user input
         return true;
     }
@@ -192,7 +202,7 @@ bool initLib()
 
     std::string wineuser = "";
     // ask user for appdata location in wine folder
-    std::cout << "Enter the path to the Wine user directory where LTspice is installed:";
+    std::cout << "  Enter the path to the Wine user directory where LTspice is installed:";
     std::cin >> wineuser;
     std::cout << std::endl;
 
@@ -205,7 +215,7 @@ bool initLib()
     // check if the directory exists
     if (!fs::exists(wineuser))
     {
-        std::cerr << "Error: Wine user directory does not exist." << std::endl;
+        std::cerr << "  Error: Wine user directory does not exist." << std::endl;
         return true;
     }
     userProfile = wineuser;
@@ -221,10 +231,10 @@ bool initLib()
 
 void doTheThing()
 {
-    std::cout << "Doing the thing..." << std::endl;
     setDarkTheme();
     loadCustomComponents();
     loadCustomBackground();
+    setPenWidth();
 }
 
 void setDarkTheme()
