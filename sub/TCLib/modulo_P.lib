@@ -1,0 +1,16 @@
+* modulo_P by Nico Beade nbeade@itba.edu.ar
+
+.SUBCKT modulo_P Vin Vout
+
+
+C1 Vout N002 {C}
+R1 N001 Vin {R}
+L1 N002 N001 {L}
+
+
+.param R = 100
+.param C = 10u
+.param L = 1m
+
+
+.ends modulo_P

@@ -1,0 +1,7 @@
+* modulo_N by Nico Beade nbeade@itba.edu.ar
+
+.SUBCKT modulo_N Vin Vout
+
+B1 Vin Vout I=(V(Vin)-V(Vout))/((V(Vin)-V(Vout))**(2)+(V(Vin)-V(Vout))+1k)
+
+.ends modulo_N
