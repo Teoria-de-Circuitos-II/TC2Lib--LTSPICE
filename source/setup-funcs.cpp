@@ -4,13 +4,9 @@
 #include "miniaudio.h"
 
 // #include "cmrc/cmrc.hpp"
-#ifdef __unix__ /* __unix__ is usually defined by compilers targeting Unix systems */
 
-#define OS_Windows 0
+#if OS_Windows
 
-#elif defined(_WIN32) || defined(WIN32) /* _Win32 is usually defined by compilers targeting 32 or   64 bit Windows systems */
-
-#define OS_Windows 1
 #include <windows.h>
 #include <fcntl.h>
 #include <conio.h>
@@ -246,17 +242,33 @@ void copyFolder(const fsys::path &source, const fsys::path &destination)
 
 // Menu Functions
 
-void print_menu(std::string last_op)
+void print_menu(int opt_i, std::string last_op)
 {
+    std::string menuItems[] = {
+        "Apply default patches",
+        "Apply Dark Theme",
+        "Apply White Theme",
+        "Load custom components",
+        "Load custom background",
+        "Adjust line width",
+        "Credits",
+        "Volume +",
+        "Volume -",
+        "Exit"
+    };
+    int menu_length=10;
+
 #if OS_Windows
     _setmode(_fileno(stdout), _O_WTEXT);
-    std::wcout << L"\n\n"
+    std::wcout << L"\033[36m\n\n"
                   L"  ████████╗ ██████╗              ██╗     ██╗██████╗ \n"
                   L"  ╚══██╔══╝██╔════╝              ██║     ██║██╔══██╗\n"
                   L"     ██║   ██║         █████╗    ██║     ██║██████╔╝\n"
                   L"     ██║   ██║         ╚════╝    ██║     ██║██╔══██╗\n"
                   L"     ██║   ╚██████╗              ███████╗██║██████╔╝\n"
                   L"     ╚═╝    ╚═════╝              ╚══════╝╚═╝╚═════╝ \n";
+    // Credits
+    std::wcout << L"          Agustín Gullino, Javier Petrucci\n\n \033[0m";
     _setmode(_fileno(stdout), _O_TEXT);
 #else
     std::cout << "\n\n"
@@ -266,27 +278,32 @@ void print_menu(std::string last_op)
                  "     ██║   ██║         ╚════╝    ██║     ██║██╔══██╗\n"
                  "     ██║   ╚██████╗              ███████╗██║██████╔╝\n"
                  "     ╚═╝    ╚═════╝              ╚══════╝╚═╝╚═════╝ \n";
-#endif
     // Credits
-    std::cout << "Patcher by: Agustín Gullino, Agustín Fisher, Javier Petrucci\n\n";
+    std::cout << "          Agustín Gullino, Javier Petrucci\n\n \033[0m";
+#endif
+
     // Display menu
-    std::cout << "\n  [1] Apply default patches\n"
-              << "  [2] Apply Dark Theme\n"
-              << "  [3] Apply White Theme\n"
-              << "  [4] Load custom components\n"
-              << "  [5] Load custom background\n"
-              << "  [6] Adjust line width\n"
-              << "  [?] \n"
-              << "  [+] Volume +\n"
-              << "  [-] Volume -\n"
-              << "  [0] Exit\n\n";
+    std::cout << "\n\n";
+    std::cout << "    Use arrows to navigate.";
+    std::cout << "\n\n";
+    for(int i = 0 ; i < menu_length ; i++){
+        
+        if(i==opt_i){
+            std::cout << "\033[31m -> ";
+        }else{
+            std::cout << "    ";
+        }
+        
+        std::cout << menuItems[i];
+        std::cout << "\n";
+        
+        if(i==opt_i){
+            std::cout << "\033[0m";
+        }
+    }
 
-    std::cout
-        << "  \033[32m" + last_op + "\033[0m \n\n";
+    std::cout << "\n\n    \033[32m->" + last_op + "<-\033[0m \n\n";
 
-    std::cout
-
-        << "  Select and option. Recomended [1]: ";
 }
 
 void color(std::string text_color)
@@ -314,7 +331,37 @@ bool initLib()
 #if OS_Windows
     if (!IsElevated())
     {
-        std::cout << "  Please run this program as an administrator." << std::endl;
+
+    _setmode(_fileno(stdout), _O_WTEXT);
+    std::wcout << L"\033[31m\n\n"
+                  L"                            ████████                          \n"
+                  L"                          ██        ██                        \n"
+                  L"                        ██            ██                      \n"
+                  L"                        ██            ██                      \n"
+                  L"                      ██    ████████    ██                    \n"
+                  L"                    ██    ████████████    ██                  \n"
+                  L"                    ██    ████████████    ██                  \n"
+                  L"                  ██      ████████████      ██                \n"
+                  L"                ██          ████████          ██              \n"
+                  L"                ██          ████████          ██              \n"
+                  L"              ██            ████████            ██            \n"
+                  L"            ██                ████                ██          \n"
+                  L"            ██                ████                ██          \n"
+                  L"          ██                                        ██        \n"
+                  L"        ██                    ████                    ██      \n"
+                  L"        ██                  ████████                  ██      \n"
+                  L"      ██                  ████████████                  ██    \n"
+                  L"    ██                    ████████████                    ██  \n"
+                  L"    ██                      ████████                      ██  \n"
+                  L"    ██                        ████                        ██  \n"
+                  L"      ██                                                ██    \n"
+                  L"        ████████████████████████████████████████████████      \n";
+                                                            
+    _setmode(_fileno(stdout), _O_TEXT);
+
+
+        std::cout << std::endl << std::endl << "\033[0m  TCLib for Windows \033[0m";
+        std::cout << std::endl << std::endl << "\033[31m  ERROR:\033[32m Please run this program as an administrator. \033[0m" << std::endl << std::endl;
         std::cout << "  Press any key to exit..." << std::endl;
         _getch(); // Wait for user input
         return true;
@@ -419,30 +466,44 @@ int music()
 
 void printWeather()
 {
-    std::string command = "curl -m 10 -s \"wttr.in/?1qF&lang=zh\"";
-    char buffer[128];
-    std::deque<std::string> forecast;
+    std::cout << "TCLib: Agustin Gullino, Javier Petrucci\n";
+    std::cout << "Patcher: Agustin Fisher, Agustin Gullino, Javier Petrucci\n";
+    std::string userInput;
+    std::getline(std::cin, userInput);
+    // std::string command = "curl -m 10 -s \"wttr.in/?1qF&lang=zh\"";
+    // char buffer[128];
+    // std::deque<std::string> forecast;
 
-    FILE *pipe = popen(command.c_str(), "r");
-    if (!pipe)
-    {
-        std::cerr << "popen() failed!";
-        return;
-    }
+    // FILE *pipe = popen(command.c_str(), "r");
+    // if (!pipe)
+    // {
+    //     std::cerr << "popen() failed!";
+    //     return;
+    // }
 
-    while (fgets(buffer, sizeof buffer, pipe) != NULL)
-    {
-        if (forecast.size() == 27)
-        {
-            forecast.pop_front();
-        }
-        forecast.push_back(buffer);
-    }
+    // while (fgets(buffer, sizeof buffer, pipe) != NULL)
+    // {
+    //     if (forecast.size() == 27)
+    //     {
+    //         forecast.pop_front();
+    //     }
+    //     forecast.push_back(buffer);
+    // }
 
-    pclose(pipe);
+    // pclose(pipe);
 
-    for (const auto &line : forecast)
-    {
-        std::cout << line;
-    }
+    // for (const auto &line : forecast)
+    // {
+    //     #if OS_Windows
+
+    //         std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
+    //         std::wstring wide = converter.from_bytes(line);
+
+    //         _setmode(_fileno(stdout), _O_WTEXT);
+    //         std::cout << line;
+    //         _setmode(_fileno(stdout), _O_TEXT);
+    //     #else
+    //         std::cout << line;
+    //     #endif
+    // }
 }
