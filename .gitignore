@@ -6,13 +6,8 @@
 # Override exclude, whitelist
 !/sym/
 !/sub/
-!/cmp/
-!/Utilidades TC Lib/
-
-!/*.cpp
-!/*.h
 !/resources/
-!/sources/
+!/source/
 
 !/CMakeLists.txt
 # Exclude files inside directory
