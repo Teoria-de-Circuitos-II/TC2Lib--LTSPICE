@@ -267,14 +267,16 @@ void print_menu(std::string last_op)
                  "     ██║   ╚██████╗              ███████╗██║██████╔╝\n"
                  "     ╚═╝    ╚═════╝              ╚══════╝╚═╝╚═════╝ \n";
 #endif
+    // Credits
+    std::cout << "Patcher by: Agustín Gullino, Agustín Fisher, Javier Petrucci\n\n";
     // Display menu
-    std::cout << "\n  [1] Apply all (recomended)\n"
+    std::cout << "\n  [1] Apply default patches\n"
               << "  [2] Apply Dark Theme\n"
               << "  [3] Apply White Theme\n"
               << "  [4] Load custom components\n"
               << "  [5] Load custom background\n"
               << "  [6] Adjust line width\n"
-              << "  [?] Umbrella?\n"
+              << "  [?] \n"
               << "  [+] Volume +\n"
               << "  [-] Volume -\n"
               << "  [0] Exit\n\n";
@@ -284,7 +286,7 @@ void print_menu(std::string last_op)
 
     std::cout
 
-        << "  Select and option: ";
+        << "  Select and option. Recomended [1]: ";
 }
 
 void color(std::string text_color)
