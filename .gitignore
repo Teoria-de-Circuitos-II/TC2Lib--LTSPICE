@@ -12,6 +12,7 @@
 !/*.cpp
 !/*.h
 !/resources/
+!/sources/
 
 !/CMakeLists.txt
 # Exclude files inside directory
