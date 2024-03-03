@@ -19,6 +19,7 @@ void setPenWidth();
 
 int music();
 void print_menu(std::string);
+void printWeather();
 void color(std::string);
 void clear_screen();
 

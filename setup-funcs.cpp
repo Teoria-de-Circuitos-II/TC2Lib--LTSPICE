@@ -355,19 +355,23 @@ void setPenWidth()
     changeIniParameter(iniFile, "PenWidth", 2);
 }
 
-void printWeather() {
-    std::string command = "curl -s \"wttr.in/Moscow?1qF&lang=ru\"";
+void printWeather()
+{
+    std::string command = "curl -m 10 -s \"wttr.in/?1qF&lang=zh\"";
     char buffer[128];
     std::deque<std::string> forecast;
 
-    FILE* pipe = popen(command.c_str(), "r");
-    if (!pipe) {
+    FILE *pipe = popen(command.c_str(), "r");
+    if (!pipe)
+    {
         std::cerr << "popen() failed!";
         return;
     }
 
-    while (fgets(buffer, sizeof buffer, pipe) != NULL) {
-        if (forecast.size() == 27) {
+    while (fgets(buffer, sizeof buffer, pipe) != NULL)
+    {
+        if (forecast.size() == 27)
+        {
             forecast.pop_front();
         }
         forecast.push_back(buffer);
@@ -375,7 +379,8 @@ void printWeather() {
 
     pclose(pipe);
 
-    for (const auto& line : forecast) {
+    for (const auto &line : forecast)
+    {
         std::cout << line;
     }
 }
