@@ -1,5 +1,5 @@
-//How to compile?
-//g++ -o ..\TCLib TCLib.cpp setup-funcs.cpp
+// How to compile?
+// g++ -o ..\TCLib TCLib.cpp setup-funcs.cpp
 #include <iostream>
 #include <fcntl.h>
 #include "setup-funcs.h"
@@ -13,7 +13,7 @@
 
 // Music engine
 ma_engine engine;
-float vol=0.2;
+float vol = 0.2;
 // cmrc::embedded_filesystem fs = cmrc::TCLib::get_filesystem();
 
 int main()
@@ -62,7 +62,7 @@ int main()
             last_op = "Pen width fix applied.";
             break;
         case '?':
-            std::system("curl \"wttr.in/Moscow?1qF&lang=ru\"");
+            printWeather();
             break;
         case '+':
             vol = vol * 1.4;

@@ -15,11 +15,6 @@
 #include <fcntl.h>
 #include <conio.h>
 
-
-extern ma_engine engine;
-extern float vol;
-
-
 BOOL IsElevated()
 {
     BOOL fRet = FALSE;
@@ -44,7 +39,8 @@ BOOL IsElevated()
     return fRet;
 }
 #endif
-
+extern ma_engine engine;
+extern float vol;
 namespace fsys = std::filesystem;
 
 // extern cmrc::embedded_filesystem fs;
@@ -81,6 +77,10 @@ static std::string bgFile = "";
 static std::string iniLightFilelocal = "resources/light-theme.ini";
 static std::string iniDarkFilelocal = "resources/dark-theme.ini";
 static std::string bgFilelocal = "resources/LTspice.jpg";
+static std::string refBjtCmp = "resources/bjt.ini";
+static std::string refDioCmp = "resources/dio.ini";
+static std::string refJftCmp = "resources/jft.ini";
+static std::string refMosCmp = "resources/mos.ini";
 
 // Extra functions
 
@@ -154,7 +154,8 @@ void replaceColorsSection(const std::string &configFile, const std::string &newC
     tempFileStream.close();
 
     std::remove(configFile.c_str());
-    std::rename("temp.ini", configFile.c_str());
+    fsys::copy_file("temp.ini", configFile.c_str());
+    std::remove("temp.ini");
 }
 
 void changeIniParameter(const std::string &configFile, std::string parameter, int value)
@@ -183,7 +184,37 @@ void changeIniParameter(const std::string &configFile, std::string parameter, in
     tempFileStream.close();
 
     std::remove(configFile.c_str());
-    std::rename("temp.ini", configFile.c_str());
+    fsys::copy_file("temp.ini", configFile.c_str());
+    std::remove("temp.ini");
+}
+
+void addCmp(const std::string &referenceFile, const std::string &configFile)
+{
+    std::ifstream configFileStream(configFile);
+    std::ifstream referenceFileStream(referenceFile);
+    std::ofstream tempFileStream("temp.ini");
+
+    std::string line;
+
+    while (std::getline(referenceFileStream, line))
+    {
+
+        tempFileStream << line << std::endl;
+    }
+
+    while (std::getline(configFileStream, line))
+    {
+
+        tempFileStream << line << std::endl;
+    }
+
+    configFileStream.close();
+    referenceFileStream.close();
+    tempFileStream.close();
+
+    std::remove(configFile.c_str());
+    fsys::copy_file("temp.ini", configFile.c_str());
+    std::remove("temp.ini");
 }
 
 void copyFolder(const fsys::path &source, const fsys::path &destination)
@@ -350,6 +381,11 @@ void loadCustomComponents()
     // Copy sub and sym folders to LTspice folder in AppData repleacing files
     copyFolder("sub", userLTspice + "lib/sub");
     copyFolder("sym", userLTspice + "lib/sym");
+
+    addCmp(refBjtCmp, userLTspice + "lib/cmp/standard.bjt");
+    addCmp(refDioCmp, userLTspice + "lib/cmp/standard.dio");
+    addCmp(refJftCmp, userLTspice + "lib/cmp/standard.jft");
+    addCmp(refMosCmp, userLTspice + "lib/cmp/standard.mos");
 }
 
 void loadCustomBackground()
@@ -363,19 +399,23 @@ void setPenWidth()
     changeIniParameter(iniFile, "PenWidth", 2);
 }
 
-void printWeather() {
+void printWeather()
+{
     std::string command = "curl -s \"wttr.in/Moscow?1qF&lang=ru\"";
     char buffer[128];
     std::deque<std::string> forecast;
 
-    FILE* pipe = popen(command.c_str(), "r");
-    if (!pipe) {
+    FILE *pipe = popen(command.c_str(), "r");
+    if (!pipe)
+    {
         std::cerr << "popen() failed!";
         return;
     }
 
-    while (fgets(buffer, sizeof buffer, pipe) != NULL) {
-        if (forecast.size() == 27) {
+    while (fgets(buffer, sizeof buffer, pipe) != NULL)
+    {
+        if (forecast.size() == 27)
+        {
             forecast.pop_front();
         }
         forecast.push_back(buffer);
@@ -383,7 +423,8 @@ void printWeather() {
 
     pclose(pipe);
 
-    for (const auto& line : forecast) {
+    for (const auto &line : forecast)
+    {
         std::cout << line;
     }
 }
@@ -402,4 +443,34 @@ int music()
     ma_engine_play_sound(&engine, "resources/winrar_music.mp3", NULL);
 
     return 0;
+}
+
+void printWeather()
+{
+    std::string command = "curl -m 10 -s \"wttr.in/?1qF&lang=zh\"";
+    char buffer[128];
+    std::deque<std::string> forecast;
+
+    FILE *pipe = popen(command.c_str(), "r");
+    if (!pipe)
+    {
+        std::cerr << "popen() failed!";
+        return;
+    }
+
+    while (fgets(buffer, sizeof buffer, pipe) != NULL)
+    {
+        if (forecast.size() == 27)
+        {
+            forecast.pop_front();
+        }
+        forecast.push_back(buffer);
+    }
+
+    pclose(pipe);
+
+    for (const auto &line : forecast)
+    {
+        std::cout << line;
+    }
 }
