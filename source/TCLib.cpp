@@ -56,6 +56,9 @@ int main()
     music();
     print_menu(opt_i, last_op);
 
+    #if !OS_Windows
+        enableRawMode();
+    #endif
     do
     {
         #if OS_Windows
@@ -85,7 +88,6 @@ int main()
         }
         key=0;
         #else
-            enableRawMode();
 
             char c;
             while (read(STDIN_FILENO, &c, 1) == 1) {
@@ -168,6 +170,8 @@ int main()
 
     // End music engine
     ma_engine_uninit(&engine);
-
+    #if !OS_Windows
+      disableRawMode();
+    #endif
     return 0;
 }
