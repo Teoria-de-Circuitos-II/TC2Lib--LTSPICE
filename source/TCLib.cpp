@@ -1,6 +1,5 @@
 // How to compile?
 // g++ -o ..\TCLib TCLib.cpp setup-funcs.cpp
-#include <iostream>
 #include <fcntl.h>
 #include "setup-funcs.h"
 // #include <cmrc/cmrc.hpp>
@@ -11,7 +10,6 @@
 
 // CMRC_DECLARE(TCLib);
 
-#include <stdio.h>
 #define MINIAUDIO_IMPLEMENTATION
 #include "miniaudio.h"
 
@@ -22,7 +20,11 @@ float vol = 0.2;
 
 int main()
 {
-    UINT8 key=0;
+    #if OS_Windows
+        UINT8 key=0;
+    #else
+        uint8_t key=0;
+    #endif
     int choice;
     bool break_only = true;
     std::string last_op = "Hit enter to apply";
