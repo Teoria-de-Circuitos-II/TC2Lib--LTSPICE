@@ -6,6 +6,24 @@
 
 #if OS_Windows
     #include <conio.h>
+#else
+    #include <termios.h>
+    #include <unistd.h>
+
+    struct termios orig_termios;
+
+    void disableRawMode() {
+        tcsetattr(STDIN_FILENO, TCSAFLUSH, &orig_termios);
+    }
+
+    void enableRawMode() {
+        tcgetattr(STDIN_FILENO, &orig_termios);
+        atexit(disableRawMode);
+
+        struct termios raw = orig_termios;
+        raw.c_lflag &= ~(ICANON | ECHO);
+        tcsetattr(STDIN_FILENO, TCSAFLUSH, &raw);
+    }
 #endif
 
 // CMRC_DECLARE(TCLib);
@@ -20,6 +38,7 @@ float vol = 0.2;
 
 int main()
 {
+    int opt_i=0;
     #if OS_Windows
         UINT8 key=0;
     #else
@@ -28,7 +47,6 @@ int main()
     int choice;
     bool break_only = true;
     std::string last_op = "Hit enter to apply";
-    int opt_i=0;
 
     if (initLib())
     {
@@ -66,6 +84,34 @@ int main()
             }
         }
         key=0;
+        #else
+            enableRawMode();
+
+            char c;
+            while (read(STDIN_FILENO, &c, 1) == 1) {
+                if (c == '\x1b') {
+                    char seq[3];
+                    if (read(STDIN_FILENO, &seq[0], 1) != 1) return -1;
+                    if (read(STDIN_FILENO, &seq[1], 1) != 1) return -1;
+
+                    if (seq[0] == '[') {
+                        switch (seq[1]) {
+                            case 'A': // Up
+                                opt_i = (--opt_i + 10) % 10;
+                                clear_screen();
+                                print_menu(opt_i, last_op);
+                                break;
+                            case 'B': // Down
+                                opt_i = (++opt_i + 10) % 10;
+                                clear_screen();
+                                print_menu(opt_i, last_op);
+                                break;
+                        }
+                }
+                } else if (c == '\n') {
+                    break;
+                }
+            }
         #endif
         choice=opt_i;
 
