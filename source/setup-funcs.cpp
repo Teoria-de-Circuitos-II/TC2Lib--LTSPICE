@@ -333,7 +333,7 @@ bool initLib()
     {
 
     _setmode(_fileno(stdout), _O_WTEXT);
-    std::wcout << L"\033[31m\n\n"
+    std::wcout << L"\n\n"
                   L"                            ████████                          \n"
                   L"                          ██        ██                        \n"
                   L"                        ██            ██                      \n"
@@ -360,8 +360,8 @@ bool initLib()
     _setmode(_fileno(stdout), _O_TEXT);
 
 
-        std::cout << std::endl << std::endl << "\033[0m  TCLib for Windows \033[0m";
-        std::cout << std::endl << std::endl << "\033[31m  ERROR:\033[32m Please run this program as an administrator. \033[0m" << std::endl << std::endl;
+        std::cout << std::endl << std::endl << "  TCLib for Windows ";
+        std::cout << std::endl << std::endl << "  ERROR: Please run this program as an administrator. " << std::endl << std::endl;
         std::cout << "  Press any key to exit..." << std::endl;
         _getch(); // Wait for user input
         return true;
@@ -578,4 +578,14 @@ L"                                ░████                               
     //         std::cout << line;
     //     #endif
     // }
+}
+
+int hasResources() {
+    std::filesystem::path folderPath = "resources";
+
+    if (std::filesystem::exists(folderPath) && std::filesystem::is_directory(folderPath)) {
+        return 1;
+    } else {
+        return 0;
+    }
 }

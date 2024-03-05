@@ -4,6 +4,7 @@
 #include "setup-funcs.h"
 // #include <cmrc/cmrc.hpp>
 
+
 #if OS_Windows
     #include <conio.h>
 #else
@@ -38,6 +39,11 @@ float vol = 0.2;
 
 int main()
 {
+    if (!hasResources()) {
+        std::cout << "Error: Missing resources. Please make sure the resources folder is in the same directory as the executable." << std::endl;
+        return -1;
+    }
+
     int opt_i=0;
     #if OS_Windows
         UINT8 key=0;
@@ -170,8 +176,5 @@ int main()
 
     // End music engine
     ma_engine_uninit(&engine);
-    #if !OS_Windows
-      disableRawMode();
-    #endif
     return 0;
 }

@@ -32,5 +32,6 @@ void print_menu(int, std::string);
 void printWeather();
 void color(std::string);
 void clear_screen();
+int hasResources();
 
 #endif // SETUP_FUNCS_H
