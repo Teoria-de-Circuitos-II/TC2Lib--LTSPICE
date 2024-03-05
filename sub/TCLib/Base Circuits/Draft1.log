@@ -1,5 +1,0 @@
-Circuit: * C:\Users\javie\Documents\LTspiceXVII\lib\sub\TCLib\Base Circuits\Draft1.asc
-
-Error on line 10 : f1 vcint vx i=i(v_ib)
-	 Unknown parameter "i"
-Fatal Error: F1: Missing gain value
