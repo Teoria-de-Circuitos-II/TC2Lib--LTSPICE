@@ -41,6 +41,8 @@ int main()
 {
     if (!hasResources()) {
         std::cout << "Error: Missing resources. Please make sure the resources folder is in the same directory as the executable." << std::endl;
+        std::string userInput;
+        std::getline(std::cin, userInput);
         return -1;
     }
 
