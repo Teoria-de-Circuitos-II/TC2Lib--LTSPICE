@@ -1,5 +1,5 @@
 // How to compile?
-// g++ -o ..\TCLib TCLib.cpp setup-funcs.cpp
+// g++ -static TCLib.cpp setup-funcs.cpp -o ..\TCLib.exe
 #include <fcntl.h>
 #include "setup-funcs.h"
 // #include <cmrc/cmrc.hpp>
