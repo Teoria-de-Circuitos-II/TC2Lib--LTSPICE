@@ -1,10 +1,7 @@
 # Bibliotecas LTSpice
+
 ## Instalación de la biblioteca
-Las bibliotecas y componentes se ubican en:
 
-```C:\Users\ "User Name" \AppData\Local\LTspice\lib```
+Ejecutar el patcher `TCLib_x86_64.exe` como administrador y usar el menu para aplicar los parches deseados.
 
-## Instalación de la configuración y templates
-El archivo "LTspice.ini" va en:
-
-```C:\Users\ "User Name" \AppData\Roaming```
+P.D. Bájense todo el repo. No solamente el ejecutable.

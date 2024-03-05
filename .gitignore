@@ -6,9 +6,14 @@
 # Override exclude, whitelist
 !/sym/
 !/sub/
-!/cmp/
-!/Utilidades TC Lib/
-!/V2_CPP/*
+
+!/resources/
+!/source/
+
+!/CMakeLists.txt
+!/TCLib.exe
+!/TCLib
+
 # Exclude files inside directory
 /sym/*
 /sub/*
@@ -19,11 +24,8 @@
 !/sub/TCLib/
 
 !/sym/res.asy
-!/sym/res_rec.asy
 !/sym/res_spring.asy
 !/sym/cap.asy
 !/sym/ind.asy
-!/sym/ind2.asy
-!/sym/voltage.asy
 !/sym/voltage2.asy
 # overrides the ugly spring shaped resistor
