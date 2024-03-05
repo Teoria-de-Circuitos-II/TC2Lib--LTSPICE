@@ -1,6 +1,6 @@
 #include "setup-funcs.h"
 #include <filesystem>
-
+#include <unistd.h>
 #include "miniaudio.h"
 
 // #include "cmrc/cmrc.hpp"
@@ -538,10 +538,17 @@ L"                                ░████                               
                  "     ╚═╝    ╚═════╝              ╚══════╝╚═╝╚═════╝ \n";
     // Credits
     std::cout << "          Agustín Gullino, Javier Petrucci\n\n \033[0m";
+    std::cout << "  TC-Lib: Agustín Gullino, Javier Petrucci\n";
+    std::cout << "  Patcher: Agustín Fisher, Agustín Gullino, Javier Petrucci\n";
     #endif
 
     std::string userInput;
-    std::getline(std::cin, userInput);
+    #if OS_Windows
+        std::getline(std::cin, userInput);
+    #else
+        char c;
+        read(STDIN_FILENO, &c, 1);
+    #endif
     // std::string command = "curl -m 10 -s \"wttr.in/?1qF&lang=zh\"";
     // char buffer[128];
     // std::deque<std::string> forecast;
