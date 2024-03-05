@@ -6,6 +6,7 @@
 # Override exclude, whitelist
 !/sym/
 !/sub/
+
 !/resources/
 !/source/
 
