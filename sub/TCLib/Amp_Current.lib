@@ -1,0 +1,9 @@
+*Component Created by Javier Petrucci and Agustin Gullino
+* jpetrucc@itba.edu.ar / agullino@itba.edu.ar
+*
+.SUBCKT amp_c 1 2 3 4
+V1 3 4 0
+B2 2 1 I={G}*I(V1)
+.ENDS
+
+
