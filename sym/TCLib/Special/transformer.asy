@@ -1,9 +1,6 @@
 Version 4
 SymbolType CELL
-LINE Normal 5 26 5 20
-LINE Normal 7 26 3 26
-LINE Normal 5 32 7 26
-LINE Normal 3 26 5 32
+CIRCLE Normal 8 27 1 20
 ARC Normal 0 16 32 41 14 39 16 17
 ARC Normal 0 33 32 60 14 58 14 35
 ARC Normal 26 41 7 33 14 30 14 44
