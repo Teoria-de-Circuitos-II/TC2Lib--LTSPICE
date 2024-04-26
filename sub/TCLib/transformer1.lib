@@ -1,7 +1,9 @@
 *Component Created by Javier Petrucci and Agustin Gullino
 * jpetrucc@itba.edu.ar / agullino@itba.edu.ar
 
-.subckt Transformer V1+ V1- V2+ V2- PARAMS: L1=1u, L2=1u, Lp1={L1*0.05}, Lp2={L2*0.05}, Rp1=0.5, Rp2=0.5, Rc=1e12
+* Transformer with cores wounded the same way
+
+.subckt Transformer1 V1+ V1- V2+ V2- PARAMS: L1=1u, L2=1u, Lp1={L1*0.05}, Lp2={L2*0.05}, Rp1=0.5, Rp2=0.5, Rc=1e12
 
 Rp1 V1+ N002 {Rp1}
 Lp1 N002 N003 {Lp1}
@@ -13,4 +15,4 @@ Rp2 V2+ N005 {Rp2}
 Lcoreloss N010 N009 {L1}
 Rc N009 N010 {Rc}
 K1 L1 L2 Lcoreloss 1
-.ends Transformer
+.ends Transformer1
