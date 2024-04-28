@@ -1,0 +1,11 @@
+* Component Created by Candela Gioia
+*
+*Gain_Block
+* Connections: 
+*                        Input
+*                        |   Output
+*                        |   |   
+.SUBCKT Gain_Block	 1   2  
+E1 2 0 1 0 {K}
+.ends Gain_Block
+*
