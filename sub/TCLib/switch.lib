@@ -1,0 +1,13 @@
+*Component Created by Javier Petrucci and Agustin Gullino
+* jpetrucc@itba.edu.ar / agullino@itba.edu.ar
+*
+
+.SUBCKT switch N1 N2 Vc+ Vc- PARAMS: Rs=1u
+
+sw1 N1 N2 Vc+ Vc- SW
+
+.model SW SW(Ron={Rs} Vt=1m Vh=0)
+
+.ENDS
+
+

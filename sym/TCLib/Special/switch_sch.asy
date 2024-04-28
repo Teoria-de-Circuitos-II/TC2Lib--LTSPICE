@@ -5,7 +5,7 @@ LINE Normal 80 16 65 16
 LINE Normal 59 -1 32 16
 SYMATTR Value Xtal
 SYMATTR Prefix X
-SYMATTR Description Switch. Symbol only.
+SYMATTR Description Swich. Symbol only.
 PIN 16 16 NONE 0
 PINATTR PinName A
 PINATTR SpiceOrder 1
