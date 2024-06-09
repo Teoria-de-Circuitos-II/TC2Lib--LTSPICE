@@ -1,0 +1,47 @@
+Version 4
+SymbolType CELL
+LINE Normal -192 16 -192 80
+LINE Normal -96 16 -192 16
+LINE Normal -96 80 -96 16
+LINE Normal -192 80 -96 80
+LINE Normal -160 32 -192 32
+LINE Normal -160 64 -192 64
+LINE Normal -156 34 -155 37
+LINE Normal -158 36 -155 37
+LINE Normal -156 34 -158 36
+LINE Normal -157 35 -160 32
+LINE Normal -156 62 -155 59
+LINE Normal -158 60 -155 59
+LINE Normal -156 62 -158 60
+LINE Normal -157 61 -160 64
+LINE Normal -133 59 -128 64
+LINE Normal -128 69 -128 64
+LINE Normal -101 46 -96 48
+LINE Normal -101 50 -101 46
+LINE Normal -96 48 -101 50
+LINE Normal -101 48 -128 48
+CIRCLE Normal -128 64 -160 32
+CIRCLE Normal -126 73 -130 69
+TEXT -153 47 Left 2 G
+TEXT -172 27 Left 0 +
+TEXT -170 59 Left 0 -
+TEXT -123 71 Left 0 Voff
+TEXT -189 86 Left 0 Voff=(Vcc-GND)/2
+WINDOW 0 -116 21 Left 0
+WINDOW 3 -188 74 Left 0
+WINDOW 123 -167 9 Left 0
+SYMATTR Value Black_Box
+SYMATTR Value2 Gain={G}
+SYMATTR Description Diferential Gain. Output offset is (Vcc+GND)/2.
+SYMATTR Prefix X
+SYMATTR SpiceModel VCC 0
+SYMATTR ModelFile TCLib/Black_Box.lib
+PIN -192 32 NONE 0
+PINATTR PinName I1
+PINATTR SpiceOrder 1
+PIN -192 64 NONE 0
+PINATTR PinName I2
+PINATTR SpiceOrder 2
+PIN -96 48 NONE 0
+PINATTR PinName Out
+PINATTR SpiceOrder 3

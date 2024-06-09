@@ -1,12 +1,13 @@
-*Copiado de hc_tnomi_nxp.lib
+*Creado por Javier Petrucci
+*Basado en hc_tnomi_nxp.lib
 *LTSpice-master -> addon
 *Símbolo original: 74hcu04.asy
 
 
 GND -------------------------|
 VCC ----------------------|  |
-                       |  |  |
-OUT -----------------  |  |  |
+                          |  |
+OUT -------------------|  |  |
 IN  ----------------|  |  |  |
                     |  |  |  |
 .SUBCKT 74HCU04     2  3  1  0             

@@ -1,0 +1,15 @@
+*Gain block - Created by Javier Petrucci
+*The ofset is the average between node called Vcc and node 0.
+
+GND ---------------------------|
+VCC -------------------------| |
+OUT ----------------------|  | |
+                          |  | |
+I- --------------------|  |  | |
+I+  ----------------|  |  |  | |
+                    |  |  |  | |
+.SUBCKT Black_Box   1  2  3  4 5
+
+B1 3 5 V=( V(1)-V(2) ) * {Gain} + ( V(4) - V(5) ) / 2
+
+.ends
