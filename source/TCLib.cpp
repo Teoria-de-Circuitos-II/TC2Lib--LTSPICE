@@ -1,3 +1,7 @@
+//Requirement
+//Install MSYS2 https://github.com/msys2/msys2-installer/releases/download/2024-01-13/msys2-x86_64-20240113.exe
+//pacman -S --needed base-devel mingw-w64-ucrt-x86_64-toolchain
+//-
 // How to compile?
 // g++ -static TCLib.cpp setup-funcs.cpp -o ..\TCLib.exe
 #include <fcntl.h>
@@ -123,8 +127,8 @@ int main()
                 }
             }
         #endif
-        choice=opt_i;
 
+        choice=opt_i;
 
         // Call the corresponding function based on user input
         switch (choice)

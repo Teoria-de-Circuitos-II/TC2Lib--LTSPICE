@@ -425,7 +425,6 @@ void setLightTheme()
 
 void loadCustomComponents()
 {
-    // estas carpetas no se si estan en el lugar correcto
 
     // Copy sub and sym folders to LTspice folder in AppData repleacing files
     copyFolder("sub", userLTspice + "lib/sub");
