@@ -68,6 +68,7 @@ struct memstream : virtual membuf, std::istream
 static std::string userProfile = "";
 static std::string userRoaming = "";
 static std::string userLTspice = "";
+static std::string examples = "resources/Examples/";
 static std::string iniFile = "";
 static std::string bgFile = "";
 static std::string iniLightFilelocal = "resources/light-theme.ini";
@@ -191,17 +192,39 @@ void addCmp(const std::string &referenceFile, const std::string &configFile)
     std::ofstream tempFileStream("temp.ini");
 
     std::string line;
-
-    while (std::getline(referenceFileStream, line))
-    {
-
-        tempFileStream << line << std::endl;
-    }
-
+    bool found_flag = false;
+    bool pasted_flag = false;
     while (std::getline(configFileStream, line))
     {
+        if (line.find("[Custon Components]") != std::string::npos)
+        {
+            found_flag = !found_flag;
+        }
+        else if (found_flag && !pasted_flag)
+        {
+            while (std::getline(referenceFileStream, line))
+                tempFileStream << line << std::endl;
 
-        tempFileStream << line << std::endl;
+            pasted_flag = true;
+        }
+        else if (found_flag && pasted_flag)
+        {
+            continue;
+        }
+        else if (pasted_flag)
+        {
+            tempFileStream << line << std::endl;
+        }
+    }
+
+    if (!pasted_flag)
+    {
+        configFileStream.clear();
+        configFileStream.seekg(0, std::ios::beg);
+        while (std::getline(referenceFileStream, line))
+            tempFileStream << line << std::endl;
+        while (std::getline(configFileStream, line))
+            tempFileStream << line << std::endl;
     }
 
     configFileStream.close();
@@ -248,15 +271,14 @@ void print_menu(int opt_i, std::string last_op)
         "Apply default patches",
         "Apply Dark Theme",
         "Apply White Theme",
-        "Load custom components",
+        "Load custom components and examples",
         "Load custom background",
         "Adjust line width",
         "Credits",
         "Volume +",
         "Volume -",
-        "Exit"
-    };
-    int menu_length=10;
+        "Exit"};
+    int menu_length = 10;
 
 #if OS_Windows
     _setmode(_fileno(stdout), _O_WTEXT);
@@ -286,24 +308,28 @@ void print_menu(int opt_i, std::string last_op)
     std::cout << "\n\n";
     std::cout << "    Use arrows to navigate.";
     std::cout << "\n\n";
-    for(int i = 0 ; i < menu_length ; i++){
-        
-        if(i==opt_i){
-            std::cout << "\033[31m -> "; //Set color and print arrow next to the selected option
-        }else{
+    for (int i = 0; i < menu_length; i++)
+    {
+
+        if (i == opt_i)
+        {
+            std::cout << "\033[31m -> "; // Set color and print arrow next to the selected option
+        }
+        else
+        {
             std::cout << "    ";
         }
-        
+
         std::cout << menuItems[i];
         std::cout << "\n";
-        
-        if(i==opt_i){
-            std::cout << "\033[0m"; //Reset color to default
+
+        if (i == opt_i)
+        {
+            std::cout << "\033[0m"; // Reset color to default
         }
     }
 
     std::cout << "\n\n    \033[32m->" + last_op + "<-\033[0m \n\n";
-
 }
 
 void color(std::string text_color)
@@ -332,36 +358,40 @@ bool initLib()
     if (!IsElevated())
     {
 
-    _setmode(_fileno(stdout), _O_WTEXT);
-    std::wcout << L"\n\n"
-                  L"                            ████████                          \n"
-                  L"                          ██        ██                        \n"
-                  L"                        ██            ██                      \n"
-                  L"                        ██            ██                      \n"
-                  L"                      ██    ████████    ██                    \n"
-                  L"                    ██    ████████████    ██                  \n"
-                  L"                    ██    ████████████    ██                  \n"
-                  L"                  ██      ████████████      ██                \n"
-                  L"                ██          ████████          ██              \n"
-                  L"                ██          ████████          ██              \n"
-                  L"              ██            ████████            ██            \n"
-                  L"            ██                ████                ██          \n"
-                  L"            ██                ████                ██          \n"
-                  L"          ██                                        ██        \n"
-                  L"        ██                    ████                    ██      \n"
-                  L"        ██                  ████████                  ██      \n"
-                  L"      ██                  ████████████                  ██    \n"
-                  L"    ██                    ████████████                    ██  \n"
-                  L"    ██                      ████████                      ██  \n"
-                  L"    ██                        ████                        ██  \n"
-                  L"      ██                                                ██    \n"
-                  L"        ████████████████████████████████████████████████      \n";
-                                                            
-    _setmode(_fileno(stdout), _O_TEXT);
+        _setmode(_fileno(stdout), _O_WTEXT);
+        std::wcout << L"\n\n"
+                      L"                            ████████                          \n"
+                      L"                          ██        ██                        \n"
+                      L"                        ██            ██                      \n"
+                      L"                        ██            ██                      \n"
+                      L"                      ██    ████████    ██                    \n"
+                      L"                    ██    ████████████    ██                  \n"
+                      L"                    ██    ████████████    ██                  \n"
+                      L"                  ██      ████████████      ██                \n"
+                      L"                ██          ████████          ██              \n"
+                      L"                ██          ████████          ██              \n"
+                      L"              ██            ████████            ██            \n"
+                      L"            ██                ████                ██          \n"
+                      L"            ██                ████                ██          \n"
+                      L"          ██                                        ██        \n"
+                      L"        ██                    ████                    ██      \n"
+                      L"        ██                  ████████                  ██      \n"
+                      L"      ██                  ████████████                  ██    \n"
+                      L"    ██                    ████████████                    ██  \n"
+                      L"    ██                      ████████                      ██  \n"
+                      L"    ██                        ████                        ██  \n"
+                      L"      ██                                                ██    \n"
+                      L"        ████████████████████████████████████████████████      \n";
 
+        _setmode(_fileno(stdout), _O_TEXT);
 
-        std::cout << std::endl << std::endl << "  TCLib for Windows ";
-        std::cout << std::endl << std::endl << "  ERROR: Please run this program as an administrator. " << std::endl << std::endl;
+        std::cout << std::endl
+                  << std::endl
+                  << "  TCLib for Windows ";
+        std::cout << std::endl
+                  << std::endl
+                  << "  ERROR: Please run this program as an administrator. " << std::endl
+                  << std::endl;
         std::cout << "  Press any key to exit..." << std::endl;
         _getch(); // Wait for user input
         return true;
@@ -429,6 +459,7 @@ void loadCustomComponents()
     // Copy sub and sym folders to LTspice folder in AppData repleacing files
     copyFolder("sub", userLTspice + "lib/sub");
     copyFolder("sym", userLTspice + "lib/sym");
+    copyFolder(examples, userLTspice + "examples");
 
     addCmp(refBjtCmp, userLTspice + "lib/cmp/standard.bjt");
     addCmp(refDioCmp, userLTspice + "lib/cmp/standard.dio");
@@ -468,55 +499,55 @@ void printWeather()
 
     clear_screen();
 
-    #if OS_Windows
+#if OS_Windows
     _setmode(_fileno(stdout), _O_WTEXT);
 
-      std::wcout << L"\033[34m";
+    std::wcout << L"\033[34m";
 
     std::wcout << L"\n\n"
-L"                                 ████                                 \n"
-L"                             ▒████▒▓████                              \n"
-L"                          ▒████▓      █████░                          \n"
-L"                      ░▓████▒            ▓████▓                       \n"
-L"                  ░██████░                  ▒██████                   \n"
-L"          ▒▓█████████▒                          ▓█████████▓▒          \n"
-L"  ████████████▓▒░                                    ░▒▓████████████  \n"
-L"   ██▒                                                         ███   \n"
-L"   ▓██░   █▓          █████████████    █████████   ████████    ▒██    \n"
-L"    ██▓   ████▓            ███      ▓███      ░█  ██▒   ███    ███    \n"
-L"    ▓██   ████████        ░██▒     ▓██▒                ▓██    ░██░    \n"
-L"    ░██░  ███████████     ███      ███               ▓██▒     ▒██     \n"
-L"     ██▒  ████████▒       ███      ███             ▒██░       ▓██     \n"
-L"     ██▒  █████          ▒██▒      ███▓    ███▓  ░██▓   ▓▓    ▓██     \n"
-L"     ██▓  █▓             ███░       ▓████████░  █████████     ▓██     \n"
-L"     ██▓                                                      ███     \n"
-L"     ██▓░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░███     \n"
-L"     █████████▓▒▒█████▓▓▓▓▓▓███████                           ▓██     \n"
-L"     ███████▒      ███      ███████             ▓██░█         ▓██     \n"
-L"     ████████████▒ ▒██ ▓███████████          ▓█████ ███       ▓██     \n"
-L"    ▒███████████░  ██▒      ███████         ░██▓    ░░░░      ▒██     \n"
-L"    ▓████████▓   ██████████  ██████       ███▓ ██▒ ████▓      ░██░    \n"
-L"    ▓███████▒  ████████████  ██████        ████▓  ▓████        ██▒    \n"
-L"    ████████   ░░░░▒██  ░   ███████         ▒██░ █▓  █         ██▓    \n"
-L"    ████████████████████▓██████████             ███░           ███    \n"
-L"    ███▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░░░░░░░░░░░░░░░░░░░░░░░░░░░███    \n"
-L"    ██▓                ▓███▒░█     ███████████████████████████████    \n"
-L"    ▓██              ░█░   ░█▒     ███▓   ██████   ░█████████████░    \n"
-L"     ███             ██  ░▓██      ███▓▒  █████    ░████████████▓     \n"
-L"      ███            ▓████▓        ████▓  ███▓  █░ ░███████████▓      \n"
-L"       ▓███            ░████▓      ████▓  ██░ ░██░ ░██████████░       \n"
-L"         ███▓       █ ██▓  ██      ████▓  █▒         ████████         \n"
-L"          ░███▓    ░█▒    ▒█       ████▓  ███████░ ░███████           \n"
-L"            ░███▓  ▒▓░████▒        █████  ███████░ ▒█████             \n"
-L"               ████                ████████████████████               \n"
-L"                 ████              ██████████████████                 \n"
-L"                   ▓███▒           ███████████████▒                   \n"
-L"                     ▒███▓         █████████████░                     \n"
-L"                        ████       ███████████                        \n"
-L"                          ████░    ████████▓                          \n"
-L"                            ▓███▒  ██████▒                            \n"
-L"                              ▒████████░                              \n"
-L"                                ░████                                 \n";
+                  L"                                 ████                                 \n"
+                  L"                             ▒████▒▓████                              \n"
+                  L"                          ▒████▓      █████░                          \n"
+                  L"                      ░▓████▒            ▓████▓                       \n"
+                  L"                  ░██████░                  ▒██████                   \n"
+                  L"          ▒▓█████████▒                          ▓█████████▓▒          \n"
+                  L"  ████████████▓▒░                                    ░▒▓████████████  \n"
+                  L"   ██▒                                                         ███   \n"
+                  L"   ▓██░   █▓          █████████████    █████████   ████████    ▒██    \n"
+                  L"    ██▓   ████▓            ███      ▓███      ░█  ██▒   ███    ███    \n"
+                  L"    ▓██   ████████        ░██▒     ▓██▒                ▓██    ░██░    \n"
+                  L"    ░██░  ███████████     ███      ███               ▓██▒     ▒██     \n"
+                  L"     ██▒  ████████▒       ███      ███             ▒██░       ▓██     \n"
+                  L"     ██▒  █████          ▒██▒      ███▓    ███▓  ░██▓   ▓▓    ▓██     \n"
+                  L"     ██▓  █▓             ███░       ▓████████░  █████████     ▓██     \n"
+                  L"     ██▓                                                      ███     \n"
+                  L"     ██▓░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░███     \n"
+                  L"     █████████▓▒▒█████▓▓▓▓▓▓███████                           ▓██     \n"
+                  L"     ███████▒      ███      ███████             ▓██░█         ▓██     \n"
+                  L"     ████████████▒ ▒██ ▓███████████          ▓█████ ███       ▓██     \n"
+                  L"    ▒███████████░  ██▒      ███████         ░██▓    ░░░░      ▒██     \n"
+                  L"    ▓████████▓   ██████████  ██████       ███▓ ██▒ ████▓      ░██░    \n"
+                  L"    ▓███████▒  ████████████  ██████        ████▓  ▓████        ██▒    \n"
+                  L"    ████████   ░░░░▒██  ░   ███████         ▒██░ █▓  █         ██▓    \n"
+                  L"    ████████████████████▓██████████             ███░           ███    \n"
+                  L"    ███▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░░░░░░░░░░░░░░░░░░░░░░░░░░░███    \n"
+                  L"    ██▓                ▓███▒░█     ███████████████████████████████    \n"
+                  L"    ▓██              ░█░   ░█▒     ███▓   ██████   ░█████████████░    \n"
+                  L"     ███             ██  ░▓██      ███▓▒  █████    ░████████████▓     \n"
+                  L"      ███            ▓████▓        ████▓  ███▓  █░ ░███████████▓      \n"
+                  L"       ▓███            ░████▓      ████▓  ██░ ░██░ ░██████████░       \n"
+                  L"         ███▓       █ ██▓  ██      ████▓  █▒         ████████         \n"
+                  L"          ░███▓    ░█▒    ▒█       ████▓  ███████░ ░███████           \n"
+                  L"            ░███▓  ▒▓░████▒        █████  ███████░ ▒█████             \n"
+                  L"               ████                ████████████████████               \n"
+                  L"                 ████              ██████████████████                 \n"
+                  L"                   ▓███▒           ███████████████▒                   \n"
+                  L"                     ▒███▓         █████████████░                     \n"
+                  L"                        ████       ███████████                        \n"
+                  L"                          ████░    ████████▓                          \n"
+                  L"                            ▓███▒  ██████▒                            \n"
+                  L"                              ▒████████░                              \n"
+                  L"                                ░████                                 \n";
 
     std::wcout << L"\033[33m ";
     std::wcout << L"Credits:\n\n";
@@ -525,9 +556,8 @@ L"                                ░████                               
     std::wcout << L"\033[32m ";
     std::wcout << L"Patcher: Agustín Fisher, Agustín Gullino, Javier Petrucci";
 
-
     _setmode(_fileno(stdout), _O_TEXT);
-    #else
+#else
     std::cout << "\n\n"
                  "  ████████╗ ██████╗              ██╗     ██╗██████╗ \n"
                  "  ╚══██╔══╝██╔════╝              ██║     ██║██╔══██╗\n"
@@ -539,15 +569,15 @@ L"                                ░████                               
     std::cout << "          Agustín Gullino, Javier Petrucci\n\n \033[0m";
     std::cout << "  TC-Lib: Agustín Gullino, Javier Petrucci\n";
     std::cout << "  Patcher: Agustín Fisher, Agustín Gullino, Javier Petrucci\n";
-    #endif
+#endif
 
     std::string userInput;
-    #if OS_Windows
-        std::getline(std::cin, userInput);
-    #else
-        char c;
-        read(STDIN_FILENO, &c, 1);
-    #endif
+#if OS_Windows
+    std::getline(std::cin, userInput);
+#else
+    char c;
+    read(STDIN_FILENO, &c, 1);
+#endif
     // std::string command = "curl -m 10 -s \"wttr.in/?1qF&lang=zh\"";
     // char buffer[128];
     // std::deque<std::string> forecast;
@@ -586,12 +616,16 @@ L"                                ░████                               
     // }
 }
 
-int hasResources() {
+int hasResources()
+{
     std::filesystem::path folderPath = "resources";
 
-    if (std::filesystem::exists(folderPath) && std::filesystem::is_directory(folderPath)) {
+    if (std::filesystem::exists(folderPath) && std::filesystem::is_directory(folderPath))
+    {
         return 1;
-    } else {
+    }
+    else
+    {
         return 0;
     }
 }

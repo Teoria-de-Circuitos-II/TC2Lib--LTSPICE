@@ -1,34 +1,35 @@
-//Requirement
-//Install MSYS2 https://github.com/msys2/msys2-installer/releases/download/2024-01-13/msys2-x86_64-20240113.exe
-//pacman -S --needed base-devel mingw-w64-ucrt-x86_64-toolchain
+// Requirement
+// Install MSYS2 https://github.com/msys2/msys2-installer/releases/download/2024-01-13/msys2-x86_64-20240113.exe
+// pacman -S --needed base-devel mingw-w64-ucrt-x86_64-toolchain
 //-
-// How to compile?
-// g++ -static TCLib.cpp setup-funcs.cpp -o ..\TCLib.exe
+//  How to compile?
+//  g++ -static TCLib.cpp setup-funcs.cpp -o ..\TCLib.exe
 #include <fcntl.h>
 #include "setup-funcs.h"
 // #include <cmrc/cmrc.hpp>
 
-
 #if OS_Windows
-    #include <conio.h>
+#include <conio.h>
 #else
-    #include <termios.h>
-    #include <unistd.h>
+#include <termios.h>
+#include <unistd.h>
 
-    struct termios orig_termios;
+struct termios orig_termios;
 
-    void disableRawMode() {
-        tcsetattr(STDIN_FILENO, TCSAFLUSH, &orig_termios);
-    }
+void disableRawMode()
+{
+    tcsetattr(STDIN_FILENO, TCSAFLUSH, &orig_termios);
+}
 
-    void enableRawMode() {
-        tcgetattr(STDIN_FILENO, &orig_termios);
-        atexit(disableRawMode);
+void enableRawMode()
+{
+    tcgetattr(STDIN_FILENO, &orig_termios);
+    atexit(disableRawMode);
 
-        struct termios raw = orig_termios;
-        raw.c_lflag &= ~(ICANON | ECHO);
-        tcsetattr(STDIN_FILENO, TCSAFLUSH, &raw);
-    }
+    struct termios raw = orig_termios;
+    raw.c_lflag &= ~(ICANON | ECHO);
+    tcsetattr(STDIN_FILENO, TCSAFLUSH, &raw);
+}
 #endif
 
 // CMRC_DECLARE(TCLib);
@@ -43,19 +44,20 @@ float vol = 0.2;
 
 int main()
 {
-    if (!hasResources()) {
+    if (!hasResources())
+    {
         std::cout << "Error: Missing resources. Please make sure the resources folder is in the same directory as the executable." << std::endl;
         std::string userInput;
         std::getline(std::cin, userInput);
         return -1;
     }
 
-    int opt_i=0;
-    #if OS_Windows
-        UINT8 key=0;
-    #else
-        uint8_t key=0;
-    #endif
+    int opt_i = 0;
+#if OS_Windows
+    UINT8 key = 0;
+#else
+    uint8_t key = 0;
+#endif
     int choice;
     bool break_only = true;
     std::string last_op = "Hit enter to apply";
@@ -68,23 +70,25 @@ int main()
     music();
     print_menu(opt_i, last_op);
 
-    #if !OS_Windows
-        enableRawMode();
-    #endif
+#if !OS_Windows
+    enableRawMode();
+#endif
     do
     {
-        #if OS_Windows
-        
-        while ((key != '\n')&&(key != '\r'))
+#if OS_Windows
+
+        while ((key != '\n') && (key != '\r'))
         {
- 
-            key=_getch();
 
-            if (key == 0 || key == 224) {
-            // Arrow key detected
-            char arrow = _getch(); // Read the second character
+            key = _getch();
 
-            switch (arrow) {
+            if (key == 0 || key == 224)
+            {
+                // Arrow key detected
+                char arrow = _getch(); // Read the second character
+
+                switch (arrow)
+                {
                 case 80: // Down arrow
                     opt_i = (++opt_i + 10) % 10;
                     clear_screen();
@@ -95,40 +99,48 @@ int main()
                     clear_screen();
                     print_menu(opt_i, last_op);
                     break;
-            }
+                }
             }
         }
-        key=0;
-        #else
+        key = 0;
+#else
 
-            char c;
-            while (read(STDIN_FILENO, &c, 1) == 1) {
-                if (c == '\x1b') {
-                    char seq[3];
-                    if (read(STDIN_FILENO, &seq[0], 1) != 1) return -1;
-                    if (read(STDIN_FILENO, &seq[1], 1) != 1) return -1;
+        char c;
+        while (read(STDIN_FILENO, &c, 1) == 1)
+        {
+            if (c == '\x1b')
+            {
+                char seq[3];
+                if (read(STDIN_FILENO, &seq[0], 1) != 1)
+                    return -1;
+                if (read(STDIN_FILENO, &seq[1], 1) != 1)
+                    return -1;
 
-                    if (seq[0] == '[') {
-                        switch (seq[1]) {
-                            case 'A': // Up
-                                opt_i = (--opt_i + 10) % 10;
-                                clear_screen();
-                                print_menu(opt_i, last_op);
-                                break;
-                            case 'B': // Down
-                                opt_i = (++opt_i + 10) % 10;
-                                clear_screen();
-                                print_menu(opt_i, last_op);
-                                break;
-                        }
-                }
-                } else if (c == '\n') {
-                    break;
+                if (seq[0] == '[')
+                {
+                    switch (seq[1])
+                    {
+                    case 'A': // Up
+                        opt_i = (--opt_i + 10) % 10;
+                        clear_screen();
+                        print_menu(opt_i, last_op);
+                        break;
+                    case 'B': // Down
+                        opt_i = (++opt_i + 10) % 10;
+                        clear_screen();
+                        print_menu(opt_i, last_op);
+                        break;
+                    }
                 }
             }
-        #endif
+            else if (c == '\n')
+            {
+                break;
+            }
+        }
+#endif
 
-        choice=opt_i;
+        choice = opt_i;
 
         // Call the corresponding function based on user input
         switch (choice)
@@ -147,7 +159,7 @@ int main()
             break;
         case 3:
             loadCustomComponents();
-            last_op = "Custom components loaded";
+            last_op = "Custom components and examples loaded";
             break;
         case 4:
             loadCustomBackground();
