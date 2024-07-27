@@ -2,6 +2,8 @@
 #include <filesystem>
 #include <unistd.h>
 #include "miniaudio.h"
+#include <algorithm>
+#include <map>
 
 // #include "cmrc/cmrc.hpp"
 
@@ -192,6 +194,8 @@ void addCmp(const std::string &referenceFile, const std::string &configFile)
     std::ofstream tempFileStream("temp.ini");
 
     std::string line;
+    std::map<std::string, int> cmpMap;
+    bool cmp_already_exists = false;
     bool found_flag = false;
     bool pasted_flag = false;
     while (std::getline(configFileStream, line))
@@ -203,8 +207,29 @@ void addCmp(const std::string &referenceFile, const std::string &configFile)
         else if (found_flag && !pasted_flag)
         {
             while (std::getline(referenceFileStream, line))
-                tempFileStream << line << std::endl;
+            {
+                std::string line_lower;
+                // Allocate the destination space
+                line_lower.resize(line.size());
 
+                // Convert the source string to lower case
+                // storing the result in destination string
+                std::transform(line.begin(),
+                               line.end(),
+                               line_lower.begin(),
+                               tolower);
+
+                if (line_lower.find(".model") != std::string::npos)
+                {
+                    auto last = line.find_first_of(" ", line_lower.find(".model") + 7);
+                    auto first = line_lower.find(".model") + 7;
+                    std::string modelName = line.substr(first, last - first);
+                    printf(modelName.c_str());
+                    cmpMap[modelName]++;
+                }
+
+                tempFileStream << line << std::endl;
+            }
             pasted_flag = true;
         }
         else if (found_flag && pasted_flag)
@@ -213,7 +238,32 @@ void addCmp(const std::string &referenceFile, const std::string &configFile)
         }
         else if (pasted_flag)
         {
-            tempFileStream << line << std::endl;
+            std::string line_lower;
+            // Allocate the destination space
+            line_lower.resize(line.size());
+
+            // Convert the source string to lower case
+            // storing the result in destination string
+            std::transform(line.begin(),
+                           line.end(),
+                           line_lower.begin(),
+                           tolower);
+            if (line_lower.find(".model") != std::string::npos)
+            {
+                cmp_already_exists = false;
+                auto last = line.find_first_of(" ", line_lower.find(".model") + 7);
+                auto first = line_lower.find(".model") + 7;
+                std::string modelName = line.substr(first, last - first);
+                if (cmpMap.find(modelName) != cmpMap.end())
+                {
+                    cmp_already_exists = true;
+                }
+            }
+
+            if (!cmp_already_exists)
+            {
+                tempFileStream << line << std::endl;
+            }
         }
     }
 
@@ -222,9 +272,46 @@ void addCmp(const std::string &referenceFile, const std::string &configFile)
         configFileStream.clear();
         configFileStream.seekg(0, std::ios::beg);
         while (std::getline(referenceFileStream, line))
+        {
+            if (line.find(".model") != std::string::npos)
+            {
+                auto last = line.find_first_of(" ", line.find(".model") + 7);
+                auto first = line.find(".model") + 7;
+                std::string modelName = line.substr(first, last - first);
+                printf(modelName.c_str());
+                cmpMap[modelName]++;
+            }
             tempFileStream << line << std::endl;
+        }
         while (std::getline(configFileStream, line))
-            tempFileStream << line << std::endl;
+        {
+            std::string line_lower;
+            // Allocate the destination space
+            line_lower.resize(line.size());
+
+            // Convert the source string to lower case
+            // storing the result in destination string
+            std::transform(line.begin(),
+                           line.end(),
+                           line_lower.begin(),
+                           tolower);
+            if (line_lower.find(".model") != std::string::npos)
+            {
+                cmp_already_exists = false;
+                auto last = line.find_first_of(" ", line_lower.find(".model") + 7);
+                auto first = line_lower.find(".model") + 7;
+                std::string modelName = line.substr(first, last - first);
+                if (cmpMap.find(modelName) != cmpMap.end())
+                {
+                    cmp_already_exists = true;
+                }
+            }
+
+            if (!cmp_already_exists)
+            {
+                tempFileStream << line << std::endl;
+            }
+        }
     }
 
     configFileStream.close();
