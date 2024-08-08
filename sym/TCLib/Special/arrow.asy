@@ -4,5 +4,5 @@ LINE Normal 50 0 0 0
 LINE Normal 40 -4 50 0
 LINE Normal 40 4 50 0
 WINDOW 3 21 -17 Center 2
-SYMATTR Value Vr
+SYMATTR Value Ir
 SYMATTR Description A properly shaped arrow, created by Javier Petrucci and Agustin Gullino (ITBA)
