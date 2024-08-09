@@ -502,7 +502,7 @@ bool initLib()
         return true;
     }
 
-    userProfilewindows = std::getenv("USERPROFILE");
+    std::string userProfilewindows = std::getenv("USERPROFILE");
     std::wstring userProfileunicode = ansi2unicode(userProfilewindows);
     std::string userProfile = utf8_encode(userProfileunicode);
     userRoaming = userProfile + "\\AppData\\Roaming\\";
