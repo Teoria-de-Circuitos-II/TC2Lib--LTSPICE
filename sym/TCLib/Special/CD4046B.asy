@@ -69,7 +69,7 @@ TEXT 128 247 Right 0 VCOin (9)
 TEXT -47 536 Left 0 INH* (5)
 TEXT -74 42 Left 1 CD4046b
 TEXT -7 368 Left 1 VCO
-TEXT 47 42 Right 1 VDD
+TEXT 47 42 Right 1 +5V
 TEXT 54 399 Left 0 SrcF
 TEXT -2 140 Left 1 -
 TEXT -5 104 Left 1 +
