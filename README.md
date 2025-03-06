@@ -1,7 +1,7 @@
-# Ejecutar el patcher `TCLib.exe` como administrador y usar el menu para aplicar los parches deseados.
+# TCLib -- LTSpice
 
-## Bájense todo el repo. No solamente el ejecutable.
-## Unzipear todo el contenido
-## Cierren LTSPICE antes de ejecutar el programa.
+## Utilización
 
-El código fuente está en la carpeta source.
+1. Clonar (o descargar y luego unzippear completamente) el repositorio.
+2. Cerrar todas las instancias abiertas de LTSpice.
+3. Ejecutar el patcher `TCLib.exe` como administrador y usar el menu para aplicar los parches deseados.
