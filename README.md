@@ -15,4 +15,4 @@ Compilado mediante el comando `g++ -static TCLib.cpp setup-funcs.cpp -o ../TCLib
 
 ### Linux
 
-Compilado mediante el comando `g++ -static TCLib.cpp setup-funcs.cpp -o ../TCLib` desde el directorio `source/`, con `g++ (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0`. Hash MD5 de `TCLib`: `a8ca475a17e13b2ba786719776e26aad`
+Compilado mediante el comando `g++ -static TCLib.cpp setup-funcs.cpp -o ../TCLib` desde el directorio `source/`, con `g++ (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0`. Hash MD5 de `TCLib`: `445c1e2fe1472d246c0c726b20cec0a9`
