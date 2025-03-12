@@ -197,8 +197,143 @@ void changeIniParameter(const std::string &configFile, std::string parameter, in
     fsys::copy_file("temp.ini", configFile.c_str());
     std::remove("temp.ini");
 }
+void addCmpUTF8(const std::string &referenceFile, const std::string &configFile)
+{
+    std::ifstream configFileStream(configFile);
+    std::ifstream referenceFileStream(referenceFile);
+    std::ofstream tempFileStream("temp.ini");
 
-void addCmp(const std::string &referenceFile, const std::string &configFile)
+    std::string line;
+    std::map<std::string, int> cmpMap;
+    bool cmp_already_exists = false;
+    bool found_flag = false;
+    bool pasted_flag = false;
+    while (std::getline(configFileStream, line))
+    {
+        if (line.find("[Custon Components]") != std::string::npos)
+        {
+            found_flag = !found_flag;
+        }
+        else if (found_flag && !pasted_flag)
+        {
+            while (std::getline(referenceFileStream, line))
+            {
+                std::string line_lower;
+                // Allocate the destination space
+                line_lower.resize(line.size());
+
+                // Convert the source string to lower case
+                // storing the result in destination string
+                std::transform(line.begin(),
+                               line.end(),
+                               line_lower.begin(),
+                               tolower);
+
+                if (line_lower.find(".model") != std::string::npos)
+                {
+                    auto last = line.find_first_of(" ", line_lower.find(".model") + 7);
+                    auto first = line_lower.find(".model") + 7;
+                    std::string modelName = line.substr(first, last - first);
+                    printf(modelName.c_str());
+                    cmpMap[modelName]++;
+                }
+
+                tempFileStream << line << std::endl;
+            }
+            pasted_flag = true;
+        }
+        else if (found_flag && pasted_flag)
+        {
+            continue;
+        }
+        else if (pasted_flag)
+        {
+            std::string line_lower;
+            // Allocate the destination space
+            line_lower.resize(line.size());
+
+            // Convert the source string to lower case
+            // storing the result in destination string
+            std::transform(line.begin(),
+                           line.end(),
+                           line_lower.begin(),
+                           tolower);
+            if (line_lower.find(".model") != std::string::npos)
+            {
+                cmp_already_exists = false;
+                auto last = line.find_first_of(" ", line_lower.find(".model") + 7);
+                auto first = line_lower.find(".model") + 7;
+                std::string modelName = line.substr(first, last - first);
+                if (cmpMap.find(modelName) != cmpMap.end())
+                {
+                    cmp_already_exists = true;
+                }
+            }
+
+            if (!cmp_already_exists)
+            {
+                tempFileStream << line << std::endl;
+            }
+        }
+    }
+
+    if (!pasted_flag)
+    {
+        configFileStream.clear();
+        configFileStream.seekg(0, std::ios::beg);
+        while (std::getline(referenceFileStream, line))
+        {
+            if (line.find(".model") != std::string::npos)
+            {
+                auto last = line.find_first_of(" ", line.find(".model") + 7);
+                auto first = line.find(".model") + 7;
+                std::string modelName = line.substr(first, last - first);
+                printf(modelName.c_str());
+                cmpMap[modelName]++;
+            }
+            tempFileStream << line << std::endl;
+        }
+        while (std::getline(configFileStream, line))
+        {
+            std::string line_lower;
+            // Allocate the destination space
+            line_lower.resize(line.size());
+
+            // Convert the source string to lower case
+            // storing the result in destination string
+            std::transform(line.begin(),
+                           line.end(),
+                           line_lower.begin(),
+                           tolower);
+            if (line_lower.find(".model") != std::string::npos)
+            {
+                cmp_already_exists = false;
+                auto last = line.find_first_of(" ", line_lower.find(".model") + 7);
+                auto first = line_lower.find(".model") + 7;
+                std::string modelName = line.substr(first, last - first);
+                if (cmpMap.find(modelName) != cmpMap.end())
+                {
+                    cmp_already_exists = true;
+                }
+            }
+
+            if (!cmp_already_exists)
+            {
+                tempFileStream << line << std::endl;
+            }
+        }
+    }
+
+    configFileStream.close();
+    referenceFileStream.close();
+    tempFileStream.close();
+
+    std::remove(configFile.c_str());
+    fsys::copy_file("temp.ini", configFile.c_str());
+    std::remove("temp.ini");
+}
+
+void addCmpUTF16(const std::string &referenceFile, const std::string &configFile)
 {
     std::wifstream configFileStream(configFile, std::ios::binary);
     configFileStream.imbue(std::locale(configFileStream.getloc(), new std::codecvt_utf16<wchar_t, 0x10ffff, std::little_endian>));
@@ -590,10 +725,10 @@ void loadCustomComponents()
     copyFolder("sym", userLTspice + "lib/sym");
     copyFolder(examples, userLTspice + "examples");
 
-    addCmp(refBjtCmp, userLTspice + "lib/cmp/standard.bjt");
-    addCmp(refDioCmp, userLTspice + "lib/cmp/standard.dio");
-    addCmp(refJftCmp, userLTspice + "lib/cmp/standard.jft");
-    addCmp(refMosCmp, userLTspice + "lib/cmp/standard.mos");
+    addCmpUTF16(refBjtCmp, userLTspice + "lib/cmp/standard.bjt");
+    addCmpUTF8(refDioCmp, userLTspice + "lib/cmp/standard.dio");
+    addCmpUTF16(refJftCmp, userLTspice + "lib/cmp/standard.jft");
+    addCmpUTF16(refMosCmp, userLTspice + "lib/cmp/standard.mos");
 }
 
 void loadCustomBackground()
