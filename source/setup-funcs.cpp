@@ -4,6 +4,11 @@
 #include "miniaudio.h"
 #include <algorithm>
 #include <map>
+#include <fstream>
+#include <locale>
+#include <codecvt>
+#include <string>
+#include <cstdio>
 
 // #include "cmrc/cmrc.hpp"
 
@@ -113,32 +118,38 @@ void overwriteCopy(std::string source, std::string destination)
 
 void replaceColorsSection(const std::string &configFile, const std::string &newContentFile)
 {
-    std::ifstream configFileStream(configFile);
-    std::ofstream tempFileStream("temp.ini");
+    std::wifstream configFileStream(configFile, std::ios::binary);
+    configFileStream.imbue(std::locale(configFileStream.getloc(), new std::codecvt_utf16<wchar_t, 0x10ffff, std::little_endian>));
+
+    std::wofstream tempFileStream("temp.ini", std::ios::binary);
+    tempFileStream.imbue(std::locale(tempFileStream.getloc(), new std::codecvt_utf16<wchar_t, 0x10ffff, std::little_endian>));
+
     // auto resourceFile = fs.open(newContentFile);
-    std::string line;
+    std::wstring line;
     bool inColorsSection = false;
 
     while (std::getline(configFileStream, line))
     {
-        if (line.find("[Colors]") != std::string::npos)
+        if (line.find(L"[Colors]") != std::string::npos)
         {
             inColorsSection = true;
             tempFileStream << line << std::endl;
 
-            std::ifstream newContentFileStream(newContentFile);
+            std::wifstream newContentFileStream(newContentFile, std::ios::binary);
+            newContentFileStream.imbue(std::locale(newContentFileStream.getloc(), new std::codecvt_utf16<wchar_t, 0x10ffff, std::little_endian>));
             // auto newContentFileStream = memstream(const_cast<char *>(resourceFile.begin()),
             //                                       const_cast<char *>(resourceFile.end()));
-            std::string newContent;
-            newContentFileStream.seekg(0, std::ios::end);
-            newContent.reserve(newContentFileStream.tellg());
-            newContentFileStream.seekg(0, std::ios::beg);
-            newContent.assign((std::istreambuf_iterator<char>(newContentFileStream)),
-                              std::istreambuf_iterator<char>());
+            std::wstring newContent((std::istreambuf_iterator<wchar_t>(newContentFileStream)), std::istreambuf_iterator<wchar_t>());
+
+            // newContentFileStream.seekg(0, std::ios::end);
+            // newContent.reserve(newContentFileStream.tellg());
+            // newContentFileStream.seekg(0, std::ios::beg);
+            // newContent.assign((std::istreambuf_iterator<char>(newContentFileStream)),
+            //                   std::istreambuf_iterator<char>());
 
             tempFileStream << newContent << std::endl;
         }
-        else if (inColorsSection && line[0] == '[')
+        else if (inColorsSection && line[0] == L'[')
         {
             inColorsSection = false;
         }
@@ -153,23 +164,28 @@ void replaceColorsSection(const std::string &configFile, const std::string &newC
     tempFileStream.close();
 
     std::remove(configFile.c_str());
-    fsys::copy_file("temp.ini", configFile.c_str());
+    fsys::copy_file("temp.ini", configFile);
     std::remove("temp.ini");
 }
 
 void changeIniParameter(const std::string &configFile, std::string parameter, int value)
 {
-    std::ifstream configFileStream(configFile);
-    std::ofstream tempFileStream("temp.ini");
+    std::wstring wParameter(parameter.begin(), parameter.end());
 
-    std::string line;
+    std::ifstream configFileStream(configFile, std::ios::binary);
+    configFileStream.imbue(std::locale(configFileStream.getloc(), new std::codecvt_utf16<wchar_t, 0x10ffff, std::little_endian>));
+    
+    std::ofstream tempFileStream("temp.ini", std::ios::binary);
+    tempFileStream.imbue(std::locale(tempFileStream.getloc(), new std::codecvt_utf16<wchar_t, 0x10ffff, std::little_endian>));
+
+    std::wstring line;
 
     while (std::getline(configFileStream, line))
     {
         if (line.find(parameter) != std::string::npos)
         {
             // replace the line in the configFileStream with the new one
-            std::string newLine = parameter + "=" + std::to_string(value);
+            std::wstring newLine = wParameter + L"=" + std::to_wstring(value);
             tempFileStream << newLine << std::endl;
             continue;
         }
