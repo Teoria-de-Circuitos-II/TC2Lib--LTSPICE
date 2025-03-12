@@ -11,7 +11,7 @@
 
 ### Windows
 
-Compilado mediante el comando `g++ -static TCLib.cpp setup-funcs.cpp -o ../TCLib.exe` desde el directorio `source/`, con `g++.exe (Rev3, Built by MSYS2 project) 13.2.0`. Hash MD5 de `TCLib.exe`: `aa0e0b046b41c316783a8c8db28f49c5`.
+Compilado mediante el comando `g++ -static TCLib.cpp setup-funcs.cpp -o ../TCLib.exe` desde el directorio `source/`, con `g++.exe (Rev3, Built by MSYS2 project) 13.2.0`. Hash MD5 de `TCLib.exe`: `467e95f025ef15bbf748f0ba97601ad7`.
 
 ### Linux
 

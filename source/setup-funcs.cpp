@@ -197,6 +197,64 @@ void changeIniParameter(const std::string &configFile, std::string parameter, in
     fsys::copy_file("temp.ini", configFile.c_str());
     std::remove("temp.ini");
 }
+
+void changeAddIniParameter(const std::string &configFile, std::string parameter, std::string family, std::string value)
+{
+    std::ifstream configFileStream(configFile);
+    std::ofstream tempFileStream("temp.ini");
+
+    std::string line;
+    bool found = false;
+    while (std::getline(configFileStream, line))
+    {
+        if (line.find(parameter) != std::string::npos)
+        {
+            found = true;
+            break;
+        }
+    }
+    configFileStream.clear();
+    configFileStream.seekg(0, std::ios::beg);
+    while (std::getline(configFileStream, line))
+    {
+        if(found) {
+            if (line.find(parameter) != std::string::npos)
+            {
+                // replace the line in the configFileStream with the new one
+                std::string newLine = parameter + "=" + value;
+                tempFileStream << newLine << std::endl;
+            }
+            else
+            {
+                tempFileStream << line << std::endl;
+            }
+        }
+        else {
+            while (std::getline(configFileStream, line))
+            {
+                tempFileStream << line << std::endl;
+                if (line.find(family) != std::string::npos)
+                    break;
+            }
+            std::string newLine = parameter + "=" + value;
+            tempFileStream << newLine << std::endl;
+            
+            while (std::getline(configFileStream, line))
+            {
+                tempFileStream << line << std::endl;
+            }
+        }
+   
+    }
+
+    configFileStream.close();
+    tempFileStream.close();
+
+    std::remove(configFile.c_str());
+    fsys::copy_file("temp.ini", configFile.c_str());
+    std::remove("temp.ini");
+}
+
 void addCmpUTF8(const std::string &referenceFile, const std::string &configFile)
 {
     std::ifstream configFileStream(configFile);
@@ -518,11 +576,12 @@ void print_menu(int opt_i, std::string last_op)
         "Load custom components and examples",
         "Load custom background",
         "Adjust line width",
+        "Apply custom shortcuts",
         "Credits",
         "Volume +",
         "Volume -",
         "Exit"};
-    int menu_length = 10;
+    int menu_length = 11;
 
 #if OS_Windows
     _setmode(_fileno(stdout), _O_WTEXT);
@@ -740,6 +799,11 @@ void loadCustomBackground()
 void setPenWidth()
 {
     changeIniParameter(iniFile, "PenWidth", 2);
+}
+
+void setShortcuts() {
+    changeAddIniParameter(iniFile, "Draw_Lines", "[SchKeyBoardShortCut]", "J");
+    changeAddIniParameter(iniFile, "Draw_Rectangles", "[SchKeyBoardShortCut]", "K");
 }
 
 int music()
