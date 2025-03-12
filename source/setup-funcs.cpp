@@ -170,22 +170,17 @@ void replaceColorsSection(const std::string &configFile, const std::string &newC
 
 void changeIniParameter(const std::string &configFile, std::string parameter, int value)
 {
-    std::wstring wParameter(parameter.begin(), parameter.end());
+    std::ifstream configFileStream(configFile);
+    std::ofstream tempFileStream("temp.ini");
 
-    std::ifstream configFileStream(configFile, std::ios::binary);
-    configFileStream.imbue(std::locale(configFileStream.getloc(), new std::codecvt_utf16<wchar_t, 0x10ffff, std::little_endian>));
-    
-    std::ofstream tempFileStream("temp.ini", std::ios::binary);
-    tempFileStream.imbue(std::locale(tempFileStream.getloc(), new std::codecvt_utf16<wchar_t, 0x10ffff, std::little_endian>));
-
-    std::wstring line;
+    std::string line;
 
     while (std::getline(configFileStream, line))
     {
         if (line.find(parameter) != std::string::npos)
         {
             // replace the line in the configFileStream with the new one
-            std::wstring newLine = wParameter + L"=" + std::to_wstring(value);
+            std::string newLine = parameter + "=" + std::to_string(value);
             tempFileStream << newLine << std::endl;
             continue;
         }
@@ -205,46 +200,55 @@ void changeIniParameter(const std::string &configFile, std::string parameter, in
 
 void addCmp(const std::string &referenceFile, const std::string &configFile)
 {
-    std::ifstream configFileStream(configFile);
-    std::ifstream referenceFileStream(referenceFile);
-    std::ofstream tempFileStream("temp.ini");
+    std::wifstream configFileStream(configFile, std::ios::binary);
+    configFileStream.imbue(std::locale(configFileStream.getloc(), new std::codecvt_utf16<wchar_t, 0x10ffff, std::little_endian>));
 
-    std::string line;
-    std::map<std::string, int> cmpMap;
+    std::ifstream referenceFileStream(referenceFile);
+
+    std::wofstream tempFileStream("temp.ini", std::ios::binary);
+    tempFileStream.imbue(std::locale(tempFileStream.getloc(), new std::codecvt_utf16<wchar_t, 0x10ffff, std::little_endian>));
+
+    std::wstring line;
+    std::string line8;
+    std::map<std::wstring, int> cmpMap;
     bool cmp_already_exists = false;
     bool found_flag = false;
     bool pasted_flag = false;
+    
     while (std::getline(configFileStream, line))
-    {
-        if (line.find("[Custon Components]") != std::string::npos)
+    {        
+        if (line.find(L"[Custon Components]") != std::string::npos)
         {
             found_flag = !found_flag;
         }
         else if (found_flag && !pasted_flag)
         {
-            while (std::getline(referenceFileStream, line))
+            while (std::getline(referenceFileStream, line8))
             {
-                std::string line_lower;
+                std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
+                std::wstring line8_to_16 = converter.from_bytes(line8);
+
+                std::wstring line_lower;
                 // Allocate the destination space
-                line_lower.resize(line.size());
+                line_lower.resize(line8_to_16.size());
 
                 // Convert the source string to lower case
                 // storing the result in destination string
-                std::transform(line.begin(),
-                               line.end(),
+                std::transform(line8_to_16.begin(),
+                                line8_to_16.end(),
                                line_lower.begin(),
                                tolower);
 
-                if (line_lower.find(".model") != std::string::npos)
+                if (line_lower.find(L".model") != std::string::npos)
                 {
-                    auto last = line.find_first_of(" ", line_lower.find(".model") + 7);
-                    auto first = line_lower.find(".model") + 7;
-                    std::string modelName = line.substr(first, last - first);
-                    printf(modelName.c_str());
+                    auto last = line8_to_16.find_first_of(L" ", line_lower.find(L".model") + 7);
+                    auto first = line_lower.find(L".model") + 7;
+                    std::wstring modelName = line8_to_16.substr(first, last - first);
+                    //printf(modelName.c_str());
                     cmpMap[modelName]++;
                 }
 
-                tempFileStream << line << std::endl;
+                tempFileStream << line8_to_16 << std::endl;
             }
             pasted_flag = true;
         }
@@ -254,7 +258,7 @@ void addCmp(const std::string &referenceFile, const std::string &configFile)
         }
         else if (pasted_flag)
         {
-            std::string line_lower;
+            std::wstring line_lower;
             // Allocate the destination space
             line_lower.resize(line.size());
 
@@ -264,12 +268,12 @@ void addCmp(const std::string &referenceFile, const std::string &configFile)
                            line.end(),
                            line_lower.begin(),
                            tolower);
-            if (line_lower.find(".model") != std::string::npos)
+            if (line_lower.find(L".model") != std::string::npos)
             {
                 cmp_already_exists = false;
-                auto last = line.find_first_of(" ", line_lower.find(".model") + 7);
-                auto first = line_lower.find(".model") + 7;
-                std::string modelName = line.substr(first, last - first);
+                auto last = line.find_first_of(L" ", line_lower.find(L".model") + 7);
+                auto first = line_lower.find(L".model") + 7;
+                std::wstring modelName = line.substr(first, last - first);
                 if (cmpMap.find(modelName) != cmpMap.end())
                 {
                     cmp_already_exists = true;
@@ -287,21 +291,23 @@ void addCmp(const std::string &referenceFile, const std::string &configFile)
     {
         configFileStream.clear();
         configFileStream.seekg(0, std::ios::beg);
-        while (std::getline(referenceFileStream, line))
+        while (std::getline(referenceFileStream, line8))
         {
-            if (line.find(".model") != std::string::npos)
+            std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
+            std::wstring line8_to_16 = converter.from_bytes(line8);
+            if (line8_to_16.find(L".model") != std::string::npos)
             {
-                auto last = line.find_first_of(" ", line.find(".model") + 7);
-                auto first = line.find(".model") + 7;
-                std::string modelName = line.substr(first, last - first);
-                printf(modelName.c_str());
+                auto last = line8_to_16.find_first_of(L" ", line8_to_16.find(L".model") + 7);
+                auto first = line8_to_16.find(L".model") + 7;
+                std::wstring modelName = line8_to_16.substr(first, last - first);
+                // printf(modelName.c_str());
                 cmpMap[modelName]++;
             }
-            tempFileStream << line << std::endl;
+            tempFileStream << line8_to_16 << std::endl;
         }
         while (std::getline(configFileStream, line))
         {
-            std::string line_lower;
+            std::wstring line_lower;
             // Allocate the destination space
             line_lower.resize(line.size());
 
@@ -311,12 +317,12 @@ void addCmp(const std::string &referenceFile, const std::string &configFile)
                            line.end(),
                            line_lower.begin(),
                            tolower);
-            if (line_lower.find(".model") != std::string::npos)
+            if (line_lower.find(L".model") != std::wstring::npos)
             {
                 cmp_already_exists = false;
-                auto last = line.find_first_of(" ", line_lower.find(".model") + 7);
-                auto first = line_lower.find(".model") + 7;
-                std::string modelName = line.substr(first, last - first);
+                auto last = line.find_first_of(L" ", line_lower.find(L".model") + 7);
+                auto first = line_lower.find(L".model") + 7;
+                std::wstring modelName = line.substr(first, last - first);
                 if (cmpMap.find(modelName) != cmpMap.end())
                 {
                     cmp_already_exists = true;
