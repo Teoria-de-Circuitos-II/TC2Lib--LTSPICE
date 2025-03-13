@@ -26,6 +26,7 @@ void setLightTheme();
 void loadCustomComponents();
 void loadCustomBackground();
 void setPenWidth();
+void setShortcuts();
 
 int music();
 void print_menu(int, std::string);

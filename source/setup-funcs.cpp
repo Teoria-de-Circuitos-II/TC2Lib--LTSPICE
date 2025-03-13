@@ -4,6 +4,11 @@
 #include "miniaudio.h"
 #include <algorithm>
 #include <map>
+#include <fstream>
+#include <locale>
+#include <codecvt>
+#include <string>
+#include <cstdio>
 
 // #include "cmrc/cmrc.hpp"
 
@@ -113,32 +118,38 @@ void overwriteCopy(std::string source, std::string destination)
 
 void replaceColorsSection(const std::string &configFile, const std::string &newContentFile)
 {
-    std::ifstream configFileStream(configFile);
-    std::ofstream tempFileStream("temp.ini");
+    std::wifstream configFileStream(configFile, std::ios::binary);
+    configFileStream.imbue(std::locale(configFileStream.getloc(), new std::codecvt_utf16<wchar_t, 0x10ffff, std::little_endian>));
+
+    std::wofstream tempFileStream("temp.ini", std::ios::binary);
+    tempFileStream.imbue(std::locale(tempFileStream.getloc(), new std::codecvt_utf16<wchar_t, 0x10ffff, std::little_endian>));
+
     // auto resourceFile = fs.open(newContentFile);
-    std::string line;
+    std::wstring line;
     bool inColorsSection = false;
 
     while (std::getline(configFileStream, line))
     {
-        if (line.find("[Colors]") != std::string::npos)
+        if (line.find(L"[Colors]") != std::string::npos)
         {
             inColorsSection = true;
             tempFileStream << line << std::endl;
 
-            std::ifstream newContentFileStream(newContentFile);
+            std::wifstream newContentFileStream(newContentFile, std::ios::binary);
+            newContentFileStream.imbue(std::locale(newContentFileStream.getloc(), new std::codecvt_utf16<wchar_t, 0x10ffff, std::little_endian>));
             // auto newContentFileStream = memstream(const_cast<char *>(resourceFile.begin()),
             //                                       const_cast<char *>(resourceFile.end()));
-            std::string newContent;
-            newContentFileStream.seekg(0, std::ios::end);
-            newContent.reserve(newContentFileStream.tellg());
-            newContentFileStream.seekg(0, std::ios::beg);
-            newContent.assign((std::istreambuf_iterator<char>(newContentFileStream)),
-                              std::istreambuf_iterator<char>());
+            std::wstring newContent((std::istreambuf_iterator<wchar_t>(newContentFileStream)), std::istreambuf_iterator<wchar_t>());
+
+            // newContentFileStream.seekg(0, std::ios::end);
+            // newContent.reserve(newContentFileStream.tellg());
+            // newContentFileStream.seekg(0, std::ios::beg);
+            // newContent.assign((std::istreambuf_iterator<char>(newContentFileStream)),
+            //                   std::istreambuf_iterator<char>());
 
             tempFileStream << newContent << std::endl;
         }
-        else if (inColorsSection && line[0] == '[')
+        else if (inColorsSection && line[0] == L'[')
         {
             inColorsSection = false;
         }
@@ -153,7 +164,7 @@ void replaceColorsSection(const std::string &configFile, const std::string &newC
     tempFileStream.close();
 
     std::remove(configFile.c_str());
-    fsys::copy_file("temp.ini", configFile.c_str());
+    fsys::copy_file("temp.ini", configFile);
     std::remove("temp.ini");
 }
 
@@ -187,7 +198,64 @@ void changeIniParameter(const std::string &configFile, std::string parameter, in
     std::remove("temp.ini");
 }
 
-void addCmp(const std::string &referenceFile, const std::string &configFile)
+void changeAddIniParameter(const std::string &configFile, std::string parameter, std::string family, std::string value)
+{
+    std::ifstream configFileStream(configFile);
+    std::ofstream tempFileStream("temp.ini");
+
+    std::string line;
+    bool found = false;
+    while (std::getline(configFileStream, line))
+    {
+        if (line.find(parameter) != std::string::npos)
+        {
+            found = true;
+            break;
+        }
+    }
+    configFileStream.clear();
+    configFileStream.seekg(0, std::ios::beg);
+    while (std::getline(configFileStream, line))
+    {
+        if(found) {
+            if (line.find(parameter) != std::string::npos)
+            {
+                // replace the line in the configFileStream with the new one
+                std::string newLine = parameter + "=" + value;
+                tempFileStream << newLine << std::endl;
+            }
+            else
+            {
+                tempFileStream << line << std::endl;
+            }
+        }
+        else {
+            while (std::getline(configFileStream, line))
+            {
+                tempFileStream << line << std::endl;
+                if (line.find(family) != std::string::npos)
+                    break;
+            }
+            std::string newLine = parameter + "=" + value;
+            tempFileStream << newLine << std::endl;
+            
+            while (std::getline(configFileStream, line))
+            {
+                tempFileStream << line << std::endl;
+            }
+        }
+   
+    }
+
+    configFileStream.close();
+    tempFileStream.close();
+
+    std::remove(configFile.c_str());
+    fsys::copy_file("temp.ini", configFile.c_str());
+    std::remove("temp.ini");
+}
+
+void addCmpUTF8(const std::string &referenceFile, const std::string &configFile)
 {
     std::ifstream configFileStream(configFile);
     std::ifstream referenceFileStream(referenceFile);
@@ -323,6 +391,153 @@ void addCmp(const std::string &referenceFile, const std::string &configFile)
     std::remove("temp.ini");
 }
 
+void addCmpUTF16(const std::string &referenceFile, const std::string &configFile)
+{
+    std::wifstream configFileStream(configFile, std::ios::binary);
+    configFileStream.imbue(std::locale(configFileStream.getloc(), new std::codecvt_utf16<wchar_t, 0x10ffff, std::little_endian>));
+
+    std::ifstream referenceFileStream(referenceFile);
+
+    std::wofstream tempFileStream("temp.ini", std::ios::binary);
+    tempFileStream.imbue(std::locale(tempFileStream.getloc(), new std::codecvt_utf16<wchar_t, 0x10ffff, std::little_endian>));
+
+    std::wstring line;
+    std::string line8;
+    std::map<std::wstring, int> cmpMap;
+    bool cmp_already_exists = false;
+    bool found_flag = false;
+    bool pasted_flag = false;
+    
+    while (std::getline(configFileStream, line))
+    {        
+        if (line.find(L"[Custon Components]") != std::string::npos)
+        {
+            found_flag = !found_flag;
+        }
+        else if (found_flag && !pasted_flag)
+        {
+            while (std::getline(referenceFileStream, line8))
+            {
+                std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
+                std::wstring line8_to_16 = converter.from_bytes(line8);
+
+                std::wstring line_lower;
+                // Allocate the destination space
+                line_lower.resize(line8_to_16.size());
+
+                // Convert the source string to lower case
+                // storing the result in destination string
+                std::transform(line8_to_16.begin(),
+                                line8_to_16.end(),
+                               line_lower.begin(),
+                               tolower);
+
+                if (line_lower.find(L".model") != std::string::npos)
+                {
+                    auto last = line8_to_16.find_first_of(L" ", line_lower.find(L".model") + 7);
+                    auto first = line_lower.find(L".model") + 7;
+                    std::wstring modelName = line8_to_16.substr(first, last - first);
+                    //printf(modelName.c_str());
+                    cmpMap[modelName]++;
+                }
+
+                tempFileStream << line8_to_16 << std::endl;
+            }
+            pasted_flag = true;
+        }
+        else if (found_flag && pasted_flag)
+        {
+            continue;
+        }
+        else if (pasted_flag)
+        {
+            std::wstring line_lower;
+            // Allocate the destination space
+            line_lower.resize(line.size());
+
+            // Convert the source string to lower case
+            // storing the result in destination string
+            std::transform(line.begin(),
+                           line.end(),
+                           line_lower.begin(),
+                           tolower);
+            if (line_lower.find(L".model") != std::string::npos)
+            {
+                cmp_already_exists = false;
+                auto last = line.find_first_of(L" ", line_lower.find(L".model") + 7);
+                auto first = line_lower.find(L".model") + 7;
+                std::wstring modelName = line.substr(first, last - first);
+                if (cmpMap.find(modelName) != cmpMap.end())
+                {
+                    cmp_already_exists = true;
+                }
+            }
+
+            if (!cmp_already_exists)
+            {
+                tempFileStream << line << std::endl;
+            }
+        }
+    }
+
+    if (!pasted_flag)
+    {
+        configFileStream.clear();
+        configFileStream.seekg(0, std::ios::beg);
+        while (std::getline(referenceFileStream, line8))
+        {
+            std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
+            std::wstring line8_to_16 = converter.from_bytes(line8);
+            if (line8_to_16.find(L".model") != std::string::npos)
+            {
+                auto last = line8_to_16.find_first_of(L" ", line8_to_16.find(L".model") + 7);
+                auto first = line8_to_16.find(L".model") + 7;
+                std::wstring modelName = line8_to_16.substr(first, last - first);
+                // printf(modelName.c_str());
+                cmpMap[modelName]++;
+            }
+            tempFileStream << line8_to_16 << std::endl;
+        }
+        while (std::getline(configFileStream, line))
+        {
+            std::wstring line_lower;
+            // Allocate the destination space
+            line_lower.resize(line.size());
+
+            // Convert the source string to lower case
+            // storing the result in destination string
+            std::transform(line.begin(),
+                           line.end(),
+                           line_lower.begin(),
+                           tolower);
+            if (line_lower.find(L".model") != std::wstring::npos)
+            {
+                cmp_already_exists = false;
+                auto last = line.find_first_of(L" ", line_lower.find(L".model") + 7);
+                auto first = line_lower.find(L".model") + 7;
+                std::wstring modelName = line.substr(first, last - first);
+                if (cmpMap.find(modelName) != cmpMap.end())
+                {
+                    cmp_already_exists = true;
+                }
+            }
+
+            if (!cmp_already_exists)
+            {
+                tempFileStream << line << std::endl;
+            }
+        }
+    }
+
+    configFileStream.close();
+    referenceFileStream.close();
+    tempFileStream.close();
+
+    std::remove(configFile.c_str());
+    fsys::copy_file("temp.ini", configFile.c_str());
+    std::remove("temp.ini");
+}
+
 void copyFolder(const fsys::path &source, const fsys::path &destination)
 {
     if (!fsys::exists(destination))
@@ -361,11 +576,12 @@ void print_menu(int opt_i, std::string last_op)
         "Load custom components and examples",
         "Load custom background",
         "Adjust line width",
+        "Apply custom shortcuts",
         "Credits",
         "Volume +",
         "Volume -",
         "Exit"};
-    int menu_length = 10;
+    int menu_length = 11;
 
 #if OS_Windows
     _setmode(_fileno(stdout), _O_WTEXT);
@@ -568,10 +784,10 @@ void loadCustomComponents()
     copyFolder("sym", userLTspice + "lib/sym");
     copyFolder(examples, userLTspice + "examples");
 
-    addCmp(refBjtCmp, userLTspice + "lib/cmp/standard.bjt");
-    addCmp(refDioCmp, userLTspice + "lib/cmp/standard.dio");
-    addCmp(refJftCmp, userLTspice + "lib/cmp/standard.jft");
-    addCmp(refMosCmp, userLTspice + "lib/cmp/standard.mos");
+    addCmpUTF16(refBjtCmp, userLTspice + "lib/cmp/standard.bjt");
+    addCmpUTF8(refDioCmp, userLTspice + "lib/cmp/standard.dio");
+    addCmpUTF16(refJftCmp, userLTspice + "lib/cmp/standard.jft");
+    addCmpUTF16(refMosCmp, userLTspice + "lib/cmp/standard.mos");
 }
 
 void loadCustomBackground()
@@ -583,6 +799,11 @@ void loadCustomBackground()
 void setPenWidth()
 {
     changeIniParameter(iniFile, "PenWidth", 2);
+}
+
+void setShortcuts() {
+    changeAddIniParameter(iniFile, "Draw_Lines", "[SchKeyBoardShortCut]", "J");
+    changeAddIniParameter(iniFile, "Draw_Rectangles", "[SchKeyBoardShortCut]", "K");
 }
 
 int music()

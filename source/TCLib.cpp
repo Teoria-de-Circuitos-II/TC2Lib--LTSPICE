@@ -90,12 +90,12 @@ int main()
                 switch (arrow)
                 {
                 case 80: // Down arrow
-                    opt_i = (++opt_i + 10) % 10;
+                    opt_i = (++opt_i + 11) % 11;
                     clear_screen();
                     print_menu(opt_i, last_op);
                     break;
                 case 72: // Up arrow
-                    opt_i = (--opt_i + 10) % 10;
+                    opt_i = (--opt_i + 11) % 11;
                     clear_screen();
                     print_menu(opt_i, last_op);
                     break;
@@ -170,17 +170,22 @@ int main()
             last_op = "Pen width fix applied";
             break;
         case 6:
+            setShortcuts();
+            last_op = "Custom shortcuts applied";
+            break;
+            
+        case 7:
             printWeather();
             break;
-        case 7:
+        case 8:
             vol = vol * 1.4;
             ma_engine_set_volume(&engine, vol);
             break;
-        case 8:
+        case 9:
             vol = vol * 0.6;
             ma_engine_set_volume(&engine, vol);
             break;
-        case 9:
+        case 10:
             last_op = "Exiting program. Goodbye!";
             break;
         default:
@@ -190,7 +195,7 @@ int main()
         clear_screen();
         print_menu(opt_i, last_op);
 
-    } while (choice != 9);
+    } while (choice != 10);
 
     // End music engine
     ma_engine_uninit(&engine);
