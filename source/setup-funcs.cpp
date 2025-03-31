@@ -118,38 +118,34 @@ void overwriteCopy(std::string source, std::string destination)
 
 void replaceColorsSection(const std::string &configFile, const std::string &newContentFile)
 {
-    std::wifstream configFileStream(configFile, std::ios::binary);
-    configFileStream.imbue(std::locale(configFileStream.getloc(), new std::codecvt_utf16<wchar_t, 0x10ffff, std::little_endian>));
-
-    std::wofstream tempFileStream("temp.ini", std::ios::binary);
-    tempFileStream.imbue(std::locale(tempFileStream.getloc(), new std::codecvt_utf16<wchar_t, 0x10ffff, std::little_endian>));
+    std::ifstream configFileStream(configFile);
+    std::ofstream tempFileStream("temp.ini");
 
     // auto resourceFile = fs.open(newContentFile);
-    std::wstring line;
+    std::string line;
     bool inColorsSection = false;
 
     while (std::getline(configFileStream, line))
     {
-        if (line.find(L"[Colors]") != std::string::npos)
+        if (line.find("[Colors]") != std::string::npos)
         {
             inColorsSection = true;
             tempFileStream << line << std::endl;
 
-            std::wifstream newContentFileStream(newContentFile, std::ios::binary);
-            newContentFileStream.imbue(std::locale(newContentFileStream.getloc(), new std::codecvt_utf16<wchar_t, 0x10ffff, std::little_endian>));
+            std::ifstream newContentFileStream(newContentFile);
             // auto newContentFileStream = memstream(const_cast<char *>(resourceFile.begin()),
             //                                       const_cast<char *>(resourceFile.end()));
-            std::wstring newContent((std::istreambuf_iterator<wchar_t>(newContentFileStream)), std::istreambuf_iterator<wchar_t>());
+            std::string newContent;
 
-            // newContentFileStream.seekg(0, std::ios::end);
-            // newContent.reserve(newContentFileStream.tellg());
-            // newContentFileStream.seekg(0, std::ios::beg);
-            // newContent.assign((std::istreambuf_iterator<char>(newContentFileStream)),
-            //                   std::istreambuf_iterator<char>());
+            newContentFileStream.seekg(0, std::ios::end);
+            newContent.reserve(newContentFileStream.tellg());
+            newContentFileStream.seekg(0, std::ios::beg);
+            newContent.assign((std::istreambuf_iterator<char>(newContentFileStream)),
+                              std::istreambuf_iterator<char>());
 
             tempFileStream << newContent << std::endl;
         }
-        else if (inColorsSection && line[0] == L'[')
+        else if (inColorsSection && line[0] == '[')
         {
             inColorsSection = false;
         }
