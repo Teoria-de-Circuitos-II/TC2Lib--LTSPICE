@@ -14,4 +14,4 @@ Compilado en el entorno `MSYS2 UCRT64` en el directorio `/source` mediante el co
 
 ### Linux
 
-Compilado en el entorno `MSYS2 UCRT64` en el directorio `/source` mediante el comando `g++ -static TCLib.cpp setup-funcs.cpp -o ../TCLib` desde el directorio `source/`, con `g++ (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0`. Hash MD5 de `TCLib`: `445c1e2fe1472d246c0c726b20cec0a9`
+Compilado en el entorno `MSYS2 UCRT64` en el directorio `/source` mediante el comando `g++ -static TCLib.cpp setup-funcs.cpp -o ../TCLib` desde el directorio `source/`, con `g++ (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0`. Hash MD5 de `TCLib` (obtenido con `md5sum TCLib`): `ab928067155eaf59c17d21cc26c5364b`
