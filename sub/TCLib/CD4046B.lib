@@ -99,7 +99,7 @@ V100 VDD 0 5
 +KAPPA = 0.0
 +WD    = 0.0 )
 .model ZD7  D(Is=1e-12 Rs=50 BV=7.0 IBV=0.05m)
-.ends
+.ends cd4046b
 
 .subckt cd4046_vco_h Cext1 Cext2 R1 R2 VCOin VCOout VCC
 D1 Cext1 VCC 1N914
@@ -176,7 +176,7 @@ XIN3  C Ci  VDD VGND  CD40_IN_1  vdd2={vdd1}  speed2={speed1}  tripdt2={tripdt1}
 A1  Ai Bi Ci 0 0  Yi 0 0  OR  tripdt={tripdt1}  td={td1}
 *
 XOUT  Yi Y  VDD VGND  CD40_OUT_1X  vdd2={vdd1} speed2={speed1}  tripdt2={tripdt1}
-.ends
+.ends CD4000B
 *
 *
 *
@@ -192,7 +192,7 @@ XIN2  B Bi  VDD VGND  CD40_IN_1  vdd2={vdd1}  speed2={speed1}  tripdt2={tripdt1}
 A1  Ai Bi 0 0 0  Yi 0 0  OR  tripdt={tripdt1}  td={td1}
 *
 XOUT  Yi Y  VDD VGND  CD40_OUT_1X  vdd2={vdd1} speed2={speed1}  tripdt2={tripdt1}
-.ends
+.ends CD4001B
 *
 *
 *
@@ -210,7 +210,7 @@ XIN4  D Di  VDD VGND  CD40_IN_1  vdd2={vdd1}  speed2={speed1}  tripdt2={tripdt1}
 A1  Ai Bi Ci Di 0  Yi 0 0  OR  tripdt={tripdt1}  td={td1}
 *
 XOUT  Yi Y  VDD VGND  CD40_OUT_1X  vdd2={vdd1} speed2={speed1}  tripdt2={tripdt1}
-.ends
+.ends CD4002B
 *
 *
 *
@@ -221,9 +221,9 @@ XOUT  Yi Y  VDD VGND  CD40_OUT_1X  vdd2={vdd1} speed2={speed1}  tripdt2={tripdt1
 * Ci->Sn Tpd         320n  only modelled with Tpd=td1
 * tr                 100n
 .SUBCKT CD4008B  A0 A1 A2 A3 B0 B1 B2 B3 CI S0 S1 S2 S3 CO  VDD VGND  vdd1={vdd} speed1={speed} tripdt1b={tripdt}
-.param td1=1e-9*(400-40-10)*5.0/(vdd1}*{speed1}
-.param td2=1e-9*(250-40-10)*5.0/(vdd1}*{speed1}
-.param td4=1e-9*(130-40-10)*5.0/(vdd1}*{speed1}
+.param td1=1e-9*(400-40-10)*5.0/{vdd1}*{speed1}
+.param td2=1e-9*(250-40-10)*5.0/{vdd1}*{speed1}
+.param td4=1e-9*(130-40-10)*5.0/{vdd1}*{speed1}
 .param td3=td2-td4
 *
 XIN1  A0 A0i  VCC VGND  CD40_IN_1  vdd2={vdd1}  speed2={speed1}  tripdt2={tripdt1b}
@@ -243,7 +243,7 @@ XOUT2  S1i S1  VCC VGND  CD40_OUT_1X  vdd2={vdd1} speed2={speed1}  tripdt2={trip
 XOUT3  S2i S2  VCC VGND  CD40_OUT_1X  vdd2={vdd1} speed2={speed1}  tripdt2={tripdt1b}
 XOUT4  S3i S3  VCC VGND  CD40_OUT_1X  vdd2={vdd1} speed2={speed1}  tripdt2={tripdt1b}
 XOUT5  COi CO  VCC VGND  CD40_OUT_1X  vdd2={vdd1} speed2={speed1}  tripdt2={tripdt1b}
-.ends
+.ends CD4008B
 *
 *
 .SUBCKT  CD4008_i A0 A1 A2 A3 B0 B1 B2 B3 CI S0 S1 S2 S3 CO  tripdt1={tripdt2} td1b={td1a} td2b={td2a} td3b={td3a} td4b={td4a}
@@ -303,7 +303,7 @@ XIN2  B Bi  VDD VGND  CD40_IN_1  vdd2={vdd1}  speed2={speed1}  tripdt2={tripdt1}
 A1  Ai Bi 0 0 0  Yi 0 0  AND  tripdt={tripdt1}  td={td1}
 *
 XOUT  Yi Y  VDD VGND  CD40_OUT_1X  vdd2={vdd1} speed2={speed1}  tripdt2={tripdt1}
-.ends
+.ends CD4011B
 *
 *
 *
@@ -321,7 +321,7 @@ XIN4  D Di  VDD VGND  CD40_IN_1  vdd2={vdd1}  speed2={speed1}  tripdt2={tripdt1}
 A1  Ai Bi Ci Di 0  Yn 0 0  AND  tripdt={tripdt1}  td={td1}
 *
 XOUT  Yn Y  VDD VGND  CD40_OUT_1X  vdd2={vdd1} speed2={speed1}  tripdt2={tripdt1}
-.ends
+.ends CD4012B
 *
 *
 *
@@ -351,7 +351,7 @@ A1     Di 0 Cp Sp Rp  QNi Qi 0  DFLOP  tripdt={tripdt1} td={td4}
 *
 XOUT1  Qi  Q   VDD VGND  CD40_OUT_1X  vdd2={vdd1} speed2={speed1}  tripdt2={tripdt1}
 XOUT2  QNi QN  VDD VGND  CD40_OUT_1X  vdd2={vdd1} speed2={speed1}  tripdt2={tripdt1}
-.ends
+.ends CD4013B
 *
 *
 *
@@ -402,7 +402,7 @@ XOUT7  O7n O7  VDD VGND  CD40_OUT_1X  vdd2={vdd1} speed2={speed1}  tripdt2={trip
 XOUT8  O8n O8  VDD VGND  CD40_OUT_1X  vdd2={vdd1} speed2={speed1}  tripdt2={tripdt1}
 XOUT9  O9n O9  VDD VGND  CD40_OUT_1X  vdd2={vdd1} speed2={speed1}  tripdt2={tripdt1}
 XOUT59  O59n O59  VDD VGND  CD40_OUT_1X  vdd2={vdd1} speed2={speed1}  tripdt2={tripdt1}
-.ends
+.ends CD4017B
 *
 *
 *
@@ -451,7 +451,7 @@ XOUT11 Q11p Q11  VDD VGND  CD40_OUT_1X  vdd2={vdd1} speed2={speed1}  tripdt2={tr
 XOUT12 Q12p Q12  VDD VGND  CD40_OUT_1X  vdd2={vdd1} speed2={speed1}  tripdt2={tripdt1}
 XOUT13 Q13p Q13  VDD VGND  CD40_OUT_1X  vdd2={vdd1} speed2={speed1}  tripdt2={tripdt1}
 XOUT14 Q14p Q14  VDD VGND  CD40_OUT_1X  vdd2={vdd1} speed2={speed1}  tripdt2={tripdt1}
-.ends
+.ends CD4020B
 *
 *
 *
@@ -468,7 +468,7 @@ XIN3  C Ci  VDD VGND  CD40_IN_1  vdd2={vdd1}  speed2={speed1}  tripdt2={tripdt1}
 A1  Ai Bi Ci 0 0  Yi 0 0  AND  tripdt={tripdt1}  td={td1}
 *
 XOUT  Yi Y  VDD VGND  CD40_OUT_1X  vdd2={vdd1} speed2={speed1}  tripdt2={tripdt1}
-.ends
+.ends CD4023B
 *
 *
 *
@@ -506,7 +506,7 @@ XOUT4  Q4p  Q4   VDD VGND  CD40_OUT_1X  vdd2={vdd1} speed2={speed1}  tripdt2={tr
 XOUT5  Q5p  Q5   VDD VGND  CD40_OUT_1X  vdd2={vdd1} speed2={speed1}  tripdt2={tripdt1}
 XOUT6  Q6p  Q6   VDD VGND  CD40_OUT_1X  vdd2={vdd1} speed2={speed1}  tripdt2={tripdt1}
 XOUT7  Q7p  Q7   VDD VGND  CD40_OUT_1X  vdd2={vdd1} speed2={speed1}  tripdt2={tripdt1}
-.ends
+.ends CD4024B
 *
 *
 *
@@ -523,7 +523,7 @@ XIN3  C Ci  VDD VGND  CD40_IN_1  vdd2={vdd1}  speed2={speed1}  tripdt2={tripdt1}
 A1  Ai Bi Ci 0 0  Yi 0 0  OR  tripdt={tripdt1}  td={td1}
 *
 XOUT  Yi Y  VDD VGND  CD40_OUT_1X  vdd2={vdd1} speed2={speed1}  tripdt2={tripdt1}
-.ends
+.ends CD4025B
 *
 *
 *
@@ -562,7 +562,7 @@ AFP  Dp 0 Cp Sp Rp  QNi Qi 0  DFLOP  tripdt={tripdt1}  td={td4}
 *
 XOUT1  Qi  Q   VDD VGND  CD40_OUT_1X  vdd2={vdd1} speed2={speed1}  tripdt2={tripdt1}
 XOUT2  QNi QN  VDD VGND  CD40_OUT_1X  vdd2={vdd1} speed2={speed1}  tripdt2={tripdt1}
-.ends
+.ends CD4027B
 *
 *
 *
@@ -578,7 +578,7 @@ XIN2  B Bi  VDD VGND  CD40_IN_1  vdd2={vdd1}  speed2={speed1}  tripdt2={tripdt1}
 A1  Ai Bi 0 0 0  0 Yp 0  XOR  tripdt={tripdt1}  td={td1}
 *
 XOUT  Yp Y  VDD VGND  CD40_OUT_1X  vdd2={vdd1} speed2={speed1}  tripdt2={tripdt1}
-.ends
+.ends CD4030B
 *
 *
 *
@@ -625,7 +625,7 @@ XOUT9  Q9p  Q9   VDD VGND  CD40_OUT_1X  vdd2={vdd1} speed2={speed1}  tripdt2={tr
 XOUT10 Q10p Q10  VDD VGND  CD40_OUT_1X  vdd2={vdd1} speed2={speed1}  tripdt2={tripdt1}
 XOUT11 Q11p Q11  VDD VGND  CD40_OUT_1X  vdd2={vdd1} speed2={speed1}  tripdt2={tripdt1}
 XOUT12 Q12p Q12  VDD VGND  CD40_OUT_1X  vdd2={vdd1} speed2={speed1}  tripdt2={tripdt1}
-.ends
+.ends CD4040B
 *
 
 *
@@ -725,7 +725,7 @@ XOut3 iOscOut  xOscOut    VDD VGND CD40_OUT_1X vdd2={vdd1} speed2={speed1} tripd
 XOut4 iQ       xQ         VDD VGND CD40_OUT_1X vdd2={vdd1} speed2={speed1} tripdt2={tripdt1}
 XOut5 _iQ      _xQ        VDD VGND CD40_OUT_1X vdd2={vdd1} speed2={speed1} tripdt2={tripdt1}
 *
-.ends
+.ends CD4047B
 
 *
 * Inverting buffer
@@ -739,7 +739,7 @@ XIN1  A Ai  VDD VGND  CD40_IN_1  vdd2={vdd1}  speed2={speed1}  tripdt2={tripdt1}
 A1  Ai 0 0 0 0  Yn 0 0  BUF  tripdt={tripdt1}  td={td1}
 *
 XOUT  Yn Y  VDD VGND  CD40_OUT_2X  vdd2={vdd1} speed2={speed1}  tripdt2={tripdt1}
-.ends
+.ends CD4049B
 *
 *
 *
@@ -754,7 +754,7 @@ XIN1  A Ai  VDD VGND  CD40_IN_1  vdd2={vdd1}  speed2={speed1}  tripdt2={tripdt1}
 A1  Ai 0 0 0 0  0 Yp 0  BUF  tripdt={tripdt1}  td={td1}
 *
 XOUT  Yp Y  VDD VGND  CD40_OUT_2X  vdd2={vdd1} speed2={speed1}  tripdt2={tripdt1}
-.ends
+.ends CD4050B
 *
 *
 *
@@ -779,7 +779,7 @@ AA  Y1 Y2 0  0  0  Yn Yp 0  AND  tripdt={tripdt1}  td={td1}
 *
 XOUT1  Yn YB  VDD VGND  CD40_OUT_1X  vdd2={vdd1} speed2={speed1}  tripdt2={tripdt1}
 XOUT2  Yp Y   VDD VGND  CD40_OUT_1X  vdd2={vdd1} speed2={speed1}  tripdt2={tripdt1}
-.ends
+.ends CD4068B
 *
 *
 *
@@ -795,7 +795,7 @@ XIN2  B Bi  VDD VGND  CD40_IN_1  vdd2={vdd1}  speed2={speed1}  tripdt2={tripdt1}
 A1  Ai Bi 0 0 0  0 Yp 0  XOR  tripdt={tripdt1}  td={td1}
 *
 XOUT  Yp Y  VDD VGND  CD40_OUT_1X  vdd2={vdd1} speed2={speed1}  tripdt2={tripdt1}
-.ends
+.ends CD4070B
 *
 *
 *
@@ -811,7 +811,7 @@ XIN2  B Bi  VDD VGND  CD40_IN_1  vdd2={vdd1}  speed2={speed1}  tripdt2={tripdt1}
 A1  Ai Bi 0 0 0  0 Yp 0  OR  tripdt={tripdt1}  td={td1}
 *
 XOUT  Yp Y  VDD VGND  CD40_OUT_1X  vdd2={vdd1} speed2={speed1}  tripdt2={tripdt1}
-.ends
+.ends CD4071B
 *
 *
 *
@@ -829,7 +829,7 @@ XIN4  D Di  VDD VGND  CD40_IN_1  vdd2={vdd1}  speed2={speed1}  tripdt2={tripdt1}
 A1  Ai Bi Ci Di 0  0 Yp 0  OR  tripdt={tripdt1}  td={td1}
 *
 XOUT  Yp Y  VDD VGND  CD40_OUT_1X  vdd2={vdd1} speed2={speed1}  tripdt2={tripdt1}
-.ends
+.ends CD4072B
 *
 *
 *
@@ -846,7 +846,7 @@ XIN3  C Ci  VDD VGND  CD40_IN_1  vdd2={vdd1}  speed2={speed1}  tripdt2={tripdt1}
 A1  Ai Bi Ci 0 0  0 Yp 0  AND  tripdt={tripdt1}  td={td1}
 *
 XOUT  Yp Y  VDD VGND  CD40_OUT_1X  vdd2={vdd1} speed2={speed1}  tripdt2={tripdt1}
-.ends
+.ends CD4073B
 *
 *
 *
@@ -863,7 +863,7 @@ XIN3  C Ci  VDD VGND  CD40_IN_1  vdd2={vdd1}  speed2={speed1}  tripdt2={tripdt1}
 A1  Ai Bi Ci 0 0  0 Yp 0  OR  tripdt={tripdt1}  td={td1}
 *
 XOUT  Yp Y  VDD VGND  CD40_OUT_1X  vdd2={vdd1} speed2={speed1}  tripdt2={tripdt1}
-.ends
+.ends CD4075B
 *
 *
 *
@@ -879,7 +879,7 @@ XIN2  B Bi  VDD VGND  CD40_IN_1  vdd2={vdd1}  speed2={speed1}  tripdt2={tripdt1}
 A1  Ai Bi 0 0 0  Yn 0 0  XOR  tripdt={tripdt1}  td={td1}
 *
 XOUT  Yn Y  VDD VGND  CD40_OUT_1X  vdd2={vdd1} speed2={speed1}  tripdt2={tripdt1}
-.ends
+.ends CD4077B
 *
 *
 *
@@ -895,7 +895,7 @@ XIN2  B Bi  VDD VGND  CD40_IN_1  vdd2={vdd1}  speed2={speed1}  tripdt2={tripdt1}
 A1  Ai Bi 0 0 0  0 Yp 0  AND  tripdt={tripdt1}  td={td1}
 *
 XOUT  Yp Y  VDD VGND  CD40_OUT_1X  vdd2={vdd1} speed2={speed1}  tripdt2={tripdt1}
-.ends
+.ends CD4081B
 *
 *
 *
@@ -914,7 +914,7 @@ XIN4  D Di  VDD VGND  CD40_IN_1  vdd2={vdd1}  speed2={speed1}  tripdt2={tripdt1}
 A1  Ai Bi Ci Di 0  0 Yp 0  AND  tripdt={tripdt1}  td={td1}
 *
 XOUT  Yp Y  VDD VGND  CD40_OUT_1X  vdd2={vdd1} speed2={speed1}  tripdt2={tripdt1}
-.ends
+.ends CD4082B
 *
 *
 *
@@ -930,7 +930,7 @@ XIN2  B Bi  VDD VGND  CD40_IN_S_1  vdd2={vdd1}  speed2={speed1}  tripdt2={tripdt
 A1  Ai Bi 0 0 0  Yn 0 0  AND  tripdt={tripdt1}  td={td1}
 *
 XOUT  Yn Y  VDD VGND  CD40_OUT_1X  vdd2={vdd1} speed2={speed1}  tripdt2={tripdt1}
-.ends
+.ends CD4093B
 *
 *
 *
@@ -945,7 +945,7 @@ XIN1  A Ai  VDD VGND  CD40_IN_S_1  vdd2={vdd1}  speed2={speed1}  tripdt2={tripdt
 A1  Ai 0 0 0 0  Yn 0 0  BUF  tripdt={tripdt1}  td={td1}
 *
 XOUT  Yn Y  VDD VGND  CD40_OUT_2X  vdd2={vdd1} speed2={speed1}  tripdt2={tripdt1}
-.ends
+.ends CD40106B
 *
 *
 *
@@ -1010,7 +1010,7 @@ V1 DHIGH 0 DC 1
 *
 XOUT0  Qi  Q   VDD VGND  CD40_OUT_1X  VDD2={VDD1} speed2={speed1}  tripdt2={tripdt1}
 XOUT1  QNi QN  VDD VGND  CD40_OUT_1X  VDD2={VDD1} speed2={speed1}  tripdt2={tripdt1}
-.ends
+.ends CD14538B
 *
 *
 *
@@ -1074,7 +1074,7 @@ V1 DHIGH 0 DC 1
 *
 XOUT0  Qi  Q   VDD VGND  CD40_OUT_1X  VDD2={VDD1} speed2={speed1}  tripdt2={tripdt1}
 XOUT1  QNi QN  VDD VGND  CD40_OUT_1X  VDD2={VDD1} speed2={speed1}  tripdt2={tripdt1}
-.ends
+.ends CD4538B
 *
 *
 *
@@ -1096,7 +1096,7 @@ R2 in VGND 1e8
 *E1 out20 0 in VGND {gain}
 B1 out20 0 V=LIMIT(0,V(in)/max(V(VDD,VGND),1),1)
 AE1  out20 0 0 0 0  0 out 0  BUF  ref={vt1}  vhigh=1  tripdt={tripdt3}
-.ends
+.ends CD40DIO1
 *
 *
 .SUBCKT  CD40_IN_1  in out  VDD VGND  vdd3={vdd2} speed3={speed2}  tripdt3={tripdt2}
@@ -1116,7 +1116,7 @@ R2 in VGND 1e8
 *B1 out20 0 V=LIMIT(0,V(out10,VGND)*{gain},1)
 B1 out20 0 V=LIMIT(0,V(out10,VGND)/max(V(VDD,VGND),1),1)
 AE1  out20 0 0 0 0  0 out 0  BUF  ref={vt1}  vhigh=1  tripdt={tripdt3}
-.ends
+.ends CD40_IN_1
 *
 *
 * Schmitt-input; 2.9V/2.1V @5V
@@ -1135,7 +1135,7 @@ R2 in VGND 1e8
 *B1 out20 0 V=LIMIT(0,V(out10,VGND)*{gain},1)
 B1 out20 0 V=LIMIT(0,V(out10,VGND)/max(V(VDD,VGND),1),1)
 AE1  out20 0 0 0 0  0 out 0  SCHMITT  vt={vt1} vh={vh1} vhigh=1  tripdt={tripdt3}
-.ends
+.ends CD40_IN_S_1
 *
 *
 *======================================================================
@@ -1161,7 +1161,7 @@ B1 out20 VGND V=V(out10)*V(VDD,VGND)
 Rout out20 out {Rout}
 *D1 0   out  DIO2
 *D2 out VDD  DIO2
-.ends
+.ends CD40_OUT_1X
 *
 *
 *
@@ -1177,7 +1177,7 @@ B1 out20 VGND V=V(out10)*V(VDD,VGND)
 Rout  out20 out {Rout}
 *D1 0   out  DIO2
 *D2 out VDD  DIO2
-.ends
+.ends CD40_OUT_2X
 *
 *
 *
@@ -1194,7 +1194,7 @@ Rout  out20 out30 {Rout}
 SW1  out30 out en 0 SW_HC1
 *D1 0   out  DIO2
 *D2 out VDD  DIO2
-.ends
+.ends CD40_OUT_TS_2X
 *
 *
 *
@@ -1215,7 +1215,7 @@ SW1  out30 out out10 0 SW_HC2
  *MN3 out out30 VGND VGND  MHCNEN W=140U L=2.4U AD=200P AS=300P PD=10U PS=130U
 *D1 0   out  DIO2
 *D2 out VDD  DIO2
-.ends
+.ends CD40_OUT_OD_1X
 *
 *
 *

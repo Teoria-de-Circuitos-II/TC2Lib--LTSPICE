@@ -1,0 +1,22 @@
+*Component Created by Javier Petrucci
+* jpetrucc@itba.edu.ar
+* CM 2185 Lamp
+* 28v 40mA
+* Filament Type C-2F
+
+.SUBCKT lamp L1 L2
+*Fuente controlada que emula un resistor
+BL L1 L2 I=V(L1,L2)/V(VRlamp)
+
+*Fuente que representa la potencia instantánea
+B§Ipow 0 Vpow I=I(BL)*V(L1,L2)
+*Acumulación de energía, delay
+R2 Vpow 0 1
+C1 Vpow 0 {Tau}
+
+*Función de la potencia media a resistencia (en base a mediciones y ajuste de curva)
+B_RL VRLamp 0 V=510-447/(1+V(Vpow)*14)
+
+.ENDS
+
+
