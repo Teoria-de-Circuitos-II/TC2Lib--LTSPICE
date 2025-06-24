@@ -5,14 +5,17 @@ LINE Normal 64 48 64 -48
 LINE Normal -64 48 64 48
 LINE Normal -64 -48 -64 48
 TEXT -25 0 Left 2 VCO
-TEXT -11 34 Left 0 GND
-TEXT -59 0 Left 0 Vi
-TEXT 48 0 Left 0 Fo
-TEXT -9 -34 Left 0 VCC
-WINDOW 3 47 59 Center 0
-WINDOW 123 53 72 Center 0
-SYMATTR Value F_min=550
-SYMATTR Value2 Delta_F=3050
+TEXT 0 39 Bottom 0 GND
+TEXT -56 0 Left 0 Vi
+TEXT 56 0 Right 0 Vo
+TEXT 0 -39 Top 0 VCC
+TEXT 56 32 Right 0 Fo
+WINDOW 3 24 59 Left 0
+WINDOW 123 24 74 Left 0
+WINDOW 39 24 89 Left 0
+SYMATTR Value Vi_min=0.5
+SYMATTR Value2 F_min=10
+SYMATTR SpiceLine Delta_F=1k
 SYMATTR Prefix X
 SYMATTR SpiceModel VCO
 SYMATTR Description VCO
@@ -29,3 +32,6 @@ PINATTR SpiceOrder 3
 PIN 0 48 NONE 8
 PINATTR PinName GND
 PINATTR SpiceOrder 4
+PIN 64 32 NONE 8
+PINATTR PinName Fo
+PINATTR SpiceOrder 5
