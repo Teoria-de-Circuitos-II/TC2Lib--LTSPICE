@@ -1,0 +1,34 @@
+* Component Created by Javier Petrucci and Agustin Gullino
+* jpetrucc@itba.edu.ar / agullino@itba.edu.ar
+*
+* Charge Pump
+
+*Current Mode
+.SUBCKT Charge_Pump      Vi+   Vi-   Vo_Comp
+
+A2 Vcc 0 Vi- 0 Clr 0 Down 0 DFLOP Vhigh {Vcc} Trise 1u Tfall 1u
+A3 Vcc 0 Vi+ 0 Clr 0 Up 0 DFLOP Vhigh {Vcc} Trise 1u Tfall 1u
+A4 Up 0 0 0 Down 0 Clr 0 AND Vhigh {Vcc} Trise 1u Tfall 1u
+B1 0 Vo_Comp I= {Current} * ( (V(Up)/{Vcc}) * 1/(1+(1/(0.01*EXP(-100*(V(Vo_Comp)-{Vcc}))))) - (V(Down)/{Vcc}) * 1/(1+(1/(0.01*EXP(-100*(-V(Vo_Comp)))))) )
+R1 Vo_Comp 0 10Meg
+V1 Vcc 0 {Vcc}
+
+.ends Charge_Pump
+
+
+*Voltage Mode
+.SUBCKT Charge_Pump2      Vi+   Vi-   Vo_Comp
+
+V1 Vcc 0 {Vcc}
+A2 Vcc 0 Vi- 0 Clr 0 N002 0 DFLOP Vhigh {Vcc} Trise 1n Tfall 1n
+A3 Vcc 0 Vi+ 0 Clr 0 N001 0 DFLOP Vhigh {Vcc} Trise 1n Tfall 1n
+A4 N001 0 0 0 N002 0 Clr 0 AND Vhigh {Vcc} Trise 1n Tfall 1n
+S1 Vcc Vo_Comp Up 0 SW
+S2 Vo_Comp 0 Down 0 SW
+A1 N001 0 0 0 0 0 Up 0 BUF Vhigh {Vcc} Trise 5n Tfall 5n
+A5 N002 0 0 0 0 0 Down 0 BUF Vhigh {Vcc} Trise 5n Tfall 5n
+.model SW SW(Ron=1 Vt={Vcc/2} Vh=0)
+
+.ends Charge_Pump2
+
+*
