@@ -1,0 +1,17 @@
+* Component Created by Javier Petrucci and Santiago López
+* ITBA
+*
+*OA, Signal Model
+* Connections: 
+*                Non-Inverting Input
+*                |   Inverting Input
+*                |   |   
+*                |   |   |   
+*                |   |   |   |   Output
+*                |   |   |   |   |
+.SUBCKT OA_Signal 1   2   3   4   5
+R1 1 2 {ri}
+E1 N001 0 2 1 {A}
+R2 N001 5 {ro}
+.ends OA_Signal
+*
