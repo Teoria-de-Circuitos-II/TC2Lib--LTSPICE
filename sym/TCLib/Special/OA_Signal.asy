@@ -1,61 +1,61 @@
 Version 4
 SymbolType CELL
-LINE Normal 11 32 11 40
-LINE Normal 11 -40 11 -32
-LINE Normal 0 32 11 32
-LINE Normal 0 -32 0 32
-LINE Normal 11 -32 0 -32
-LINE Normal 22 -32 11 -32
-LINE Normal 22 32 22 -32
-LINE Normal 11 32 22 32
-LINE Normal 104 0 96 0
-LINE Normal 176 0 168 0
-LINE Normal 104 -11 104 0
-LINE Normal 168 -11 104 -11
-LINE Normal 168 0 168 -11
-LINE Normal 168 11 168 0
-LINE Normal 104 11 168 11
-LINE Normal 104 0 104 11
-LINE Normal 64 0 96 0
-LINE Normal 64 8 64 0
-LINE Normal 64 64 64 56
-LINE Normal 80 64 48 64
-LINE Normal 64 80 80 64
-LINE Normal 48 64 64 80
-LINE Normal -16 -128 240 0
-LINE Normal -16 128 240 0
-LINE Normal -16 128 -16 -128
-LINE Normal 11 -64 -16 -64
-LINE Normal 11 -40 11 -64
-LINE Normal 240 0 176 0
-LINE Normal 11 64 11 40
-LINE Normal -16 64 11 64
-LINE Normal 64 24 64 16
-LINE Normal 60 20 68 20
-LINE Normal 60 48 68 48
-CIRCLE Normal 88 56 40 8
-TEXT 105 -25 Left 2 ro
-TEXT 26 -25 Left 2 ri
-TEXT -9 -76 Left 2 +
-TEXT -5 70 Left 2 -
-TEXT 93 40 Left 2 A.e
-WINDOW 0 47 119 Left 2
-WINDOW 3 160 64 Left 1
-WINDOW 123 160 87 Left 1
-WINDOW 39 160 112 Left 1
+LINE Normal 27 32 27 40
+LINE Normal 27 -40 27 -32
+LINE Normal 16 32 27 32
+LINE Normal 16 -32 16 32
+LINE Normal 27 -32 16 -32
+LINE Normal 38 -32 27 -32
+LINE Normal 38 32 38 -32
+LINE Normal 27 32 38 32
+LINE Normal 120 0 112 0
+LINE Normal 192 0 184 0
+LINE Normal 120 -11 120 0
+LINE Normal 184 -11 120 -11
+LINE Normal 184 0 184 -11
+LINE Normal 184 11 184 0
+LINE Normal 120 11 184 11
+LINE Normal 120 0 120 11
+LINE Normal 80 0 112 0
+LINE Normal 80 8 80 0
+LINE Normal 80 64 80 56
+LINE Normal 96 64 64 64
+LINE Normal 80 80 96 64
+LINE Normal 64 64 80 80
+LINE Normal 0 -128 256 0
+LINE Normal 0 128 256 0
+LINE Normal 0 128 0 -128
+LINE Normal 27 -64 0 -64
+LINE Normal 27 -40 27 -64
+LINE Normal 256 0 192 0
+LINE Normal 27 64 27 40
+LINE Normal 0 64 27 64
+LINE Normal 80 24 80 16
+LINE Normal 76 20 84 20
+LINE Normal 76 48 84 48
+CIRCLE Normal 104 56 56 8
+TEXT 121 -25 Left 2 ro
+TEXT 42 -25 Left 2 ri
+TEXT 7 -76 Left 2 +
+TEXT 11 70 Left 2 -
+TEXT 109 40 Left 2 A.e
+WINDOW 0 63 119 Left 2
+WINDOW 3 176 64 Left 1
+WINDOW 123 176 87 Left 1
+WINDOW 39 176 112 Left 1
 SYMATTR Value ri=10k
 SYMATTR Value2 ro=100
+SYMATTR SpiceLine A=1k
 SYMATTR SpiceModel OA_Signal
 SYMATTR ModelFile TCLib/OA_Signal.lib
 SYMATTR Prefix X
 SYMATTR Description Signal Model Op Amp, created by Javier Petrucci and Santiago López (ITBA)
-SYMATTR SpiceLine A=1k
-PIN -16 64 NONE 0
+PIN 0 64 NONE 0
 PINATTR PinName In+
 PINATTR SpiceOrder 1
-PIN -16 -64 NONE 0
+PIN 0 -64 NONE 0
 PINATTR PinName In-
 PINATTR SpiceOrder 2
-PIN 240 0 NONE 0
+PIN 256 0 NONE 0
 PINATTR PinName OUT
 PINATTR SpiceOrder 5
