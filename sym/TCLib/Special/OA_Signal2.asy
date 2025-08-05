@@ -1,0 +1,61 @@
+Version 4
+SymbolType CELL
+LINE Normal 27 32 27 40
+LINE Normal 27 -40 27 -32
+LINE Normal 16 32 27 32
+LINE Normal 16 -32 16 32
+LINE Normal 27 -32 16 -32
+LINE Normal 38 -32 27 -32
+LINE Normal 38 32 38 -32
+LINE Normal 27 32 38 32
+LINE Normal 120 0 112 0
+LINE Normal 192 0 184 0
+LINE Normal 120 -11 120 0
+LINE Normal 184 -11 120 -11
+LINE Normal 184 0 184 -11
+LINE Normal 184 11 184 0
+LINE Normal 120 11 184 11
+LINE Normal 120 0 120 11
+LINE Normal 80 0 112 0
+LINE Normal 80 8 80 0
+LINE Normal 80 64 80 56
+LINE Normal 96 64 64 64
+LINE Normal 80 80 96 64
+LINE Normal 64 64 80 80
+LINE Normal 0 -128 256 0
+LINE Normal 0 128 256 0
+LINE Normal 0 128 0 -128
+LINE Normal 27 -64 0 -64
+LINE Normal 27 -40 27 -64
+LINE Normal 256 0 192 0
+LINE Normal 27 64 27 40
+LINE Normal 0 64 27 64
+LINE Normal 80 24 80 16
+LINE Normal 76 20 84 20
+LINE Normal 76 48 84 48
+CIRCLE Normal 104 56 56 8
+TEXT 121 -25 Left 2 ro
+TEXT 42 -25 Left 2 ri
+TEXT 7 73 Left 2 +
+TEXT 11 -74 Left 2 -
+TEXT 109 40 Left 2 A.e
+WINDOW 0 63 119 Left 2
+WINDOW 3 176 64 Left 1
+WINDOW 123 176 87 Left 1
+WINDOW 39 176 112 Left 1
+SYMATTR Value ri=10k
+SYMATTR Value2 ro=100
+SYMATTR SpiceLine A=1k
+SYMATTR SpiceModel OA_Signal
+SYMATTR ModelFile TCLib/OA_Signal.lib
+SYMATTR Prefix X
+SYMATTR Description Signal Model Op Amp, created by Javier Petrucci and Santiago López (ITBA)
+PIN 0 -64 NONE 0
+PINATTR PinName In+
+PINATTR SpiceOrder 1
+PIN 0 64 NONE 0
+PINATTR PinName In-
+PINATTR SpiceOrder 2
+PIN 256 0 NONE 0
+PINATTR PinName OUT
+PINATTR SpiceOrder 5
