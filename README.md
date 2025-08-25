@@ -1,4 +1,4 @@
-# TCLib -- LTSpice
+# TCLib para LTSpice
 
 ## Utilización
 
